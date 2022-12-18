@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write src/*/.js"
+    "format": "prettier --write **/*.{js,jsx}"
   },
   "dependencies": {
     "@chakra-ui/icon": "^3.0.13",

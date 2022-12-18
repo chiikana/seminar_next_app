@@ -1,11 +1,11 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from 'react'
+import React, { useState } from "react"
 import {
   Progress,
   Box,
   ButtonGroup,
   Button,
   Heading,
+  HStack,
   Flex,
   FormControl,
   GridItem,
@@ -18,62 +18,92 @@ import {
   Textarea,
   FormHelperText,
   InputRightElement,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react"
 
-import { useToast } from '@chakra-ui/react'
+import { useToast } from "@chakra-ui/react"
 
-import { supabase } from '../service/supabaseClient'
-import { User } from '@supabase/supabase-js'
+import { supabase } from "../service/supabaseClient"
+import { User } from "@supabase/supabase-js"
+
+import Data from "./tos.json"
 
 const Form1 = (props) => {
   const [show, setShow] = React.useState(false)
   const handleClick = () => setShow(!show)
   return (
     <>
-      <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
-        User Registration
+      <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
+        新規登録
       </Heading>
       <Flex>
         <FormControl mr="5%">
-          <FormLabel htmlFor="first-name" fontWeight={'normal'}>
-            First name
+          <FormLabel htmlFor="last-name" fontWeight={"normal"}>
+            性
           </FormLabel>
-          <Input id="first-name" placeholder="First name" />
+          <Input
+            id="last-name"
+            placeholder="田中"
+            onChange={(e) =>
+              props.setFieldValues({ ...props.fieldValues, firstName: e.target.value })
+            }
+          />
         </FormControl>
 
         <FormControl>
-          <FormLabel htmlFor="last-name" fontWeight={'normal'}>
-            Last name
+          <FormLabel htmlFor="first-name" fontWeight={"normal"}>
+            名
           </FormLabel>
-          <Input id="last-name" placeholder="First name" />
+          <Input
+            id="first-name"
+            placeholder="実"
+            onChange={(e) =>
+              props.setFieldValues({ ...props.fieldValues, lastName: e.target.value })
+            }
+          />
         </FormControl>
       </Flex>
+
+      <Flex>
+        <FormControl mr="5%">
+          <FormLabel htmlFor="date of birth" fontWeight={"normal"}>
+            生年月日
+          </FormLabel>
+          <Input
+            id="dateOfBirth"
+            type="date"
+            onChange={(e) =>
+              props.setFieldValues({ ...props.fieldValues, dateOfBirth: e.target.value })
+            }
+          />
+        </FormControl>
+      </Flex>
+
       <FormControl mt="2%">
-        <FormLabel htmlFor="email" fontWeight={'normal'}>
-          Email address
+        <FormLabel htmlFor="email" fontWeight={"normal"}>
+          メールアドレス
         </FormLabel>
         <Input
           id="email"
           type="email"
+          placeholder="メールアドレスを入力"
           onChange={(e) => props.setFieldValues({ ...props.fieldValues, email: e.target.value })}
         />
-        <FormHelperText>We&aposll never share your email.</FormHelperText>
       </FormControl>
 
       <FormControl>
-        <FormLabel htmlFor="password" fontWeight={'normal'} mt="2%">
-          Password
+        <FormLabel htmlFor="password" fontWeight={"normal"} mt="2%">
+          パスワード
         </FormLabel>
         <InputGroup size="md">
           <Input
             pr="4.5rem"
-            type={show ? 'text' : 'password'}
-            placeholder="Enter password"
+            type={show ? "text" : "password"}
+            placeholder="パスワードを入力"
             onChange={(e) => props.setFieldValues({ ...props.fieldValues, pass: e.target.value })}
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>
-              {show ? 'Hide' : 'Show'}
+              {show ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
         </InputGroup>
@@ -82,34 +112,37 @@ const Form1 = (props) => {
   )
 }
 
-const Form2 = () => {
+const Form2 = (props) => {
   return (
     <>
-      <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
-        User Details
+      <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
+        新規登録
       </Heading>
       <FormControl as={GridItem} colSpan={[6, 3]}>
         <FormLabel
-          htmlFor="country"
+          htmlFor="depertment"
           fontSize="sm"
           fontWeight="md"
           color="gray.700"
           _dark={{
-            color: 'gray.50',
+            color: "gray.50",
           }}
         >
           学科
         </FormLabel>
         <Select
-          id="country"
-          name="country"
-          autoComplete="country"
+          id="depertment"
+          name="depertment"
+          autoComplete="depertment"
           placeholder="Select option"
           focusBorderColor="brand.400"
           shadow="sm"
           size="sm"
           w="full"
           rounded="md"
+          onChange={(e) =>
+            props.setFieldValues({ ...props.fieldValues, depertment: e.target.value })
+          }
         >
           <option>情報総合学科</option>
           <option>情報システム科</option>
@@ -121,44 +154,18 @@ const Form2 = () => {
         </Select>
       </FormControl>
 
-      <FormControl as={GridItem} colSpan={6}>
-        <FormLabel
-          htmlFor="street_address"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: 'gray.50',
-          }}
-          mt="2%"
-        >
-          Street address
-        </FormLabel>
-        <Input
-          type="text"
-          name="street_address"
-          id="street_address"
-          autoComplete="street-address"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        />
-      </FormControl>
-
       <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
         <FormLabel
-          htmlFor="city"
+          htmlFor="studentId"
           fontSize="sm"
           fontWeight="md"
           color="gray.700"
           _dark={{
-            color: 'gray.50',
+            color: "gray.50",
           }}
           mt="2%"
         >
-          City
+          学籍番号
         </FormLabel>
         <Input
           type="text"
@@ -170,58 +177,9 @@ const Form2 = () => {
           size="sm"
           w="full"
           rounded="md"
-        />
-      </FormControl>
-
-      <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
-        <FormLabel
-          htmlFor="state"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: 'gray.50',
-          }}
-          mt="2%"
-        >
-          State / Province
-        </FormLabel>
-        <Input
-          type="text"
-          name="state"
-          id="state"
-          autoComplete="state"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        />
-      </FormControl>
-
-      <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
-        <FormLabel
-          htmlFor="postal_code"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: 'gray.50',
-          }}
-          mt="2%"
-        >
-          ZIP / Postal
-        </FormLabel>
-        <Input
-          type="text"
-          name="postal_code"
-          id="postal_code"
-          autoComplete="postal-code"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
+          onChange={(e) =>
+            props.setFieldValues({ ...props.fieldValues, studentId: e.target.value })
+          }
         />
       </FormControl>
     </>
@@ -231,64 +189,10 @@ const Form2 = () => {
 const Form3 = () => {
   return (
     <>
-      <Heading w="100%" textAlign={'center'} fontWeight="normal">
-        Social Handles
+      <Heading w="100%" textAlign={"center"} fontWeight="normal">
+        利用規約
       </Heading>
-      <SimpleGrid columns={1} spacing={6}>
-        <FormControl as={GridItem} colSpan={[3, 2]}>
-          <FormLabel
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: 'gray.50',
-            }}
-          >
-            Website
-          </FormLabel>
-          <InputGroup size="sm">
-            <InputLeftAddon
-              bg="gray.50"
-              _dark={{
-                bg: 'gray.800',
-              }}
-              color="gray.500"
-              rounded="md"
-            >
-              http://
-            </InputLeftAddon>
-            <Input
-              type="tel"
-              placeholder="www.example.com"
-              focusBorderColor="brand.400"
-              rounded="md"
-            />
-          </InputGroup>
-        </FormControl>
-
-        <FormControl id="email" mt={1}>
-          <FormLabel
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: 'gray.50',
-            }}
-          >
-            About
-          </FormLabel>
-          <Textarea
-            placeholder="you@example.com"
-            rows={3}
-            shadow="sm"
-            focusBorderColor="brand.400"
-            fontSize={{
-              sm: 'sm',
-            }}
-          />
-          <FormHelperText>Brief description for your profile. URLs are hyperlinked.</FormHelperText>
-        </FormControl>
-      </SimpleGrid>
+      <Textarea isDisabled value={Data.tos}></Textarea>
     </>
   )
 }
@@ -299,8 +203,13 @@ const Multistep = () => {
   const [progress, setProgress] = useState(33.33)
 
   const defaultValues = {
-    email: '',
-    pass: '',
+    email: "",
+    pass: "",
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
+    depertment: "",
+    studentId: "",
   }
   const [fieldValues, setFieldValues] = useState(defaultValues)
 
@@ -314,7 +223,7 @@ const Multistep = () => {
       })
       console.log(data)
       if (error) throw error
-      alert('Check your email for the login link!')
+      alert("success for signup!")
     } catch (error) {
       alert(error.error_description || error.message)
     }
@@ -340,7 +249,7 @@ const Multistep = () => {
         {step === 1 ? (
           <Form1 setFieldValues={setFieldValues} fieldValues={fieldValues} />
         ) : step === 2 ? (
-          <Form2 />
+          <Form2 setFieldValues={setFieldValues} fieldValues={fieldValues} />
         ) : (
           <Form3 />
         )}
@@ -386,9 +295,9 @@ const Multistep = () => {
                 variant="solid"
                 onClick={(e) => {
                   toast({
-                    title: 'Account created.',
+                    title: "Account created.",
                     description: "We've created your account for you.",
-                    status: 'success',
+                    status: "success",
                     duration: 3000,
                     isClosable: true,
                   })
