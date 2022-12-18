@@ -12,15 +12,16 @@ import {
   FormLabel,
   Input,
   Select,
+  Text,
   SimpleGrid,
   InputLeftAddon,
   InputGroup,
   Textarea,
   FormHelperText,
   InputRightElement,
+  Switch,
+  useToast,
 } from "@chakra-ui/react"
-
-import { useToast } from "@chakra-ui/react"
 
 import { supabase } from "../service/supabaseClient"
 import { User } from "@supabase/supabase-js"
@@ -186,13 +187,24 @@ const Form2 = (props) => {
   )
 }
 
-const Form3 = () => {
+const Form3 = (props) => {
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal">
         利用規約
       </Heading>
-      <Textarea isDisabled value={Data.tos}></Textarea>
+      <Textarea isReadOnly resize="none" value={Data.tos}></Textarea>
+      <HStack justify="right">
+        <Text>利用規約に同意します。</Text>
+        <Switch
+          id="email-alerts"
+          onChange={(e) => {
+            console.log(e)
+            props.handleAgree(e.target.checked)
+            console.log(props.Agree)
+          }}
+        />
+      </HStack>
     </>
   )
 }
@@ -212,6 +224,7 @@ const Multistep = () => {
     studentId: "",
   }
   const [fieldValues, setFieldValues] = useState(defaultValues)
+  const [Agree, handleAgree] = useState(false)
 
   const handleSignUp = async (e) => {
     e.preventDefault()
@@ -251,7 +264,7 @@ const Multistep = () => {
         ) : step === 2 ? (
           <Form2 setFieldValues={setFieldValues} fieldValues={fieldValues} />
         ) : (
-          <Form3 />
+          <Form3 handleAgree={handleAgree} Agree={Agree} />
         )}
         <ButtonGroup mt="5%" w="100%">
           <Flex w="100%" justifyContent="space-between">
@@ -290,6 +303,7 @@ const Multistep = () => {
             </Flex>
             {step === 3 ? (
               <Button
+                disabled={!Agree}
                 w="7rem"
                 colorScheme="red"
                 variant="solid"
