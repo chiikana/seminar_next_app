@@ -48,7 +48,7 @@ const Form1 = (props) => {
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, lastName: e.target.value })
             }
-            value={!props.fieldValues.lastName ? null : props.fieldValues.lastName}
+            value={!props.fieldValues.lastName ? "" : props.fieldValues.lastName}
           />
         </FormControl>
 
@@ -62,7 +62,7 @@ const Form1 = (props) => {
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, firstName: e.target.value })
             }
-            value={!props.fieldValues.firstName ? null : props.fieldValues.firstName}
+            value={!props.fieldValues.firstName ? "" : props.fieldValues.firstName}
           />
         </FormControl>
       </Flex>
@@ -78,7 +78,7 @@ const Form1 = (props) => {
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, dateOfBirth: e.target.value })
             }
-            value={!props.fieldValues.dateOfBirth ? null : props.fieldValues.dateOfBirth}
+            value={!props.fieldValues.dateOfBirth ? "" : props.fieldValues.dateOfBirth}
           />
         </FormControl>
       </Flex>
@@ -92,7 +92,7 @@ const Form1 = (props) => {
           type="email"
           placeholder="メールアドレスを入力"
           onChange={(e) => props.setFieldValues({ ...props.fieldValues, email: e.target.value })}
-          value={!props.fieldValues.email ? null : props.fieldValues.email}
+          value={!props.fieldValues.email ? "" : props.fieldValues.email}
         />
       </FormControl>
 
@@ -106,7 +106,7 @@ const Form1 = (props) => {
             type={show ? "text" : "password"}
             placeholder="パスワードを入力"
             onChange={(e) => props.setFieldValues({ ...props.fieldValues, pass: e.target.value })}
-            value={!props.fieldValues.pass ? null : props.fieldValues.pass}
+            value={!props.fieldValues.pass ? "" : props.fieldValues.pass}
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -119,11 +119,7 @@ const Form1 = (props) => {
   )
 }
 
-const Form2 = (props,deptData) => {
-  const [course,setCourse] = useState("")
-  if(!deptData){
-    return null
-  }
+const Form2 = (props) => {
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
@@ -151,16 +147,15 @@ const Form2 = (props,deptData) => {
           size="sm"
           w="full"
           rounded="md"
-          onChange={(e) =>
-            props.setFieldValues({ ...props.fieldValues, depertment: e.target.value })
-          }
+          onChange={(e) => props.setFieldValues({ ...props.fieldValues, course: e.target.value })}
         >
-            <option value={deptData[0]}>{deptData[0]}</option>
-            <option value={deptData[1]}>{deptData[1]}</option>
-            <option value={deptData[2]}>{deptData[2]}</option>
-            <option value={deptData[3]}>{ddeptData[3]}</option>
-            <option value={deptData[4]}>{deptData[4]}</option>
-            <option value={deptData[5]}>{deptData[5]}</option>
+          {props.deptData["course"].map((item, index) => {
+            return (
+              <option value={item} key={index}>
+                {item}
+              </option>
+            )
+          })}
         </Select>
       </FormControl>
       <FormControl as={GridItem} colSpan={[6, 3]}>
@@ -189,18 +184,15 @@ const Form2 = (props,deptData) => {
             props.setFieldValues({ ...props.fieldValues, depertment: e.target.value })
           }
         >
-          {deptData ?
-          deptData.{course}.map((option,key)=>{
-            <option value={option.value} key={key}>{option.name}</option>
-          }):null
-          }
-          {/* <option>情報総合学科</option>
-          <option>情報システム科</option>
-          <option>情報処理学科</option>
-          <option>AIシステム科</option>
-          <option>情報セキュリティ学科</option>
-          <option>高度情報学科</option>
-          <option>IT技術研究科</option> */}
+          {props.fieldValues.course
+            ? props.deptData[props.fieldValues.course].map((item, index) => {
+                return (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                )
+              })
+            : null}
         </Select>
       </FormControl>
 
@@ -230,7 +222,7 @@ const Form2 = (props,deptData) => {
           onChange={(e) =>
             props.setFieldValues({ ...props.fieldValues, studentId: e.target.value })
           }
-          value={!props.fieldValues.studentId ? null : props.fieldValues.studentId}
+          value={!props.fieldValues.studentId ? "" : props.fieldValues.studentId}
         />
       </FormControl>
     </>
@@ -249,9 +241,7 @@ const Form3 = (props) => {
         <Switch
           id="email-alerts"
           onChange={(e) => {
-            console.log(e)
             props.handleAgree(e.target.checked)
-            console.log(props.Agree)
           }}
         />
       </HStack>
@@ -270,11 +260,12 @@ const Multistep = () => {
     firstName: "",
     lastName: "",
     dateOfBirth: "",
+    course: "",
     depertment: "",
     studentId: "",
   }
   const [fieldValues, setFieldValues] = useState(defaultValues)
-  const [Agree, handleAgree] = useState(false)
+  const [Agree, handleAgree] = useState(true)
 
   const handleSignUp = async (e) => {
     e.preventDefault()
@@ -312,7 +303,7 @@ const Multistep = () => {
         {step === 1 ? (
           <Form1 setFieldValues={setFieldValues} fieldValues={fieldValues} />
         ) : step === 2 ? (
-          <Form2 setFieldValues={setFieldValues} fieldValues={fieldValues} />
+          <Form2 setFieldValues={setFieldValues} fieldValues={fieldValues} deptData={deptData} />
         ) : (
           <Form3 handleAgree={handleAgree} Agree={Agree} />
         )}
