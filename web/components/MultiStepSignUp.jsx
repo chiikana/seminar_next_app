@@ -26,7 +26,8 @@ import {
 import { supabase } from "../service/supabaseClient"
 import { User } from "@supabase/supabase-js"
 
-import Data from "./tos.json"
+import TOS from "./tos.json"
+import deptData from "./dept.json"
 
 const Form1 = (props) => {
   const [show, setShow] = React.useState(false)
@@ -45,8 +46,9 @@ const Form1 = (props) => {
             id="last-name"
             placeholder="田中"
             onChange={(e) =>
-              props.setFieldValues({ ...props.fieldValues, firstName: e.target.value })
+              props.setFieldValues({ ...props.fieldValues, lastName: e.target.value })
             }
+            value={!props.fieldValues.lastName ? null : props.fieldValues.lastName}
           />
         </FormControl>
 
@@ -58,8 +60,9 @@ const Form1 = (props) => {
             id="first-name"
             placeholder="実"
             onChange={(e) =>
-              props.setFieldValues({ ...props.fieldValues, lastName: e.target.value })
+              props.setFieldValues({ ...props.fieldValues, firstName: e.target.value })
             }
+            value={!props.fieldValues.firstName ? null : props.fieldValues.firstName}
           />
         </FormControl>
       </Flex>
@@ -75,6 +78,7 @@ const Form1 = (props) => {
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, dateOfBirth: e.target.value })
             }
+            value={!props.fieldValues.dateOfBirth ? null : props.fieldValues.dateOfBirth}
           />
         </FormControl>
       </Flex>
@@ -88,6 +92,7 @@ const Form1 = (props) => {
           type="email"
           placeholder="メールアドレスを入力"
           onChange={(e) => props.setFieldValues({ ...props.fieldValues, email: e.target.value })}
+          value={!props.fieldValues.email ? null : props.fieldValues.email}
         />
       </FormControl>
 
@@ -101,6 +106,7 @@ const Form1 = (props) => {
             type={show ? "text" : "password"}
             placeholder="パスワードを入力"
             onChange={(e) => props.setFieldValues({ ...props.fieldValues, pass: e.target.value })}
+            value={!props.fieldValues.pass ? null : props.fieldValues.pass}
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -113,12 +119,50 @@ const Form1 = (props) => {
   )
 }
 
-const Form2 = (props) => {
+const Form2 = (props,deptData) => {
+  const [course,setCourse] = useState("")
+  if(!deptData){
+    return null
+  }
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
         新規登録
       </Heading>
+      <FormControl as={GridItem} colSpan={[6, 3]}>
+        <FormLabel
+          htmlFor="course"
+          fontSize="sm"
+          fontWeight="md"
+          color="gray.700"
+          _dark={{
+            color: "gray.50",
+          }}
+        >
+          コース
+        </FormLabel>
+        <Select
+          id="course"
+          name="course"
+          autoComplete="course"
+          placeholder="Select option"
+          focusBorderColor="brand.400"
+          shadow="sm"
+          size="sm"
+          w="full"
+          rounded="md"
+          onChange={(e) =>
+            props.setFieldValues({ ...props.fieldValues, depertment: e.target.value })
+          }
+        >
+            <option value={deptData[0]}>{deptData[0]}</option>
+            <option value={deptData[1]}>{deptData[1]}</option>
+            <option value={deptData[2]}>{deptData[2]}</option>
+            <option value={deptData[3]}>{ddeptData[3]}</option>
+            <option value={deptData[4]}>{deptData[4]}</option>
+            <option value={deptData[5]}>{deptData[5]}</option>
+        </Select>
+      </FormControl>
       <FormControl as={GridItem} colSpan={[6, 3]}>
         <FormLabel
           htmlFor="depertment"
@@ -145,13 +189,18 @@ const Form2 = (props) => {
             props.setFieldValues({ ...props.fieldValues, depertment: e.target.value })
           }
         >
-          <option>情報総合学科</option>
+          {deptData ?
+          deptData.{course}.map((option,key)=>{
+            <option value={option.value} key={key}>{option.name}</option>
+          }):null
+          }
+          {/* <option>情報総合学科</option>
           <option>情報システム科</option>
           <option>情報処理学科</option>
           <option>AIシステム科</option>
           <option>情報セキュリティ学科</option>
           <option>高度情報学科</option>
-          <option>IT技術研究科</option>
+          <option>IT技術研究科</option> */}
         </Select>
       </FormControl>
 
@@ -181,6 +230,7 @@ const Form2 = (props) => {
           onChange={(e) =>
             props.setFieldValues({ ...props.fieldValues, studentId: e.target.value })
           }
+          value={!props.fieldValues.studentId ? null : props.fieldValues.studentId}
         />
       </FormControl>
     </>
@@ -193,7 +243,7 @@ const Form3 = (props) => {
       <Heading w="100%" textAlign={"center"} fontWeight="normal">
         利用規約
       </Heading>
-      <Textarea isReadOnly resize="none" value={Data.tos}></Textarea>
+      <Textarea isReadOnly resize="none" value={TOS.tos}></Textarea>
       <HStack justify="right">
         <Text>利用規約に同意します。</Text>
         <Switch
