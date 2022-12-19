@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
-import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useState, useEffect } from "react"
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react"
 
-export default function Account({ session }) {
+const Account = ({ session }) => {
   const supabase = useSupabaseClient()
   const user = useUser()
   const [loading, setLoading] = useState(true)
@@ -18,9 +18,9 @@ export default function Account({ session }) {
       setLoading(true)
 
       let { data, error, status } = await supabase
-        .from('profiles')
+        .from("profiles")
         .select(`username, website, avatar_url`)
-        .eq('id', user.id)
+        .eq("id", user.id)
         .single()
 
       if (error && status !== 406) {
@@ -33,7 +33,7 @@ export default function Account({ session }) {
         setAvatarUrl(data.avatar_url)
       }
     } catch (error) {
-      alert('Error loading user data!')
+      alert("Error loading user data!")
       console.log(error)
     } finally {
       setLoading(false)
@@ -52,11 +52,11 @@ export default function Account({ session }) {
         updated_at: new Date().toISOString(),
       }
 
-      let { error } = await supabase.from('profiles').upsert(updates)
+      let { error } = await supabase.from("profiles").upsert(updates)
       if (error) throw error
-      alert('Profile updated!')
+      alert("Profile updated!")
     } catch (error) {
-      alert('Error updating the data!')
+      alert("Error updating the data!")
       console.log(error)
     } finally {
       setLoading(false)
@@ -74,7 +74,7 @@ export default function Account({ session }) {
         <input
           id="username"
           type="text"
-          value={username || ''}
+          value={username || ""}
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
@@ -83,7 +83,7 @@ export default function Account({ session }) {
         <input
           id="website"
           type="website"
-          value={website || ''}
+          value={website || ""}
           onChange={(e) => setWebsite(e.target.value)}
         />
       </div>
@@ -94,7 +94,7 @@ export default function Account({ session }) {
           onClick={() => updateProfile({ username, website, avatar_url })}
           disabled={loading}
         >
-          {loading ? 'Loading ...' : 'Update'}
+          {loading ? "Loading ..." : "Update"}
         </button>
       </div>
 
@@ -106,3 +106,4 @@ export default function Account({ session }) {
     </div>
   )
 }
+export default Account
