@@ -240,8 +240,8 @@ const Form3 = (props) => {
         <Text>利用規約に同意します。</Text>
         <Switch
           id="email-alerts"
-          onChange={(e) => {
-            props.handleAgree(e.target.checked)
+          onChange={() => {
+            props.handleAgree(!props.Agree)
           }}
         />
       </HStack>
@@ -265,7 +265,7 @@ const Multistep = () => {
     studentId: "",
   }
   const [fieldValues, setFieldValues] = useState(defaultValues)
-  const [Agree, handleAgree] = useState(true)
+  const [Agree, handleAgree] = useState(false)
 
   const handleSignUp = async (e) => {
     e.preventDefault()
