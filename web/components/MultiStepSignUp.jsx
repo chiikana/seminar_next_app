@@ -148,6 +148,7 @@ const Form2 = (props) => {
           w="full"
           rounded="md"
           onChange={(e) => props.setFieldValues({ ...props.fieldValues, course: e.target.value })}
+          value={!props.fieldValues.course ? "" : props.fieldValues.course}
         >
           {props.deptData["course"].map((item, index) => {
             return (
@@ -183,6 +184,7 @@ const Form2 = (props) => {
           onChange={(e) =>
             props.setFieldValues({ ...props.fieldValues, depertment: e.target.value })
           }
+          value={!props.fieldValues.depertment ? "" : props.fieldValues.depertment}
         >
           {props.fieldValues.course
             ? props.deptData[props.fieldValues.course].map((item, index) => {
