@@ -161,7 +161,7 @@ const Form2 = (props) => {
       </FormControl>
       <FormControl as={GridItem} colSpan={[6, 3]}>
         <FormLabel
-          htmlFor="depertment"
+          htmlFor="department"
           fontSize="sm"
           fontWeight="md"
           color="gray.700"
@@ -172,9 +172,9 @@ const Form2 = (props) => {
           学科
         </FormLabel>
         <Select
-          id="depertment"
-          name="depertment"
-          autoComplete="depertment"
+          id="department"
+          name="department"
+          autoComplete="department"
           placeholder="Select option"
           focusBorderColor="brand.400"
           shadow="sm"
@@ -182,9 +182,9 @@ const Form2 = (props) => {
           w="full"
           rounded="md"
           onChange={(e) =>
-            props.setFieldValues({ ...props.fieldValues, depertment: e.target.value })
+            props.setFieldValues({ ...props.fieldValues, department: e.target.value })
           }
-          value={!props.fieldValues.depertment ? "" : props.fieldValues.depertment}
+          value={!props.fieldValues.department ? "" : props.fieldValues.department}
         >
           {props.fieldValues.course
             ? props.deptData[props.fieldValues.course].map((item, index) => {
@@ -245,6 +245,7 @@ const Form3 = (props) => {
           onChange={() => {
             props.handleAgree(!props.Agree)
           }}
+          isChecked={props.Agree}
         />
       </HStack>
     </>
@@ -263,7 +264,7 @@ const Multistep = () => {
     lastName: "",
     dateOfBirth: "",
     course: "",
-    depertment: "",
+    department: "",
     studentId: "",
   }
   const [fieldValues, setFieldValues] = useState(defaultValues)
@@ -273,10 +274,22 @@ const Multistep = () => {
     e.preventDefault()
 
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email: fieldValues.email,
-        password: fieldValues.pass,
-      })
+      const { data, error } = await supabase.auth.signUp(
+        {
+          email: fieldValues.email,
+          password: fieldValues.pass,
+        },
+        {
+          data: {
+            firstName: fieldValues.firstName,
+            lastName: fieldValues.lastName,
+            dateOfBirth: fieldValues.dateOfBirth,
+            course: fieldValues.course,
+            department: fieldValues.department,
+            studentId: fieldValues.firstName,
+          },
+        }
+      )
       console.log(data)
       if (error) throw error
       alert("success for signup!")
