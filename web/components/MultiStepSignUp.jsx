@@ -26,7 +26,8 @@ import {
 import { supabase } from "../service/supabaseClient"
 import { User } from "@supabase/supabase-js"
 
-import Data from "./tos.json"
+import TOS from "./tos.json"
+import deptData from "./dept.json"
 
 const Form1 = (props) => {
   const [show, setShow] = React.useState(false)
@@ -45,8 +46,9 @@ const Form1 = (props) => {
             id="last-name"
             placeholder="田中"
             onChange={(e) =>
-              props.setFieldValues({ ...props.fieldValues, firstName: e.target.value })
+              props.setFieldValues({ ...props.fieldValues, lastName: e.target.value })
             }
+            value={!props.fieldValues.lastName ? "" : props.fieldValues.lastName}
           />
         </FormControl>
 
@@ -58,8 +60,9 @@ const Form1 = (props) => {
             id="first-name"
             placeholder="実"
             onChange={(e) =>
-              props.setFieldValues({ ...props.fieldValues, lastName: e.target.value })
+              props.setFieldValues({ ...props.fieldValues, firstName: e.target.value })
             }
+            value={!props.fieldValues.firstName ? "" : props.fieldValues.firstName}
           />
         </FormControl>
       </Flex>
@@ -75,6 +78,7 @@ const Form1 = (props) => {
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, dateOfBirth: e.target.value })
             }
+            value={!props.fieldValues.dateOfBirth ? "" : props.fieldValues.dateOfBirth}
           />
         </FormControl>
       </Flex>
@@ -88,6 +92,7 @@ const Form1 = (props) => {
           type="email"
           placeholder="メールアドレスを入力"
           onChange={(e) => props.setFieldValues({ ...props.fieldValues, email: e.target.value })}
+          value={!props.fieldValues.email ? "" : props.fieldValues.email}
         />
       </FormControl>
 
@@ -101,6 +106,7 @@ const Form1 = (props) => {
             type={show ? "text" : "password"}
             placeholder="パスワードを入力"
             onChange={(e) => props.setFieldValues({ ...props.fieldValues, pass: e.target.value })}
+            value={!props.fieldValues.pass ? "" : props.fieldValues.pass}
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -119,6 +125,39 @@ const Form2 = (props) => {
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
         新規登録
       </Heading>
+      <FormControl as={GridItem} colSpan={[6, 3]}>
+        <FormLabel
+          htmlFor="course"
+          fontSize="sm"
+          fontWeight="md"
+          color="gray.700"
+          _dark={{
+            color: "gray.50",
+          }}
+        >
+          コース
+        </FormLabel>
+        <Select
+          id="course"
+          name="course"
+          autoComplete="course"
+          placeholder="Select option"
+          focusBorderColor="brand.400"
+          shadow="sm"
+          size="sm"
+          w="full"
+          rounded="md"
+          onChange={(e) => props.setFieldValues({ ...props.fieldValues, course: e.target.value })}
+        >
+          {props.deptData["course"].map((item, index) => {
+            return (
+              <option value={item} key={index}>
+                {item}
+              </option>
+            )
+          })}
+        </Select>
+      </FormControl>
       <FormControl as={GridItem} colSpan={[6, 3]}>
         <FormLabel
           htmlFor="depertment"
@@ -145,13 +184,15 @@ const Form2 = (props) => {
             props.setFieldValues({ ...props.fieldValues, depertment: e.target.value })
           }
         >
-          <option>情報総合学科</option>
-          <option>情報システム科</option>
-          <option>情報処理学科</option>
-          <option>AIシステム科</option>
-          <option>情報セキュリティ学科</option>
-          <option>高度情報学科</option>
-          <option>IT技術研究科</option>
+          {props.fieldValues.course
+            ? props.deptData[props.fieldValues.course].map((item, index) => {
+                return (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                )
+              })
+            : null}
         </Select>
       </FormControl>
 
@@ -181,6 +222,7 @@ const Form2 = (props) => {
           onChange={(e) =>
             props.setFieldValues({ ...props.fieldValues, studentId: e.target.value })
           }
+          value={!props.fieldValues.studentId ? "" : props.fieldValues.studentId}
         />
       </FormControl>
     </>
@@ -193,15 +235,13 @@ const Form3 = (props) => {
       <Heading w="100%" textAlign={"center"} fontWeight="normal">
         利用規約
       </Heading>
-      <Textarea isReadOnly resize="none" value={Data.tos}></Textarea>
+      <Textarea isReadOnly resize="none" value={TOS.tos}></Textarea>
       <HStack justify="right">
         <Text>利用規約に同意します。</Text>
         <Switch
           id="email-alerts"
           onChange={(e) => {
-            console.log(e)
             props.handleAgree(e.target.checked)
-            console.log(props.Agree)
           }}
         />
       </HStack>
@@ -220,11 +260,12 @@ const Multistep = () => {
     firstName: "",
     lastName: "",
     dateOfBirth: "",
+    course: "",
     depertment: "",
     studentId: "",
   }
   const [fieldValues, setFieldValues] = useState(defaultValues)
-  const [Agree, handleAgree] = useState(false)
+  const [Agree, handleAgree] = useState(true)
 
   const handleSignUp = async (e) => {
     e.preventDefault()
@@ -262,7 +303,7 @@ const Multistep = () => {
         {step === 1 ? (
           <Form1 setFieldValues={setFieldValues} fieldValues={fieldValues} />
         ) : step === 2 ? (
-          <Form2 setFieldValues={setFieldValues} fieldValues={fieldValues} />
+          <Form2 setFieldValues={setFieldValues} fieldValues={fieldValues} deptData={deptData} />
         ) : (
           <Form3 handleAgree={handleAgree} Agree={Agree} />
         )}
