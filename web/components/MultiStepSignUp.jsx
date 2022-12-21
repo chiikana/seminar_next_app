@@ -135,7 +135,7 @@ const Form2 = (props) => {
             color: "gray.50",
           }}
         >
-          コース
+          分類
         </FormLabel>
         <Select
           id="course"
