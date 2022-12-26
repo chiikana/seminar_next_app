@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import {
   Progress,
   Box,
@@ -252,7 +252,7 @@ const Form3 = (props) => {
   )
 }
 
-const Multistep = () => {
+const Multistep = (props) => {
   const toast = useToast()
   const [step, setStep] = useState(1)
   const [progress, setProgress] = useState(33.33)
@@ -269,6 +269,10 @@ const Multistep = () => {
   }
   const [fieldValues, setFieldValues] = useState(defaultValues)
   const [Agree, handleAgree] = useState(false)
+
+  useEffect(() => {
+    console.log(fieldValues)
+  }, [fieldValues])
 
   const handleSignUp = async (e) => {
     e.preventDefault()
@@ -349,7 +353,6 @@ const Multistep = () => {
                   } else {
                     setProgress(progress + 33.33)
                   }
-                  console.log(fieldValues)
                 }}
                 colorScheme="teal"
                 variant="outline"
