@@ -23,18 +23,24 @@ import {
   Switch,
   useToast,
   Icon,
+  Container,
 } from "@chakra-ui/react"
 
 const Profile = () => {
   return (
     <>
-      <VStack w={"full"} h={"full"}>
-        <HStack align={"center"} justify={"center"}>
-          <Text>lastname</Text>
-          <Text>firstname</Text>
-        </HStack>
-        <HStack></HStack>
-      </VStack>
+      <Container>
+        <VStack>
+          <HStack align={"center"} justify={"center"}>
+            <Text>lastname</Text>
+            <Text>firstname</Text>
+          </HStack>
+          <HStack>
+            <Text>IDIDIDID</Text>
+            <Text>YYYY/MM/DD</Text>
+          </HStack>
+        </VStack>
+      </Container>
     </>
   )
 }

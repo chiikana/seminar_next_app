@@ -23,19 +23,18 @@ import {
   Switch,
   useToast,
   Icon,
+  Container,
 } from "@chakra-ui/react"
 
 const Sidebar = () => {
   return (
     <>
-      <Box h={"full"} bgColor={"cyan.500"}>
-        <VStack w={"30vw"}>
-          <HStack align={"center"} justify={"center"}>
-            <Icon></Icon>
-            <Text>PROFILE</Text>
-          </HStack>
-        </VStack>
-      </Box>
+      <Container centerContent={"false"} maxW={"md"} bg={"cyan.500"}>
+        <HStack>
+          <Icon></Icon>
+          <Text>PROFILE</Text>
+        </HStack>
+      </Container>
     </>
   )
 }
