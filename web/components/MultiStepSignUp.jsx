@@ -282,21 +282,53 @@ const Multistep = (props) => {
         {
           email: fieldValues.email,
           password: fieldValues.pass,
-        },
-        {
-          data: {
-            firstName: fieldValues.firstName,
-            lastName: fieldValues.lastName,
-            dateOfBirth: fieldValues.dateOfBirth,
-            course: fieldValues.course,
-            department: fieldValues.department,
-            studentId: fieldValues.firstName,
-          },
         }
+        // },
+        // {
+        //   data: {
+        //     firstName: fieldValues.firstName,
+        //     lastName: fieldValues.lastName,
+        //     // dateOfBirth: fieldValues.dateOfBirth,
+        //     course: fieldValues.course,
+        //     department: fieldValues.department,
+        //     studentId: fieldValues.firstName,
+        //   },
+        // }
       )
       console.log(data)
       if (error) throw error
       alert("success for signup!")
+    } catch (error) {
+      alert(error.error_description || error.message)
+    }
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: fieldValues.email,
+        password: fieldValues.pass,
+      })
+      console.log(data)
+      if (error) throw error
+      alert("success for signin!")
+    } catch (error) {
+      alert(error.error_description || error.message)
+    }
+
+    try {
+      const { data, error } = await supabase.from("profiles").insert(
+        [
+          { lastName: fieldValues.lastName },
+          { firstName: fieldValues.firstName },
+          // {dateOfBirth: fieldValues.dateOfBirth},
+          { course: fieldValues.course },
+          { department: fieldValues.department },
+          { studentId: fieldValues.firstName },
+        ],
+        { upsert: true }
+      )
+      console.log(data)
+      if (error) throw error
+      alert("success for insert!")
     } catch (error) {
       alert(error.error_description || error.message)
     }
