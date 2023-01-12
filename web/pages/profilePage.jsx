@@ -12,32 +12,15 @@ const profilePage = () => {
   return (
     <>
       {/* <HStack>
-        <Sidebar />
-        <Profile />
-      </HStack> */}
+          <Sidebar />
+          <Profile />
+        </HStack> */}
       <Flex maxW="2000px" direction="row" overflow="hidden">
         <SideNav />
         <Center my="10" mr="8">
           <Divider orientation="vertical" />
         </Center>
-        <Flex direction="column" h="100vh" w="75%">
-          <Flex direction="row" justify="space-between" my="10" align="center">
-            <SearchBox />
-            <Spacer />
-            <FaBell size="2rem" color="#fcba03" />
-          </Flex>
-          {/* <ProfileCard /> */}
-          <Flex mt="4" mr="6" templateColumns="repeat(6, 1fr)">
-            <Flex direction="column" w="30%" mx="auto">
-              {/* <BlogPostWithImage />
-              <BlogPostWithImage /> */}
-            </Flex>
-            <Flex direction="column" w="70%">
-              {/* <CompanyCard /> */}
-              {/* <JobDescription /> */}
-            </Flex>
-          </Flex>
-        </Flex>
+        <Profile />
       </Flex>
     </>
   )
