@@ -24,6 +24,15 @@ const MyApp = ({ Component, pageProps }) => {
         >
           Logout
         </button>
+
+        <button
+  onClick={() => {
+    router.push("database_all")//ダブりクォーテーションの中はpagesディレクトリのファイル名
+  }}
+>
+Signin
+</button>
+
         <Component {...pageProps} />
       </SessionContextProvider>
     </ChakraProvider>

@@ -1,10 +1,10 @@
-import Testdb from "../components/Testdb"
+import Database_all from "../components/Testdb"
 
 
 const tablePage = () => {
     return(
-        <Testdb/>
+        <Database_all/>
     )
 }
 // export default tablePage
-export default Testdb
+export default Database_all

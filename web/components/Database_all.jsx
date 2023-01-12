@@ -17,7 +17,7 @@ import {
 // import TOS from "./tos.json"
 // import deptData from "./dept.json"
 
-const Testdb = (props) => {
+const Database_all = (props) => {
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
     return (
@@ -63,4 +63,4 @@ const Testdb = (props) => {
       </>
     )
   }
-export default Testdb
+export default Database_all
