@@ -49,7 +49,7 @@ export default function SideNav() {
               <Text ml="3">Employee</Text>
             </Flex>
           </Flex> */}
-          <VStack h="20vh" mb="32" spacing={"5vh"} align="flex-start">
+          <VStack h="20vh" mb="32" spacing={"5vh"}>
             <Flex
               fontSize="xl"
               color="gray"
@@ -69,7 +69,7 @@ export default function SideNav() {
               }}
             >
               <CgProfile color="pink" />
-              <Text ml="3">My Profile</Text>
+              <Text ml="3">アカウント情報</Text>
             </Flex>
             <Flex
               fontSize="xl"
@@ -90,7 +90,7 @@ export default function SideNav() {
               }}
             >
               <BsNewspaper color="#63B3ED" />
-              <Text ml="3">みんなの就活状況</Text>
+              <Text ml="3">自分の就活状況</Text>
             </Flex>
             <Flex
               fontSize="xl"
@@ -111,7 +111,7 @@ export default function SideNav() {
               }}
             >
               <RiMailStarLine color="#ECC94B" />
-              <Text ml="3">Employee</Text>
+              <Text ml="3">みんなの就活状況</Text>
             </Flex>
           </VStack>
           <Flex fontSize="2xl" mb={30} color="gray" align="center">
