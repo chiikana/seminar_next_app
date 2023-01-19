@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import { useRouter } from "next/router"
 import {
   Progress,
   Box,
@@ -135,7 +136,7 @@ const Form2 = (props) => {
             color: "gray.50",
           }}
         >
-          コース
+          分類
         </FormLabel>
         <Select
           id="course"
@@ -161,7 +162,7 @@ const Form2 = (props) => {
       </FormControl>
       <FormControl as={GridItem} colSpan={[6, 3]}>
         <FormLabel
-          htmlFor="depertment"
+          htmlFor="department"
           fontSize="sm"
           fontWeight="md"
           color="gray.700"
@@ -172,9 +173,9 @@ const Form2 = (props) => {
           学科
         </FormLabel>
         <Select
-          id="depertment"
-          name="depertment"
-          autoComplete="depertment"
+          id="department"
+          name="department"
+          autoComplete="department"
           placeholder="Select option"
           focusBorderColor="brand.400"
           shadow="sm"
@@ -182,9 +183,9 @@ const Form2 = (props) => {
           w="full"
           rounded="md"
           onChange={(e) =>
-            props.setFieldValues({ ...props.fieldValues, depertment: e.target.value })
+            props.setFieldValues({ ...props.fieldValues, department: e.target.value })
           }
-          value={!props.fieldValues.depertment ? "" : props.fieldValues.depertment}
+          value={!props.fieldValues.department ? "" : props.fieldValues.department}
         >
           {props.fieldValues.course
             ? props.deptData[props.fieldValues.course].map((item, index) => {
@@ -245,13 +246,14 @@ const Form3 = (props) => {
           onChange={() => {
             props.handleAgree(!props.Agree)
           }}
+          isChecked={props.Agree}
         />
       </HStack>
     </>
   )
 }
 
-const Multistep = () => {
+const Multistep = (props) => {
   const toast = useToast()
   const [step, setStep] = useState(1)
   const [progress, setProgress] = useState(33.33)
@@ -263,26 +265,76 @@ const Multistep = () => {
     lastName: "",
     dateOfBirth: "",
     course: "",
-    depertment: "",
+    department: "",
     studentId: "",
   }
   const [fieldValues, setFieldValues] = useState(defaultValues)
   const [Agree, handleAgree] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    console.log(fieldValues)
+  }, [fieldValues])
 
   const handleSignUp = async (e) => {
     e.preventDefault()
-
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email: fieldValues.email,
-        password: fieldValues.pass,
-      })
+      const { user, ssession, error } = await supabase.auth.signUp(
+        {
+          email: fieldValues.email,
+          password: fieldValues.pass,
+        },
+        {
+          data: {
+            firstName: fieldValues.firstName,
+            lastName: fieldValues.lastName,
+            // dateOfBirth: fieldValues.dateOfBirth,
+            course: fieldValues.course,
+            department: fieldValues.department,
+            studentId: fieldValues.studentId,
+          },
+        }
+      )
       console.log(data)
       if (error) throw error
       alert("success for signup!")
+      router.push("/profile")
     } catch (error) {
       alert(error.error_description || error.message)
     }
+
+    // try {
+    //   const { data, error } = await supabase.auth.signInWithPassword({
+    //     email: fieldValues.email,
+    //     password: fieldValues.pass,
+    //   })
+    //   console.log(data)
+    //   if (error) throw error
+    //   alert("success for signin!")
+    // } catch (error) {
+    //   alert(error.error_description || error.message)
+    // }
+
+    // try {
+    //   const { data, error } = await supabase
+    //     .from("profiles")
+    //     .insert(
+    //       [
+    //         { lastName: fieldValues.lastName },
+    //         { firstName: fieldValues.firstName },
+    //         { dateOfBirth: fieldValues.dateOfBirth },
+    //         { course: fieldValues.course },
+    //         { department: fieldValues.department },
+    //         { studentId: fieldValues.firstName },
+    //       ],
+    //       { upsert: true }
+    //     )
+    //   console.log(data)
+    //   if (error) throw error
+    //   alert("success for insert!")
+    // } catch (error) {
+    //   alert(error.error_description || error.message)
+    // }
   }
 
   const handleSignOut = async (e) => {
@@ -336,7 +388,6 @@ const Multistep = () => {
                   } else {
                     setProgress(progress + 33.33)
                   }
-                  console.log(fieldValues)
                 }}
                 colorScheme="teal"
                 variant="outline"
