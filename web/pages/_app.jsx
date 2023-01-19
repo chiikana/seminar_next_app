@@ -27,7 +27,7 @@ const MyApp = ({ Component, pageProps }) => {
 
         <button
   onClick={() => {
-    router.push("database_all")//ダブりクォーテーションの中はpagesディレクトリのファイル名
+    router.push("databaseAll")//ダブりクォーテーションの中はpagesディレクトリのファイル名
   }}
 >
 Signin
