@@ -239,7 +239,7 @@ const Form3 = (props) => {
       <Heading w="100%" textAlign={"center"} fontWeight="normal">
         利用規約
       </Heading>
-      <Textarea isReadOnly resize="none" value={TOS.tos}></Textarea>
+      <Textarea isReadOnly resize="none" value={TOS.tos} rows="10"></Textarea>
       <HStack justify="right">
         <Text>利用規約に同意します。</Text>
         <Switch
