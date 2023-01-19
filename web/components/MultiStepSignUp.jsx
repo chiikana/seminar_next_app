@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useRouter } from "next/router"
 import {
   Progress,
   Box,
@@ -269,6 +270,7 @@ const Multistep = (props) => {
   }
   const [fieldValues, setFieldValues] = useState(defaultValues)
   const [Agree, handleAgree] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     console.log(fieldValues)
@@ -296,6 +298,7 @@ const Multistep = (props) => {
       console.log(data)
       if (error) throw error
       alert("success for signup!")
+      router.push("/profile")
     } catch (error) {
       alert(error.error_description || error.message)
     }
