@@ -26,7 +26,7 @@ const MyApp = ({ Component, pageProps }) => {
         </Button>
         <Button
           onClick={() => {
-            router.push("/profile")
+            router.push("/profilePage")
           }}
         >
           profile
