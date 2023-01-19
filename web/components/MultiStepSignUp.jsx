@@ -276,8 +276,6 @@ const Multistep = (props) => {
 
   const handleSignUp = async (e) => {
     e.preventDefault()
-    const { firstName, lastName, course, department, studentId } = data
-
     try {
       const { user, ssession, error } = await supabase.auth.signUp(
         {

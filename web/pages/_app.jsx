@@ -1,10 +1,10 @@
-import '../styles/globals.css'
-import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
-import { SessionContextProvider } from '@supabase/auth-helpers-react'
-import { useState } from 'react'
-import { ChakraProvider } from '@chakra-ui/react'
-import { supabase } from '../service/supabaseClient'
-import { useRouter } from 'next/router'
+import "../styles/globals.css"
+import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs"
+import { SessionContextProvider } from "@supabase/auth-helpers-react"
+import { useState } from "react"
+import { ChakraProvider } from "@chakra-ui/react"
+import { supabase } from "../service/supabaseClient"
+import { useRouter } from "next/router"
 
 const MyApp = ({ Component, pageProps }) => {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient())
@@ -19,7 +19,7 @@ const MyApp = ({ Component, pageProps }) => {
         <button
           onClick={async () => {
             await supabase.auth.signOut()
-            router.push('/')
+            router.push("/")
           }}
         >
           Logout
