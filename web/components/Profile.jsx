@@ -32,7 +32,8 @@ import {
   useEditableControls,
   IconButton,
 } from "@chakra-ui/react"
-import { EditIcon, CheckIcon, CloseIcon } from "@chakra-ui/icons"
+// import { EditIcon, CheckIcon, CloseIcon } from "@chakra-ui/icons"
+import { FaEdit, FaTimes, FaCheck } from "react-icons/fa"
 
 const Profile = () => {
   const EditableControls = () => {
@@ -41,12 +42,12 @@ const Profile = () => {
 
     return isEditing ? (
       <ButtonGroup justify="center" size="sm">
-        <IconButton icon={<CheckIcon />} {...getSubmitButtonProps()} />
-        <IconButton icon={<CloseIcon />} {...getCancelButtonProps()} />
+        <IconButton icon={<FaCheck />} {...getSubmitButtonProps()} />
+        <IconButton icon={<FaTimes />} {...getCancelButtonProps()} />
       </ButtonGroup>
     ) : (
       <Flex justify="center">
-        <IconButton size="sm" icon={<EditIcon />} {...getEditButtonProps()} />
+        <IconButton size="sm" icon={<FaEdit />} {...getEditButtonProps()} />
       </Flex>
     )
   }

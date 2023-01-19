@@ -23,6 +23,7 @@ import {
   Switch,
   useToast,
 } from "@chakra-ui/react"
+import { FaEyeSlash, FaEye } from "react-icons/fa"
 
 import { supabase } from "../service/supabaseClient"
 import { User } from "@supabase/supabase-js"
@@ -111,7 +112,7 @@ const Form1 = (props) => {
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>
-              {show ? "Hide" : "Show"}
+              {!show ? <FaEyeSlash /> : <FaEye />}
             </Button>
           </InputRightElement>
         </InputGroup>
@@ -297,7 +298,14 @@ const Multistep = (props) => {
       )
       console.log(data)
       if (error) throw error
-      alert("success for signup!")
+      // alert("success for signup!")
+      toast({
+        title: "Account created.",
+        description: "We've created your account for you.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      })
       router.push("/profile")
     } catch (error) {
       alert(error.error_description || error.message)
@@ -402,13 +410,6 @@ const Multistep = (props) => {
                 colorScheme="red"
                 variant="solid"
                 onClick={(e) => {
-                  toast({
-                    title: "Account created.",
-                    description: "We've created your account for you.",
-                    status: "success",
-                    duration: 3000,
-                    isClosable: true,
-                  })
                   handleSignUp(e)
                 }}
               >
