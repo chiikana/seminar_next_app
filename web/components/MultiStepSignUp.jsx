@@ -48,9 +48,9 @@ const Form1 = (props) => {
             id="last-name"
             placeholder="田中"
             onChange={(e) =>
-              props.setFieldValues({ ...props.fieldValues, lastName: e.target.value })
+              props.setFieldValues({ ...props.fieldValues, lastname: e.target.value })
             }
-            value={!props.fieldValues.lastName ? "" : props.fieldValues.lastName}
+            value={!props.fieldValues.lastname ? "" : props.fieldValues.lastname}
           />
         </FormControl>
 
@@ -62,9 +62,9 @@ const Form1 = (props) => {
             id="first-name"
             placeholder="実"
             onChange={(e) =>
-              props.setFieldValues({ ...props.fieldValues, firstName: e.target.value })
+              props.setFieldValues({ ...props.fieldValues, firstname: e.target.value })
             }
-            value={!props.fieldValues.firstName ? "" : props.fieldValues.firstName}
+            value={!props.fieldValues.firstname ? "" : props.fieldValues.firstname}
           />
         </FormControl>
       </Flex>
@@ -202,7 +202,7 @@ const Form2 = (props) => {
 
       <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
         <FormLabel
-          htmlFor="studentId"
+          htmlFor="student_id"
           fontSize="sm"
           fontWeight="md"
           color="gray.700"
@@ -224,9 +224,9 @@ const Form2 = (props) => {
           w="full"
           rounded="md"
           onChange={(e) =>
-            props.setFieldValues({ ...props.fieldValues, studentId: e.target.value })
+            props.setFieldValues({ ...props.fieldValues, student_id: e.target.value })
           }
-          value={!props.fieldValues.studentId ? "" : props.fieldValues.studentId}
+          value={!props.fieldValues.student_id ? "" : props.fieldValues.student_id}
         />
       </FormControl>
     </>
@@ -262,12 +262,12 @@ const Multistep = (props) => {
   const defaultValues = {
     email: "",
     pass: "",
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     dateOfBirth: "",
     course: "",
     department: "",
-    studentId: "",
+    student_id: "",
   }
   const [fieldValues, setFieldValues] = useState(defaultValues)
   const [Agree, handleAgree] = useState(false)
@@ -281,16 +281,24 @@ const Multistep = (props) => {
     e.preventDefault()
     try {
       const { data, error } = await supabase.auth.signUp({
-        email: fieldValues.email,
-        password: fieldValues.pass,
+        // email: fieldValues.email,
+        // password: fieldValues.pass,
+        email: "pngnka710.dev@gmail.com",
+        password: "password",
         options: {
           data: {
-            firstName: fieldValues.firstName,
-            lastName: fieldValues.lastName,
+            // firstname: fieldValues.firstname,
+            // lastname: fieldValues.lastname,
             // dateOfBirth: fieldValues.dateOfBirth,
-            course: fieldValues.course,
-            department: fieldValues.department,
-            studentId: fieldValues.studentId,
+            // course: fieldValues.course,
+            // department: fieldValues.department,
+            // student_id: fieldValues.student_id,
+            firstname: "奏斗",
+            lastname: "須﨑",
+            course: "コンピューター・IT分野",
+            department: "情報総合学科",
+            student_id: "20206002",
+            date_of_birth: "2001-08-24",
           },
         },
       })
@@ -304,7 +312,7 @@ const Multistep = (props) => {
         duration: 3000,
         isClosable: true,
       })
-      router.push("/profile")
+      router.push("/profilePage")
     } catch (error) {
       alert(error.error_description || error.message)
     }
@@ -326,12 +334,12 @@ const Multistep = (props) => {
     //     .from("profiles")
     //     .insert(
     //       [
-    //         { lastName: fieldValues.lastName },
-    //         { firstName: fieldValues.firstName },
+    //         { lastname: fieldValues.lastname },
+    //         { firstname: fieldValues.firstname },
     //         { dateOfBirth: fieldValues.dateOfBirth },
     //         { course: fieldValues.course },
     //         { department: fieldValues.department },
-    //         { studentId: fieldValues.firstName },
+    //         { student_id: fieldValues.firstname },
     //       ],
     //       { upsert: true }
     //     )
