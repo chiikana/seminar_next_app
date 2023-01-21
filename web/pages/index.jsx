@@ -7,14 +7,14 @@ import { useRouter } from "next/router"
 import { Box } from "@chakra-ui/react"
 
 const Home = () => {
-  // const session = useSession()
+  const session = useSession()
   // const supabase = useSupabaseClient()
   // const router = useRouter()
 
   return (
     <Layout>
-      {/* {!session ? <Multistep /> : <Account session={session} />} */}
-      <Multistep />
+      {!session ? <Multistep /> : <Account session={session} />}
+      {/* <Multistep /> */}
     </Layout>
   )
 }
