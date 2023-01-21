@@ -1,16 +1,21 @@
-import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
-import Account from '../components/Account'
-import Multistep from '../components/MultiStepSignUp'
+import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react"
+import Account from "../components/Account"
+import Multistep from "../components/MultiStepSignUp"
+import { Layout } from "../components/Layout/Layout"
+import Profile from "../components/Profile"
+import { useRouter } from "next/router"
+import { Box } from "@chakra-ui/react"
 
 const Home = () => {
-  const session = useSession()
-  const supabase = useSupabaseClient()
+  // const session = useSession()
+  // const supabase = useSupabaseClient()
+  // const router = useRouter()
 
   return (
-    <div className="container" style={{ padding: '50px 0 100px 0' }}>
-      {!session ? <Multistep /> : <Account session={session} />}
-    </div>
+    <Layout>
+      {/* {!session ? <Multistep /> : <Account session={session} />} */}
+      <Multistep />
+    </Layout>
   )
 }
 

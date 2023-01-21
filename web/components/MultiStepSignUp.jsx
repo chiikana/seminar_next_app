@@ -32,7 +32,7 @@ import TOS from "./tos.json"
 import deptData from "./dept.json"
 
 const Form1 = (props) => {
-  const [show, setShow] = React.useState(false)
+  const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
   return (
     <>
