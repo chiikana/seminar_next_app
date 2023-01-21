@@ -25,7 +25,7 @@ import {
 } from "@chakra-ui/react"
 import { FaEyeSlash, FaEye } from "react-icons/fa"
 
-import { supabase } from "../service/supabaseClient"
+import { supabase } from "../src/libs/supabaseClient"
 import { User } from "@supabase/supabase-js"
 
 import TOS from "./tos.json"
@@ -280,12 +280,10 @@ const Multistep = (props) => {
   const handleSignUp = async (e) => {
     e.preventDefault()
     try {
-      const { user, ssession, error } = await supabase.auth.signUp(
-        {
-          email: fieldValues.email,
-          password: fieldValues.pass,
-        },
-        {
+      const { data, error } = await supabase.auth.signUp({
+        email: fieldValues.email,
+        password: fieldValues.pass,
+        options: {
           data: {
             firstName: fieldValues.firstName,
             lastName: fieldValues.lastName,
@@ -294,8 +292,8 @@ const Multistep = (props) => {
             department: fieldValues.department,
             studentId: fieldValues.studentId,
           },
-        }
-      )
+        },
+      })
       console.log(data)
       if (error) throw error
       // alert("success for signup!")
