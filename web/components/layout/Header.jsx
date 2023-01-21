@@ -1,6 +1,6 @@
 import { Box, useColorModeValue } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
-import Navbar from "./navbar"
+import { Navbar } from "./NavigationBar"
 
 export const Header = () => {
   const toggleBorderColor = useColorModeValue("gray.200", "gray.500")
@@ -32,4 +32,3 @@ export const Header = () => {
     </>
   )
 }
-export default Header

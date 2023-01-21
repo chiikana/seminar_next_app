@@ -5,6 +5,7 @@ import { ChakraProvider, Button } from "@chakra-ui/react"
 import { supabase } from "../src/libs/supabaseClient"
 import { useRouter } from "next/router"
 import { useState } from "react"
+import { Layout } from "../components/Layout/Layout"
 
 const MyApp = ({ Component, pageProps }) => {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient())

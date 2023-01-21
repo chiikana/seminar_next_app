@@ -22,16 +22,11 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react"
-// import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useRouter } from "next/router"
-import { useState } from "react"
 import { FaChevronDown, FaChevronRight, FaBur, FaTimes, FaMoon, FaRegSun } from "react-icons/fa"
 import { supabase } from "../../src/libs/supabaseClient"
 
 export const Navbar = () => {
-  // const { userName, setUserName } = useContext(UserNameContext)
-  // const { isSign, onSign } = useContext(AppContext)
-  // const [isSign, onSign] = useState(false)
   const { colorMode, toggleColorMode } = useColorMode()
   const { isOpen, onToggle } = useDisclosure()
   const toggleTextColor = useColorModeValue("gray.800", "white")
@@ -129,7 +124,6 @@ export const Navbar = () => {
     </Box>
   )
 }
-export default Navbar
 
 const DesktopNav = () => {
   const router = useRouter()
@@ -333,17 +327,5 @@ const ROUTE_ITEMS = [
         process: "/EditPage/",
       },
     ],
-    // children: [
-    //   {
-    //     label: "DummyData-Table",
-    //     subLabel: "View Table",
-    //     process: "/TablePage/",
-    //   },
-    //   {
-    //     label: "GuestData-Table",
-    //     subLabel: "View Table",
-    //     process: "/EditPage/",
-    //   },
-    // ],
   },
 ]

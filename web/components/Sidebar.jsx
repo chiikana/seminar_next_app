@@ -26,7 +26,7 @@ import {
   Container,
 } from "@chakra-ui/react"
 
-const Sidebar = () => {
+export const Sidebar = () => {
   return (
     <>
       <Container centerContent={"false"} maxW={"md"} bg={"cyan.500"}>
@@ -38,4 +38,3 @@ const Sidebar = () => {
     </>
   )
 }
-export default Sidebar

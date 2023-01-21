@@ -1,41 +1,20 @@
-import React, { useState } from "react"
+import React from "react"
 import {
-  Progress,
-  Box,
   ButtonGroup,
-  Button,
-  Heading,
   HStack,
   VStack,
   Flex,
-  FormControl,
-  GridItem,
-  FormLabel,
   Input,
-  Select,
-  Text,
-  SimpleGrid,
-  InputLeftAddon,
-  InputGroup,
-  Textarea,
-  FormHelperText,
-  InputRightElement,
-  Switch,
-  useToast,
-  Icon,
   Container,
-  Center,
   Editable,
   EditableInput,
-  EditableTextarea,
   EditablePreview,
   useEditableControls,
   IconButton,
 } from "@chakra-ui/react"
-// import { EditIcon, CheckIcon, CloseIcon } from "@chakra-ui/icons"
 import { FaEdit, FaTimes, FaCheck } from "react-icons/fa"
 
-export const Profile = () => {
+export function Profile() {
   const EditableControls = () => {
     const { isEditing, getSubmitButtonProps, getCancelButtonProps, getEditButtonProps } =
       useEditableControls()
