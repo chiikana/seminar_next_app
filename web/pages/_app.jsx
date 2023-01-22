@@ -26,6 +26,13 @@ const MyApp = ({ Component, pageProps }) => {
         </Button>
         <Button
           onClick={() => {
+              router.push("databaseAll")//ダブりクォーテーションの中はpagesディレクトリのファイル名
+          }}
+        >
+          databaseAll
+        </Button>
+        <Button
+          onClick={() => {
             router.push("/profilePage")
           }}
         >
