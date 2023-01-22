@@ -23,7 +23,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
-import { FaChevronDown, FaChevronRight, FaBur, FaTimes, FaMoon, FaRegSun } from "react-icons/fa"
+import { FaChevronDown, FaChevronRight, FaBars, FaTimes, FaMoon, FaRegSun } from "react-icons/fa"
 import { supabase } from "../../src/libs/supabaseClient"
 
 export const Navbar = () => {
@@ -31,6 +31,7 @@ export const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure()
   const toggleTextColor = useColorModeValue("gray.800", "white")
   const toggleBgColor = useColorModeValue("gray.50", "gray.800")
+  const router = useRouter()
 
   return (
     <Box>
@@ -49,7 +50,7 @@ export const Navbar = () => {
         >
           <IconButton
             onClick={onToggle}
-            icon={isOpen ? <FaTimes w={3} h={3} /> : <FaBur w={5} h={5} />}
+            icon={isOpen ? <FaTimes w={3} h={3} /> : <FaBars w={5} h={5} />}
             variant={"ghost"}
             aria-label={"Toggle Navigation"}
           />
