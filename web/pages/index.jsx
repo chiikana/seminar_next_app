@@ -10,10 +10,18 @@ const Home = () => {
   // const router = useRouter()
 
   return (
-    <Box>
-      {!session ? <Multistep /> : <Account session={session} />}
+    <>
+      {!session ? (
+        <Layout hasHeader={false}>
+          <Multistep />
+        </Layout>
+      ) : (
+        <Layout>
+          <Account session={session} />
+        </Layout>
+      )}
       {/* <Multistep /> */}
-    </Box>
+    </>
   )
 }
 export default Home

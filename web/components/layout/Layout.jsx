@@ -2,11 +2,11 @@ import { Box } from "@chakra-ui/react"
 import { Header } from "./Header"
 
 export const Layout = (props) => {
-  const { children, hasheader = true } = props
+  const { children, hasHeader = true } = props
   return (
     <Box>
-      {/* {hasheader && <Header />} */}
-      <Header />
+      {hasHeader && <Header />}
+      {/* <Header /> */}
       {children}
     </Box>
   )

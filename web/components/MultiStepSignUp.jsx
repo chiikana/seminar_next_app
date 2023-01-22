@@ -30,6 +30,7 @@ import { User } from "@supabase/supabase-js"
 
 import TOS from "./tos.json"
 import deptData from "./dept.json"
+import { Layout } from "./Layout/Layout"
 
 const Form1 = (props) => {
   const [show, setShow] = useState(false)
@@ -254,7 +255,7 @@ const Form3 = (props) => {
   )
 }
 
-export const Multistep = (props) => {
+export const Multistep = () => {
   const toast = useToast()
   const [step, setStep] = useState(1)
   const [progress, setProgress] = useState(33.33)

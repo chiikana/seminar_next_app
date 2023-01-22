@@ -7,13 +7,13 @@ import { Layout } from "../components/Layout/Layout"
 const profilePage = () => {
   return (
     <Layout>
-      <Flex maxW="2000px" direction="row" overflow="hidden">
+      {/* <Flex maxW="2000px" direction="row" overflow="hidden">
         <SideNav />
         <Center my="10" mr="8">
           <Divider orientation="vertical" />
         </Center>
-        <Profile />
-      </Flex>
+      </Flex> */}
+      <Profile />
     </Layout>
   )
 }

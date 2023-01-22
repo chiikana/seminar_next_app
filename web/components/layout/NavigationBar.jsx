@@ -65,7 +65,7 @@ export const Navbar = () => {
             })}
             color={toggleTextColor}
           >
-            管理ソフト
+            NKC就活状況
           </Text>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
@@ -100,9 +100,13 @@ export const Navbar = () => {
                 <MenuList>
                   <MenuItem>USERNAME</MenuItem>
                   <MenuDivider />
-                  <MenuItem>Profile</MenuItem>
-                  <MenuItem>Settings</MenuItem>
-                  <MenuItem>Billing</MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      router.push("/profilePage")
+                    }}
+                  >
+                    Profile
+                  </MenuItem>
                   <MenuDivider />
                   <MenuItem
                     onClick={async () => {
@@ -312,20 +316,20 @@ const MobilerouteItem = ({ label, children, process }) => {
 const ROUTE_ITEMS = [
   {
     label: "Home",
-    process: "/HomePage/",
+    process: "/profilePage",
   },
   {
-    label: "Table",
+    label: "就活状況",
     children: [
       {
-        label: "DummyData-Table",
-        subLabel: "ダミーデータを表示します。",
+        label: "自分の就活状況",
+        subLabel: "自分の就活状況を表示します。",
         process: "/TablePage/",
       },
       {
-        label: "GuestData-Table",
-        subLabel: "HomePageで入力した値を表示します。",
-        process: "/EditPage/",
+        label: "みんなの就活状況",
+        subLabel: "みんなの就活状況を表示します。",
+        process: "/databaseAll",
       },
     ],
   },

@@ -1,10 +1,11 @@
 import DatabaseAll from "../components/DatabaseAll"
-
+import { Layout } from "../components/Layout/Layout"
 
 const tablePage = () => {
-    return(
-        <DatabaseAll/>
-    )
+  return (
+    <Layout>
+      <DatabaseAll />
+    </Layout>
+  )
 }
-// export default tablePage
-export default DatabaseAll
+export default tablePage

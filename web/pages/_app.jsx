@@ -17,28 +17,6 @@ const MyApp = ({ Component, pageProps }) => {
         supabaseClient={supabaseClient}
         initialSession={pageProps.initialSession}
       >
-        <Button
-          onClick={async () => {
-            await supabase.auth.signOut()
-            router.push("/")
-          }}
-        >
-          Logout
-        </Button>
-        <Button
-          onClick={() => {
-              router.push("databaseAll")//ダブりクォーテーションの中はpagesディレクトリのファイル名
-          }}
-        >
-          databaseAll
-        </Button>
-        <Button
-          onClick={() => {
-            router.push("/profilePage")
-          }}
-        >
-          profile
-        </Button>
         <Component {...pageProps} />
       </SessionContextProvider>
     </ChakraProvider>
