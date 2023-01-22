@@ -4,7 +4,7 @@ import { RiDoorOpenLine, RiMailStarLine } from "react-icons/ri"
 import { CgProfile } from "react-icons/cg"
 import { useRouter } from "next/router"
 
-export default function SideNav() {
+export const SideNav = () => {
   const router = useRouter()
   return (
     <Flex w="20vw" direction="column" align="center" bg={"green.50"}>

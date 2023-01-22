@@ -254,7 +254,7 @@ const Form3 = (props) => {
   )
 }
 
-const Multistep = (props) => {
+export const Multistep = (props) => {
   const toast = useToast()
   const [step, setStep] = useState(1)
   const [progress, setProgress] = useState(33.33)
@@ -428,4 +428,3 @@ const Multistep = (props) => {
     </>
   )
 }
-export default Multistep
