@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import { useRouter } from "next/router"
 import {
   Progress,
   Box,
@@ -22,15 +23,16 @@ import {
   Switch,
   useToast,
 } from "@chakra-ui/react"
+import { FaEyeSlash, FaEye } from "react-icons/fa"
 
-import { supabase } from "../service/supabaseClient"
+import { supabase } from "../src/libs/supabaseClient"
 import { User } from "@supabase/supabase-js"
 
 import TOS from "./tos.json"
 import deptData from "./dept.json"
 
 const Form1 = (props) => {
-  const [show, setShow] = React.useState(false)
+  const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
   return (
     <>
@@ -46,9 +48,9 @@ const Form1 = (props) => {
             id="last-name"
             placeholder="田中"
             onChange={(e) =>
-              props.setFieldValues({ ...props.fieldValues, lastName: e.target.value })
+              props.setFieldValues({ ...props.fieldValues, lastname: e.target.value })
             }
-            value={!props.fieldValues.lastName ? "" : props.fieldValues.lastName}
+            value={!props.fieldValues.lastname ? "" : props.fieldValues.lastname}
           />
         </FormControl>
 
@@ -60,9 +62,9 @@ const Form1 = (props) => {
             id="first-name"
             placeholder="実"
             onChange={(e) =>
-              props.setFieldValues({ ...props.fieldValues, firstName: e.target.value })
+              props.setFieldValues({ ...props.fieldValues, firstname: e.target.value })
             }
-            value={!props.fieldValues.firstName ? "" : props.fieldValues.firstName}
+            value={!props.fieldValues.firstname ? "" : props.fieldValues.firstname}
           />
         </FormControl>
       </Flex>
@@ -110,7 +112,7 @@ const Form1 = (props) => {
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>
-              {show ? "Hide" : "Show"}
+              {!show ? <FaEyeSlash /> : <FaEye />}
             </Button>
           </InputRightElement>
         </InputGroup>
@@ -135,7 +137,7 @@ const Form2 = (props) => {
             color: "gray.50",
           }}
         >
-          コース
+          分類
         </FormLabel>
         <Select
           id="course"
@@ -161,7 +163,7 @@ const Form2 = (props) => {
       </FormControl>
       <FormControl as={GridItem} colSpan={[6, 3]}>
         <FormLabel
-          htmlFor="depertment"
+          htmlFor="department"
           fontSize="sm"
           fontWeight="md"
           color="gray.700"
@@ -172,9 +174,9 @@ const Form2 = (props) => {
           学科
         </FormLabel>
         <Select
-          id="depertment"
-          name="depertment"
-          autoComplete="depertment"
+          id="department"
+          name="department"
+          autoComplete="department"
           placeholder="Select option"
           focusBorderColor="brand.400"
           shadow="sm"
@@ -182,9 +184,9 @@ const Form2 = (props) => {
           w="full"
           rounded="md"
           onChange={(e) =>
-            props.setFieldValues({ ...props.fieldValues, depertment: e.target.value })
+            props.setFieldValues({ ...props.fieldValues, department: e.target.value })
           }
-          value={!props.fieldValues.depertment ? "" : props.fieldValues.depertment}
+          value={!props.fieldValues.department ? "" : props.fieldValues.department}
         >
           {props.fieldValues.course
             ? props.deptData[props.fieldValues.course].map((item, index) => {
@@ -200,7 +202,7 @@ const Form2 = (props) => {
 
       <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
         <FormLabel
-          htmlFor="studentId"
+          htmlFor="student_id"
           fontSize="sm"
           fontWeight="md"
           color="gray.700"
@@ -222,9 +224,9 @@ const Form2 = (props) => {
           w="full"
           rounded="md"
           onChange={(e) =>
-            props.setFieldValues({ ...props.fieldValues, studentId: e.target.value })
+            props.setFieldValues({ ...props.fieldValues, student_id: e.target.value })
           }
-          value={!props.fieldValues.studentId ? "" : props.fieldValues.studentId}
+          value={!props.fieldValues.student_id ? "" : props.fieldValues.student_id}
         />
       </FormControl>
     </>
@@ -237,7 +239,7 @@ const Form3 = (props) => {
       <Heading w="100%" textAlign={"center"} fontWeight="normal">
         利用規約
       </Heading>
-      <Textarea isReadOnly resize="none" value={TOS.tos}></Textarea>
+      <Textarea isReadOnly resize="none" value={TOS.tos} rows="10"></Textarea>
       <HStack justify="right">
         <Text>利用規約に同意します。</Text>
         <Switch
@@ -245,13 +247,14 @@ const Form3 = (props) => {
           onChange={() => {
             props.handleAgree(!props.Agree)
           }}
+          isChecked={props.Agree}
         />
       </HStack>
     </>
   )
 }
 
-const Multistep = () => {
+const Multistep = (props) => {
   const toast = useToast()
   const [step, setStep] = useState(1)
   const [progress, setProgress] = useState(33.33)
@@ -259,30 +262,93 @@ const Multistep = () => {
   const defaultValues = {
     email: "",
     pass: "",
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     dateOfBirth: "",
     course: "",
-    depertment: "",
-    studentId: "",
+    department: "",
+    student_id: "",
   }
   const [fieldValues, setFieldValues] = useState(defaultValues)
   const [Agree, handleAgree] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    console.log(fieldValues)
+  }, [fieldValues])
 
   const handleSignUp = async (e) => {
     e.preventDefault()
-
     try {
       const { data, error } = await supabase.auth.signUp({
-        email: fieldValues.email,
-        password: fieldValues.pass,
+        // email: fieldValues.email,
+        // password: fieldValues.pass,
+        email: "pngnka710.dev@gmail.com",
+        password: "password",
+        options: {
+          data: {
+            // firstname: fieldValues.firstname,
+            // lastname: fieldValues.lastname,
+            // dateOfBirth: fieldValues.dateOfBirth,
+            // course: fieldValues.course,
+            // department: fieldValues.department,
+            // student_id: fieldValues.student_id,
+            firstname: "奏斗",
+            lastname: "須﨑",
+            course: "コンピューター・IT分野",
+            department: "情報総合学科",
+            student_id: "20206002",
+            date_of_birth: "2001-08-24",
+          },
+        },
       })
       console.log(data)
       if (error) throw error
-      alert("success for signup!")
+      // alert("success for signup!")
+      toast({
+        title: "Account created.",
+        description: "We've created your account for you.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      })
+      router.push("/profilePage")
     } catch (error) {
       alert(error.error_description || error.message)
     }
+
+    // try {
+    //   const { data, error } = await supabase.auth.signInWithPassword({
+    //     email: fieldValues.email,
+    //     password: fieldValues.pass,
+    //   })
+    //   console.log(data)
+    //   if (error) throw error
+    //   alert("success for signin!")
+    // } catch (error) {
+    //   alert(error.error_description || error.message)
+    // }
+
+    // try {
+    //   const { data, error } = await supabase
+    //     .from("profiles")
+    //     .insert(
+    //       [
+    //         { lastname: fieldValues.lastname },
+    //         { firstname: fieldValues.firstname },
+    //         { dateOfBirth: fieldValues.dateOfBirth },
+    //         { course: fieldValues.course },
+    //         { department: fieldValues.department },
+    //         { student_id: fieldValues.firstname },
+    //       ],
+    //       { upsert: true }
+    //     )
+    //   console.log(data)
+    //   if (error) throw error
+    //   alert("success for insert!")
+    // } catch (error) {
+    //   alert(error.error_description || error.message)
+    // }
   }
 
   const handleSignOut = async (e) => {
@@ -336,7 +402,6 @@ const Multistep = () => {
                   } else {
                     setProgress(progress + 33.33)
                   }
-                  console.log(fieldValues)
                 }}
                 colorScheme="teal"
                 variant="outline"
@@ -351,13 +416,6 @@ const Multistep = () => {
                 colorScheme="red"
                 variant="solid"
                 onClick={(e) => {
-                  toast({
-                    title: "Account created.",
-                    description: "We've created your account for you.",
-                    status: "success",
-                    duration: 3000,
-                    isClosable: true,
-                  })
                   handleSignUp(e)
                 }}
               >
