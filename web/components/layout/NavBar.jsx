@@ -102,7 +102,7 @@ export const Navbar = () => {
                   <MenuDivider />
                   <MenuItem
                     onClick={() => {
-                      router.push("/profilePage")
+                      router.push("/profilePage/")
                     }}
                   >
                     Profile
@@ -316,7 +316,7 @@ const MobilerouteItem = ({ label, children, process }) => {
 const ROUTE_ITEMS = [
   {
     label: "Home",
-    process: "/profilePage",
+    process: "/profilePage/",
   },
   {
     label: "就活状況",

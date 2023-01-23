@@ -1,8 +1,8 @@
 import { HStack, Flex, Center, Divider, Spacer } from "@chakra-ui/react"
-import { Profile } from "../components/Profile"
-import { SideNav } from "../components/SideNav"
-import { SearchBox } from "../components/SerchBox"
-import { Layout } from "../components/Layout/Layout"
+import { Profile } from "../../components/Profile"
+import { SideNav } from "../../components/SideNav"
+import { SearchBox } from "../../components/SerchBox"
+import { Layout } from "../../components/Layout/Layout"
 
 const profilePage = () => {
   return (

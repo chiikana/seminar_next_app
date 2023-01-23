@@ -22,6 +22,8 @@ import {
   InputRightElement,
   Switch,
   useToast,
+  Center,
+  VStack,
 } from "@chakra-ui/react"
 import { FaEyeSlash, FaEye } from "react-icons/fa"
 
@@ -128,108 +130,110 @@ const Form2 = (props) => {
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
         新規登録
       </Heading>
-      <FormControl as={GridItem} colSpan={[6, 3]}>
-        <FormLabel
-          htmlFor="course"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: "gray.50",
-          }}
-        >
-          分類
-        </FormLabel>
-        <Select
-          id="course"
-          name="course"
-          autoComplete="course"
-          placeholder="Select option"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-          onChange={(e) => props.setFieldValues({ ...props.fieldValues, course: e.target.value })}
-          value={!props.fieldValues.course ? "" : props.fieldValues.course}
-        >
-          {props.deptData["course"].map((item, index) => {
-            return (
-              <option value={item} key={index}>
-                {item}
-              </option>
-            )
-          })}
-        </Select>
-      </FormControl>
-      <FormControl as={GridItem} colSpan={[6, 3]}>
-        <FormLabel
-          htmlFor="department"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: "gray.50",
-          }}
-        >
-          学科
-        </FormLabel>
-        <Select
-          id="department"
-          name="department"
-          autoComplete="department"
-          placeholder="Select option"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-          onChange={(e) =>
-            props.setFieldValues({ ...props.fieldValues, department: e.target.value })
-          }
-          value={!props.fieldValues.department ? "" : props.fieldValues.department}
-        >
-          {props.fieldValues.course
-            ? props.deptData[props.fieldValues.course].map((item, index) => {
-                return (
-                  <option value={item} key={index}>
-                    {item}
-                  </option>
-                )
-              })
-            : null}
-        </Select>
-      </FormControl>
+      <VStack>
+        <FormControl as={GridItem} colSpan={[6, 3]}>
+          <FormLabel
+            htmlFor="course"
+            fontSize="sm"
+            fontWeight="md"
+            color="gray.700"
+            _dark={{
+              color: "gray.50",
+            }}
+          >
+            分類
+          </FormLabel>
+          <Select
+            id="course"
+            name="course"
+            autoComplete="course"
+            placeholder="Select option"
+            focusBorderColor="brand.400"
+            shadow="sm"
+            size="sm"
+            w="full"
+            rounded="md"
+            onChange={(e) => props.setFieldValues({ ...props.fieldValues, course: e.target.value })}
+            value={!props.fieldValues.course ? "" : props.fieldValues.course}
+          >
+            {props.deptData["course"].map((item, index) => {
+              return (
+                <option value={item} key={index}>
+                  {item}
+                </option>
+              )
+            })}
+          </Select>
+        </FormControl>
+        <FormControl as={GridItem} colSpan={[6, 3]}>
+          <FormLabel
+            htmlFor="department"
+            fontSize="sm"
+            fontWeight="md"
+            color="gray.700"
+            _dark={{
+              color: "gray.50",
+            }}
+          >
+            学科
+          </FormLabel>
+          <Select
+            id="department"
+            name="department"
+            autoComplete="department"
+            placeholder="Select option"
+            focusBorderColor="brand.400"
+            shadow="sm"
+            size="sm"
+            w="full"
+            rounded="md"
+            onChange={(e) =>
+              props.setFieldValues({ ...props.fieldValues, department: e.target.value })
+            }
+            value={!props.fieldValues.department ? "" : props.fieldValues.department}
+          >
+            {props.fieldValues.course
+              ? props.deptData[props.fieldValues.course].map((item, index) => {
+                  return (
+                    <option value={item} key={index}>
+                      {item}
+                    </option>
+                  )
+                })
+              : null}
+          </Select>
+        </FormControl>
 
-      <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
-        <FormLabel
-          htmlFor="student_id"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: "gray.50",
-          }}
-          mt="2%"
-        >
-          学籍番号
-        </FormLabel>
-        <Input
-          type="text"
-          name="city"
-          id="city"
-          autoComplete="city"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-          onChange={(e) =>
-            props.setFieldValues({ ...props.fieldValues, student_id: e.target.value })
-          }
-          value={!props.fieldValues.student_id ? "" : props.fieldValues.student_id}
-        />
-      </FormControl>
+        <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
+          <FormLabel
+            htmlFor="student_id"
+            fontSize="sm"
+            fontWeight="md"
+            color="gray.700"
+            _dark={{
+              color: "gray.50",
+            }}
+            mt="2%"
+          >
+            学籍番号
+          </FormLabel>
+          <Input
+            type="text"
+            name="city"
+            id="city"
+            autoComplete="city"
+            focusBorderColor="brand.400"
+            shadow="sm"
+            size="sm"
+            w="full"
+            rounded="md"
+            onChange={(e) =>
+              props.setFieldValues({ ...props.fieldValues, student_id: e.target.value })
+            }
+            value={!props.fieldValues.student_id ? "" : props.fieldValues.student_id}
+          />
+        </FormControl>
+      </VStack>
     </>
   )
 }
@@ -358,7 +362,7 @@ export const Multistep = () => {
   }
 
   return (
-    <>
+    <Center>
       <Box
         borderWidth="1px"
         rounded="lg"
@@ -367,15 +371,22 @@ export const Multistep = () => {
         p={6}
         m="10px auto"
         as="form"
+        minW={"30vw"}
+        minH={"56vh"}
+        display={"grid"}
+        gridTemplateRows={"auto auto-fit auto"}
+        gridTemplateColumns={"auto"}
       >
         <Progress hasStripe value={progress} mb="5%" mx="5%" isAnimated></Progress>
-        {step === 1 ? (
-          <Form1 setFieldValues={setFieldValues} fieldValues={fieldValues} />
-        ) : step === 2 ? (
-          <Form2 setFieldValues={setFieldValues} fieldValues={fieldValues} deptData={deptData} />
-        ) : (
-          <Form3 handleAgree={handleAgree} Agree={Agree} />
-        )}
+        <>
+          {step === 1 ? (
+            <Form1 setFieldValues={setFieldValues} fieldValues={fieldValues} />
+          ) : step === 2 ? (
+            <Form2 setFieldValues={setFieldValues} fieldValues={fieldValues} deptData={deptData} />
+          ) : (
+            <Form3 handleAgree={handleAgree} Agree={Agree} />
+          )}
+        </>
         <ButtonGroup mt="5%" w="100%">
           <Flex w="100%" justifyContent="space-between">
             <Flex>
@@ -426,6 +437,6 @@ export const Multistep = () => {
           </Flex>
         </ButtonGroup>
       </Box>
-    </>
+    </Center>
   )
 }
