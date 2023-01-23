@@ -36,8 +36,10 @@ export const SignIn = () => {
     e.preventDefault()
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
-        email: fieldValues.email,
-        password: fieldValues.pass,
+        // email: fieldValues.email,
+        // password: fieldValues.pass,
+        email: "pngnka710.dev@gmail.com",
+        password: "password",
       })
       console.log(data)
       if (error) throw error
@@ -125,7 +127,7 @@ export const SignIn = () => {
         gridTemplateColumns={"auto"}
       >
         <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%" mt="7.5%">
-          新規登録
+          ログイン
         </Heading>
         <VStack spacing={"8"}>
           <FormControl mt="2%">
