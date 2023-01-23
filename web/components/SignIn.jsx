@@ -36,10 +36,10 @@ export const SignIn = () => {
     e.preventDefault()
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
-        // email: fieldValues.email,
-        // password: fieldValues.pass,
-        email: "pngnka710.dev@gmail.com",
-        password: "password",
+        email: fieldValues.email,
+        password: fieldValues.pass,
+        // email: "pngnka710.dev@gmail.com",
+        // password: "password",
       })
       console.log(data)
       if (error) throw error
