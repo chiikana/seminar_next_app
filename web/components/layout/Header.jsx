@@ -14,7 +14,7 @@ export const Header = () => {
   })
   return (
     <>
-      <Box pos={"sticky"} top={0} left={0} w={"full"} h={"60px"} zIndex={100}>
+      <Box pos={"sticky"} top={0} w={"full"} h={"60px"} zIndex={100}>
         <title></title>
         {/* <Text>へっだー上だよ</Text> */}
         <Navbar />

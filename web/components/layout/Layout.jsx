@@ -16,7 +16,9 @@ export const Layout = (props) => {
     >
       {hasHeader ? <Header /> : <LinklessHeader />}
       {/* <Header /> */}
-      {children}
+      <Box display={"flex"} zIndex={0}>
+        {children}
+      </Box>
       <Footer />
     </Box>
   )
