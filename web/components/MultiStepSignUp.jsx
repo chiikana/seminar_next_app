@@ -78,10 +78,10 @@ const Form1 = (props) => {
             生年月日
           </FormLabel>
           <Input
-            id="dateOfBirth"
+            id="date_of_birth"
             type="date"
             onChange={(e) =>
-              props.setFieldValues({ ...props.fieldValues, dateOfBirth: e.target.value })
+              props.setFieldValues({ ...props.fieldValues, date_of_birth: e.target.value })
             }
             value={!props.fieldValues.date_of_birth ? "" : props.fieldValues.date_of_birth}
           />
