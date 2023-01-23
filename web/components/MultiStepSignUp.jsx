@@ -83,7 +83,7 @@ const Form1 = (props) => {
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, dateOfBirth: e.target.value })
             }
-            value={!props.fieldValues.dateOfBirth ? "" : props.fieldValues.dateOfBirth}
+            value={!props.fieldValues.date_of_birth ? "" : props.fieldValues.date_of_birth}
           />
         </FormControl>
       </Flex>
@@ -110,8 +110,10 @@ const Form1 = (props) => {
             pr="4.5rem"
             type={show ? "text" : "password"}
             placeholder="パスワードを入力"
-            onChange={(e) => props.setFieldValues({ ...props.fieldValues, pass: e.target.value })}
-            value={!props.fieldValues.pass ? "" : props.fieldValues.pass}
+            onChange={(e) =>
+              props.setFieldValues({ ...props.fieldValues, password: e.target.value })
+            }
+            value={!props.fieldValues.password ? "" : props.fieldValues.password}
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>

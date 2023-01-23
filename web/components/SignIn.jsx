@@ -153,7 +153,7 @@ export const SignIn = () => {
                 type={show ? "text" : "password"}
                 placeholder="パスワードを入力"
                 onChange={(e) => setFieldValues({ ...fieldValues, pass: e.target.value })}
-                value={!fieldValues.pass ? "" : fieldValues.pass}
+                value={!fieldValues.password ? "" : fieldValues.password}
               />
               <InputRightElement width="4.5rem">
                 <Button h="1.75rem" size="sm" onClick={handleClick}>
