@@ -25,7 +25,7 @@ import { useRouter } from "next/router"
 export const SignIn = () => {
   const defaultValues = {
     email: "",
-    pass: "",
+    password: "",
   }
   const [fieldValues, setFieldValues] = useState(defaultValues)
   const router = useRouter()
@@ -37,7 +37,7 @@ export const SignIn = () => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: fieldValues.email,
-        password: fieldValues.pass,
+        password: fieldValues.password,
         // email: "pngnka710.dev@gmail.com",
         // password: "password",
       })

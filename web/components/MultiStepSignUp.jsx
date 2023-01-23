@@ -266,10 +266,10 @@ export const Multistep = () => {
 
   const defaultValues = {
     email: "",
-    pass: "",
+    password: "",
     firstname: "",
     lastname: "",
-    dateOfBirth: "",
+    date_of_birth: "",
     course: "",
     department: "",
     student_id: "",
@@ -286,15 +286,15 @@ export const Multistep = () => {
     e.preventDefault()
     try {
       const { data, error } = await supabase.auth.signUp({
-        // email: fieldValues.email,
-        // password: fieldValues.pass,
-        email: "pngnka710.dev@gmail.com",
-        password: "password",
+        email: fieldValues.email,
+        password: fieldValues.password,
+        // email: "pngnka710.dev@gmail.com",
+        // password: "password",
         options: {
           data: {
             firstname: fieldValues.firstname,
             lastname: fieldValues.lastname,
-            dateOfBirth: fieldValues.dateOfBirth,
+            date_of_birth: fieldValues.date_of_birth,
             course: fieldValues.course,
             department: fieldValues.department,
             student_id: fieldValues.student_id,
