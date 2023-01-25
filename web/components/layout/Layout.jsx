@@ -14,7 +14,7 @@ export const Layout = (props) => {
       minH={"100vh"}
       bg={toggleBgColor}
     >
-      <Box pos={"sticky"}>{hasHeader ? <Header /> : <LinklessHeader />}</Box>
+      {hasHeader ? <Header /> : <LinklessHeader />}
       {/* <Header /> */}
       <Box
         as={"main"}
@@ -23,7 +23,6 @@ export const Layout = (props) => {
         minW={"full"}
         display={"flex"}
         justifyContent={"center"}
-        zIndex={0}
       >
         {children}
       </Box>
