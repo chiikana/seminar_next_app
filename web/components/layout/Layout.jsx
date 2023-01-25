@@ -14,7 +14,7 @@ export const Layout = (props) => {
       minH={"100vh"}
       bg={toggleBgColor}
     >
-      {hasHeader ? <Header /> : <LinklessHeader />}
+      <Box pos={"sticky"}>{hasHeader ? <Header /> : <LinklessHeader />}</Box>
       {/* <Header /> */}
       <Box
         as={"main"}

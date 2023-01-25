@@ -31,7 +31,12 @@ export const EditableContainer = (props) => {
     )
   }
   return (
-    <Editable textAlign="center" defaultValue={props} fontSize="2xl" isPreviewFocusable={false}>
+    <Editable
+      textAlign="center"
+      defaultValue={props.value}
+      fontSize="2xl"
+      isPreviewFocusable={false}
+    >
       <HStack>
         <EditablePreview />
         <Input as={EditableInput} />
