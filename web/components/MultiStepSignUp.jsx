@@ -325,18 +325,6 @@ export const Multistep = () => {
     }
 
     // try {
-    //   const { data, error } = await supabase.auth.signInWithPassword({
-    //     email: fieldValues.email,
-    //     password: fieldValues.pass,
-    //   })
-    //   console.log(data)
-    //   if (error) throw error
-    //   alert("success for signin!")
-    // } catch (error) {
-    //   alert(error.error_description || error.message)
-    // }
-
-    // try {
     //   const { data, error } = await supabase
     //     .from("profiles")
     //     .insert(

@@ -16,7 +16,16 @@ export const Layout = (props) => {
     >
       {hasHeader ? <Header /> : <LinklessHeader />}
       {/* <Header /> */}
-      {children}
+      <Box
+        as={"main"}
+        bg={toggleBgColor}
+        minH={"full"}
+        minW={"full"}
+        display={"flex"}
+        justifyContent={"center"}
+      >
+        {children}
+      </Box>
       <Footer />
     </Box>
   )
