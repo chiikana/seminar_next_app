@@ -1,4 +1,3 @@
-import React from "react"
 import {
   Box,
   chakra,
@@ -9,14 +8,11 @@ import {
   VisuallyHidden,
 } from "@chakra-ui/react"
 import Link from "next/link"
-import { useRouter } from "next/router"
-import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa"
 
 export const Footer = () => {
   const toggleTextColor = useColorModeValue("gray.800", "white")
   const toggleBgColor = useColorModeValue("gray.50", "gray.800")
   const toggleBorderColor = useColorModeValue("gray.200", "gray.900")
-  const router = useRouter()
   return (
     <>
       {/* <Box as="p">フッター上だよ</Box> */}
