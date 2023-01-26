@@ -1,14 +1,14 @@
-import { Session, User } from '@supabase/supabase-js'
-import { useState, useEffect } from 'react'
-import { supabase } from '../libs/utils/supabaseClient'
+import { Session, User } from "@supabase/supabase-js"
+import { useState, useEffect } from "react"
+import { supabase } from "../libs/supabaseClient"
 
 const useAuthUser = () => {
-  const [session, setSession] = useState<Session>()
-  const [user, setUser] = useState<User | null>()
-  const [userId, setUserId] = useState('')
-  const [isLoading, setLoading] = useState<boolean>()
+  const [session, setSession] = useState()
+  const [user, setUser] = useState()
+  const [userId, setUserId] = useState("")
+  const [isLoading, setLoading] = useState()
   const [token, setToken] = useState()
-  const [profileId, setProfileId] = useState<string>()
+  const [profileId, setProfileId] = useState()
   const getUser = async () => {
     const {
       data: { user },
