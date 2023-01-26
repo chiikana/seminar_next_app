@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa"
 
 export const Footer = () => {
   const toggleTextColor = useColorModeValue("gray.800", "white")
