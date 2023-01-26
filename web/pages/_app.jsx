@@ -1,10 +1,11 @@
-import '../styles/globals.css'
-import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
-import { SessionContextProvider } from '@supabase/auth-helpers-react'
-import { useState } from 'react'
-import { ChakraProvider } from '@chakra-ui/react'
-import { supabase } from '../service/supabaseClient'
-import { useRouter } from 'next/router'
+import "../styles/globals.css"
+import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs"
+import { SessionContextProvider } from "@supabase/auth-helpers-react"
+import { ChakraProvider, Button } from "@chakra-ui/react"
+import { supabase } from "../src/libs/supabaseClient"
+import { useRouter } from "next/router"
+import { useState } from "react"
+import { Layout } from "../components/Layout/Layout"
 
 const MyApp = ({ Component, pageProps }) => {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient())
@@ -16,23 +17,6 @@ const MyApp = ({ Component, pageProps }) => {
         supabaseClient={supabaseClient}
         initialSession={pageProps.initialSession}
       >
-        <button
-          onClick={async () => {
-            await supabase.auth.signOut()
-            router.push('/')
-          }}
-        >
-          Logout
-        </button>
-
-        <button
-  onClick={() => {
-    router.push("accountPage")//ダブりクォーテーションの中はpagesディレクトリのファイル名
-  }}
->
-Signin
-</button>
-
         <Component {...pageProps} />
       </SessionContextProvider>
     </ChakraProvider>

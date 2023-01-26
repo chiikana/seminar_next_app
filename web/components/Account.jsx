@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react"
 
-const Account = ({ session }) => {
+export const Account = ({ session }) => {
   const supabase = useSupabaseClient()
   const user = useUser()
   const [loading, setLoading] = useState(true)
@@ -106,4 +106,3 @@ const Account = ({ session }) => {
     </div>
   )
 }
-export default Account
