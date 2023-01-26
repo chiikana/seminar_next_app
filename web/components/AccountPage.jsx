@@ -49,9 +49,16 @@ export const AccountInfo = (props) => {
                 学科
               </Heading>
               <Text pt="2" fontSize="sm">
-                ああああ
+              ああああ
               </Text>
-              <Button align="right" id="aaaa" onClick={() => CA()}>
+              <Button
+                align="right"
+                id="aaaa"
+                border={"1px"}
+                borderColor={"gray.50"}
+                _hover={{ bg: "teal.50", border: "1px", borderColor: "teal.300" }}
+                onClick={() => CA()}
+              >
                 編集
               </Button>
             </Flex>
@@ -62,7 +69,14 @@ export const AccountInfo = (props) => {
               <Text pt="2" fontSize="sm">
                 ああああ
               </Text>
-              <Button align="right" id="aaaa" onClick={() => CA()}>
+              <Button
+                align="right"
+                id="aaaa"
+                border={"1px"}
+                borderColor={"gray.50"}
+                _hover={{ bg: "teal.50", border: "1px", borderColor: "teal.300" }}
+                onClick={() => CA()}
+              >
                 編集
               </Button>
             </Flex>
@@ -73,7 +87,14 @@ export const AccountInfo = (props) => {
               <Text pt="2" fontSize="sm">
                 ああああ
               </Text>
-              <Button align="right" id="aaaa" onClick={() => CA()}>
+              <Button
+                align="right"
+                id="aaaa"
+                border={"1px"}
+                borderColor={"gray.50"}
+                _hover={{ bg: "teal.50", border: "1px", borderColor: "teal.300" }}
+                onClick={() => CA()}
+              >
                 編集
               </Button>
             </Flex>
@@ -82,9 +103,16 @@ export const AccountInfo = (props) => {
                 メアド
               </Heading>
               <Text pt="2" fontSize="sm">
-                ああああ
+               ああああ
               </Text>
-              <Button align="right" id="aaaa" onClick={() => CA()}>
+              <Button
+                align="right"
+                id="aaaa"
+                border={"1px"}
+                borderColor={"gray.50"}
+                _hover={{ bg: "teal.50", border: "1px", borderColor: "teal.300" }}
+                onClick={() => CA()}
+              >
                 編集
               </Button>
             </Flex>
