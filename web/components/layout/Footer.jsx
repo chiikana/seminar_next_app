@@ -39,6 +39,9 @@ export const Footer = () => {
             <Link href={"/databaseAll"} passHref replace>
               <Text>DA</Text>
             </Link>
+            <Link href={"/accountPage/"} passHref replace>
+              <Text>AP</Text>
+            </Link>
             <Link href={"/signin/"} passHref replace>
               <Text>SI</Text>
             </Link>
