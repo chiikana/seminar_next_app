@@ -3,6 +3,7 @@ import React, { useState } from "react"
 import {
   Button,
   ButtonGroup,
+  Box,
   Fade,
   Flex,
   Input,
@@ -43,21 +44,23 @@ const DatabaseAll = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [show, setShow] = React.useState(false)
   const handleClick = () => setShow(!show)
+  // const [user ,setUser] = useState(null)
   return (
     <>
-      <Flex>
-        <Input id="sBox" />
-        <Button id="sButton" colorScheme="teal" variant="solid" onClick={() => Search()}>
+    <Box margin="auto" width="80%">
+      <Flex mt="10px" mb="5px" w="500px">
+        <Input id="sBox" background="white"/>
+        <Button id="sButton" margin left="5px" colorScheme="teal" variant="solid" onClick={() => Search()}>
           検索
         </Button>
-        <Button id="allButton" colorScheme="teal" variant="outline" onClick={() => ShowAll()}>
+        <Button id="allButton" margin left="10px" colorScheme="teal" variant="outline" onClick={() => ShowAll()}>
           全表示
         </Button>
       </Flex>
       <TableContainer>
-        <Table variant="simple">
-          <TableCaption>Imperial to metric conversion factors</TableCaption>
-          <Thead position="sticky" top={0} zIndex="docked">
+      <Table variant="simple">
+          {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
+          <Thead>
             <Tr>
               <Th>number</Th>
               <Th>name</Th>
@@ -243,12 +246,20 @@ const DatabaseAll = (props) => {
             </Tr>
           </Tfoot>
         </Table>
+        {/* 番号ごとにページ遷移 */}
+        {/* <Button id="sButton" margin="auto" colorScheme="teal" variant="solid" onClick={() => Search()}>
+          a
+        </Button>
+        <Button id="sButton" margin="auto" colorScheme="teal" variant="solid" onClick={() => Search()}>
+          a
+        </Button> */}
       </TableContainer>
-      <>
+    </Box>
+    <>
         {/* 活動内容（モーダルウィンドウ） */}
         <Modal isOpen={isOpen} onClose={onClose} size="full">
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent width="auto" mt="10px" mb="10px">
             <ModalHeader>
               {/* 番号、氏名などの情報を表示 */}
               【活動内容】 4 村上 侍 内定済み
@@ -259,7 +270,7 @@ const DatabaseAll = (props) => {
               <TableContainer>
                 <Table variant="simple">
                   {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
-                  <Thead position="sticky" top={0} zIndex="docked">
+                  <Thead>
                     <Tr>
                       <Th>detail</Th>
                       <Th>place</Th>

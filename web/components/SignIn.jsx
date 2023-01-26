@@ -37,7 +37,7 @@ export const SignIn = () => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: fieldValues.email,
-        password: fieldValues.password,
+        password: fieldValues.pass,
         // email: "pngnka710.dev@gmail.com",
         // password: "password",
       })
@@ -153,7 +153,7 @@ export const SignIn = () => {
                 type={show ? "text" : "password"}
                 placeholder="パスワードを入力"
                 onChange={(e) => setFieldValues({ ...fieldValues, pass: e.target.value })}
-                value={!fieldValues.password ? "" : fieldValues.password}
+                value={!fieldValues.pass ? "" : fieldValues.pass}
               />
               <InputRightElement width="4.5rem">
                 <Button h="1.75rem" size="sm" onClick={handleClick}>
