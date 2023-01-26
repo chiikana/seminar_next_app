@@ -57,9 +57,7 @@ export const Footer = () => {
           borderTopWidth={1}
           borderStyle={"solid"}
           borderColor={useColorModeValue("gray.200", "gray.700")}
-        >
-        
-        </Box>
+        ></Box>
       </Box>
       {/* <Box as="p">フッター下だよ</Box> */}
     </>
