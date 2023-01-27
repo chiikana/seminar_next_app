@@ -1,17 +1,4 @@
-import {
-  ButtonGroup,
-  Container,
-  Editable,
-  EditableInput,
-  EditablePreview,
-  Flex,
-  HStack,
-  IconButton,
-  Input,
-  SimpleGrid,
-  useEditableControls,
-  VStack,
-} from "@chakra-ui/react"
+import { Flex } from "@chakra-ui/react"
 import { EditableContainer } from "./Editable"
 
 export const ProfileEdit = () => {

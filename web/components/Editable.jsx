@@ -1,6 +1,5 @@
 import {
   ButtonGroup,
-  Container,
   Editable,
   EditableInput,
   EditablePreview,
@@ -8,9 +7,7 @@ import {
   HStack,
   IconButton,
   Input,
-  SimpleGrid,
   useEditableControls,
-  VStack,
 } from "@chakra-ui/react"
 import { FaCheck, FaEdit, FaTimes } from "react-icons/fa"
 

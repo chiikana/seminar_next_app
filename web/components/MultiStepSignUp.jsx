@@ -1,38 +1,33 @@
-import React, { useState, useEffect } from "react"
-import { useRouter } from "next/router"
 import {
-  Progress,
   Box,
-  ButtonGroup,
   Button,
-  Heading,
-  HStack,
+  ButtonGroup,
+  Center,
   Flex,
   FormControl,
-  GridItem,
   FormLabel,
+  GridItem,
+  Heading,
+  HStack,
   Input,
-  Select,
-  Text,
-  SimpleGrid,
-  InputLeftAddon,
   InputGroup,
-  Textarea,
-  FormHelperText,
   InputRightElement,
+  Progress,
+  Select,
   Switch,
+  Text,
+  Textarea,
   useToast,
-  Center,
   VStack,
 } from "@chakra-ui/react"
-import { FaEyeSlash, FaEye } from "react-icons/fa"
+import { useRouter } from "next/router"
+import React, { useEffect, useState } from "react"
+import { FaEye, FaEyeSlash } from "react-icons/fa"
 
 import { supabase } from "../src/libs/supabaseClient"
-import { User } from "@supabase/supabase-js"
 
-import TOS from "./tos.json"
 import deptData from "./dept.json"
-import { Layout } from "./Layout/Layout"
+import TOS from "./tos.json"
 
 const Form1 = (props) => {
   const [show, setShow] = useState(false)
@@ -290,8 +285,6 @@ export const Multistep = () => {
       const { data, error } = await supabase.auth.signUp({
         email: fieldValues.email,
         password: fieldValues.password,
-        // email: "pngnka710.dev@gmail.com",
-        // password: "password",
         options: {
           data: {
             firstname: fieldValues.firstname,
@@ -300,12 +293,6 @@ export const Multistep = () => {
             course: fieldValues.course,
             department: fieldValues.department,
             student_id: fieldValues.student_id,
-            // firstname: "奏斗",
-            // lastname: "須﨑",
-            // course: "コンピューター・IT分野",
-            // department: "情報総合学科",
-            // student_id: "20206002",
-            // date_of_birth: "2001-08-24",
           },
         },
       })
@@ -323,27 +310,6 @@ export const Multistep = () => {
     } catch (error) {
       alert(error.error_description || error.message)
     }
-
-    // try {
-    //   const { data, error } = await supabase
-    //     .from("profiles")
-    //     .insert(
-    //       [
-    //         { lastname: fieldValues.lastname },
-    //         { firstname: fieldValues.firstname },
-    //         { dateOfBirth: fieldValues.dateOfBirth },
-    //         { course: fieldValues.course },
-    //         { department: fieldValues.department },
-    //         { student_id: fieldValues.firstname },
-    //       ],
-    //       { upsert: true }
-    //     )
-    //   console.log(data)
-    //   if (error) throw error
-    //   alert("success for insert!")
-    // } catch (error) {
-    //   alert(error.error_description || error.message)
-    // }
   }
 
   const handleSignOut = async (e) => {

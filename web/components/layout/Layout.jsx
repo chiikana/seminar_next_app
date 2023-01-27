@@ -15,7 +15,6 @@ export const Layout = (props) => {
       bg={toggleBgColor}
     >
       {hasHeader ? <Header /> : <LinklessHeader />}
-      {/* <Header /> */}
       <Box
         as={"main"}
         bg={toggleBgColor}
