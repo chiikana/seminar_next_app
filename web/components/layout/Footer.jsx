@@ -23,6 +23,7 @@ export const Footer = () => {
         borderStyle={"solid"}
         borderColor={toggleBorderColor}
         top={"100vh"}
+        h={"60px"}
       >
         <Container as={Stack} maxW={"6xl"} py={4} spacing={4} justify={"center"} align={"center"}>
           <Stack direction={"row"} spacing={6}>

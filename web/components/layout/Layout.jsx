@@ -1,4 +1,4 @@
-import { Box, useColorModeValue } from "@chakra-ui/react"
+import { Box, calc, useColorModeValue } from "@chakra-ui/react"
 import { Footer } from "./Footer"
 import { Header } from "./Header"
 import { LinklessHeader } from "./Linkless"
@@ -19,7 +19,7 @@ export const Layout = (props) => {
       <Box
         as={"main"}
         bg={toggleBgColor}
-        minH={"full"}
+        h={"calc(100vh - 60px - 60px)"}
         minW={"full"}
         display={"flex"}
         justifyContent={"center"}
