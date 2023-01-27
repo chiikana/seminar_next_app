@@ -37,7 +37,7 @@ export const SignIn = () => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: fieldValues.email,
-        password: fieldValues.pass,
+        password: fieldValues.password,
         // email: "pngnka710.dev@gmail.com",
         // password: "password",
       })
