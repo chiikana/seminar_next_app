@@ -1,4 +1,4 @@
-import { Box, useColorModeValue } from "@chakra-ui/react"
+import { Box, calc, useColorModeValue } from "@chakra-ui/react"
 import { Footer } from "./Footer"
 import { Header } from "./Header"
 import { LinklessHeader } from "./Linkless"
@@ -16,7 +16,16 @@ export const Layout = (props) => {
     >
       {hasHeader ? <Header /> : <LinklessHeader />}
       {/* <Header /> */}
-      {children}
+      <Box
+        as={"main"}
+        bg={toggleBgColor}
+        h={"calc(100vh - 60px - 60px)"}
+        minW={"full"}
+        display={"flex"}
+        justifyContent={"center"}
+      >
+        {children}
+      </Box>
       <Footer />
     </Box>
   )

@@ -87,6 +87,7 @@ export const Navbar = () => {
             <Flex
               // alignItems={"center"}
               direction={"row"}
+              zIndex={100}
             >
               <Menu>
                 <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: "none" }}>

@@ -3,6 +3,7 @@ import { Profile } from "../../components/Profile"
 import { SideNav } from "../../components/SideNav"
 import { SearchBox } from "../../components/SerchBox"
 import { Layout } from "../../components/Layout/Layout"
+import { AccountInfo } from "../../components/AccountPage"
 
 const profilePage = () => {
   return (
@@ -13,7 +14,8 @@ const profilePage = () => {
           <Divider orientation="vertical" />
         </Center>
       </Flex> */}
-      <Profile />
+      {/* <Profile /> */}
+      <AccountInfo />
     </Layout>
   )
 }
