@@ -1,7 +1,7 @@
 import { Box, calc, useColorModeValue } from "@chakra-ui/react"
 import { Footer } from "./Footer"
 import { Header } from "./Header"
-import { LinklessHeader } from "./Linkless"
+import { LinklessHeader } from "./LinklessHeader"
 
 export const Layout = (props) => {
   const { children, hasHeader = true } = props
