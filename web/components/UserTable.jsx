@@ -25,7 +25,9 @@ export const UserTable = (props) => {
               }}
               cursor={"pointer"}
             >
-              <Td>{e.full_name}</Td>
+              <Td>
+                {e.lastname} {e.firstname}
+              </Td>
               <Td>
                 {e.corps.map((corp) => (
                   <Tag key={corp.corp_id} mr={2}>
