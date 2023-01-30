@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-
 import {
   Button,
   ButtonGroup,
@@ -25,7 +24,11 @@ import {
   TableCaption,
   TableContainer,
   useDisclosure,
+  VStack,
 } from "@chakra-ui/react"
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
+import useAuthUser from "../src/hooks/useAuthUser"
+// import {Layout} from "./Layout/Layout"
 
 //検索
 const Search = () => {
@@ -40,236 +43,224 @@ const ShowAll = () => {
 }
 
 // ページ
+// export
 const DatabaseAll = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [show, setShow] = React.useState(false)
   const handleClick = () => setShow(!show)
-  // const [user ,setUser] = useState(null)
+  const supabase = useSupabaseClient()
+  const { user } = useAuthUser()
   return (
     <>
-      <Box margin="auto" width="80%">
-        <Flex mt="10px" mb="5px" w="500px">
-          <Input id="sBox" background="white" />
-          <Button
-            id="sButton"
-            margin
-            left="5px"
-            colorScheme="teal"
-            variant="solid"
-            onClick={() => Search()}
-          >
-            検索
-          </Button>
-          <Button
-            id="allButton"
-            margin
-            left="10px"
-            colorScheme="teal"
-            variant="outline"
-            onClick={() => ShowAll()}
-          >
-            全表示
-          </Button>
-        </Flex>
-        <TableContainer>
-          <Table variant="simple">
-            {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
-            <Thead>
-              <Tr>
-                <Th>number</Th>
-                <Th>name</Th>
-                <Th>enterprise</Th>
-                <Th>progress</Th>
-                <Th>detail</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td>1</Td>
-                <Td>塩見</Td>
-                <Td>ヤクルト</Td>
-                <Td></Td>
-                <Td>
-                  <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                    活動内容
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td></Td>
-                <Td></Td>
-                <Td>侍</Td>
-                <Td>二次面接</Td>
-                <Td>
-                  <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                    活動内容
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>2</Td>
-                <Td>青木</Td>
-                <Td>ヤクルト</Td>
-                <Td></Td>
-                <Td>
-                  <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                    活動内容
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>3</Td>
-                <Td>山田</Td>
-                <Td>ヤクルト</Td>
-                <Td></Td>
-                <Td>
-                  <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                    活動内容
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td></Td>
-                <Td></Td>
-                <Td>侍</Td>
-                <Td>一次面接</Td>
-                <Td>
-                  <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                    活動内容
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>4</Td>
-                <Td>村上</Td>
-                <Td>ヤクルト</Td>
-                <Td></Td>
-                <Td>
-                  <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                    活動内容
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td></Td>
-                <Td></Td>
-                <Td>侍</Td>
-                <Td>内定済み</Td>
-                <Td>
-                  <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                    活動内容
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>5</Td>
-                <Td>オスナ</Td>
-                <Td>ヤクルト</Td>
-                <Td></Td>
-                <Td>
-                  <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                    活動内容
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td></Td>
-                <Td></Td>
-                <Td>侍</Td>
-                <Td>内定辞退</Td>
-                <Td>
-                  <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                    活動内容
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>6</Td>
-                <Td>サンタナ</Td>
-                <Td>ヤクルト</Td>
-                <Td></Td>
-                <Td>
-                  <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                    活動内容
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td></Td>
-                <Td></Td>
-                <Td>侍</Td>
-                <Td>受験せず</Td>
-                <Td>
-                  <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                    活動内容
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>7</Td>
-                <Td>中村</Td>
-                <Td>ヤクルト</Td>
-                <Td></Td>
-                <Td>
-                  <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                    活動内容
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td></Td>
-                <Td></Td>
-                <Td>侍</Td>
-                <Td>最終面接</Td>
-                <Td>
-                  <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                    活動内容
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>8</Td>
-                <Td>長岡</Td>
-                <Td>ヤクルト</Td>
-                <Td></Td>
-                <Td>
-                  <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                    活動内容
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>9</Td>
-                <Td>奥川</Td>
-                <Td>ヤクルト</Td>
-                <Td></Td>
-                <Td>
-                  <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                    活動内容
-                  </Button>
-                </Td>
-              </Tr>
-            </Tbody>
-            <Tfoot>
-              <Tr>
-                <Th>number</Th>
-                <Th>name</Th>
-                <Th>enterprise</Th>
-                <Th>progress</Th>
-                <Th>detail</Th>
-              </Tr>
-            </Tfoot>
-          </Table>
-          {/* 番号ごとにページ遷移 */}
-          {/* <Button id="sButton" margin="auto" colorScheme="teal" variant="solid" onClick={() => Search()}>
+    <VStack>
+      <Flex mt="10px" mb="5px" w="500px">
+        <Input id="sBox" background="white"/>
+        <Button id="sButton" margin left="5px" colorScheme="teal" variant="solid" onClick={() => Search()}>
+          検索
+        </Button>
+        <Button id="allButton" margin left="10px" colorScheme="teal" variant="outline" onClick={() => ShowAll()}>
+          全表示
+        </Button>
+      </Flex>
+      <TableContainer minW={"70vw"} overflowY={"auto"}>
+      <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>number</Th>
+              <Th>name</Th>
+              <Th>enterprise</Th>
+              <Th>progress</Th>
+              <Th>detail</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            <Tr>
+              <Td>1</Td>
+              <Td>{user?.user_metadata.lastname}</Td>
+              <Td>ヤクルト</Td>
+              <Td></Td>
+              <Td>
+                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                  活動内容
+                </Button>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td></Td>
+              <Td></Td>
+              <Td>侍</Td>
+              <Td>二次面接</Td>
+              <Td>
+                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                  活動内容
+                </Button>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td>2</Td>
+              <Td>青木</Td>
+              <Td>ヤクルト</Td>
+              <Td></Td>
+              <Td>
+                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                  活動内容
+                </Button>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td>3</Td>
+              <Td>山田</Td>
+              <Td>ヤクルト</Td>
+              <Td></Td>
+              <Td>
+                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                  活動内容
+                </Button>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td></Td>
+              <Td></Td>
+              <Td>侍</Td>
+              <Td>一次面接</Td>
+              <Td>
+                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                  活動内容
+                </Button>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td>4</Td>
+              <Td>村上</Td>
+              <Td>ヤクルト</Td>
+              <Td></Td>
+              <Td>
+                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                  活動内容
+                </Button>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td></Td>
+              <Td></Td>
+              <Td>侍</Td>
+              <Td>内定済み</Td>
+              <Td>
+                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                  活動内容
+                </Button>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td>5</Td>
+              <Td>オスナ</Td>
+              <Td>ヤクルト</Td>
+              <Td></Td>
+              <Td>
+                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                  活動内容
+                </Button>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td></Td>
+              <Td></Td>
+              <Td>侍</Td>
+              <Td>内定辞退</Td>
+              <Td>
+                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                  活動内容
+                </Button>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td>6</Td>
+              <Td>サンタナ</Td>
+              <Td>ヤクルト</Td>
+              <Td></Td>
+              <Td>
+                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                  活動内容
+                </Button>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td></Td>
+              <Td></Td>
+              <Td>侍</Td>
+              <Td>受験せず</Td>
+              <Td>
+                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                  活動内容
+                </Button>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td>7</Td>
+              <Td>中村</Td>
+              <Td>ヤクルト</Td>
+              <Td></Td>
+              <Td>
+                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                  活動内容
+                </Button>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td></Td>
+              <Td></Td>
+              <Td>侍</Td>
+              <Td>最終面接</Td>
+              <Td>
+                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                  活動内容
+                </Button>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td>8</Td>
+              <Td>長岡</Td>
+              <Td>ヤクルト</Td>
+              <Td></Td>
+              <Td>
+                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                  活動内容
+                </Button>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td>9</Td>
+              <Td>奥川</Td>
+              <Td>ヤクルト</Td>
+              <Td></Td>
+              <Td>
+                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                  活動内容
+                </Button>
+              </Td>
+            </Tr>
+          </Tbody>
+          <Tfoot>
+            <Tr>
+              <Th>number</Th>
+              <Th>name</Th>
+              <Th>enterprise</Th>
+              <Th>progress</Th>
+              <Th>detail</Th>
+            </Tr>
+          </Tfoot>
+        </Table>
+        {/* 番号ごとにページ遷移 */}
+        {/* <Button id="sButton" margin="auto" colorScheme="teal" variant="solid" onClick={() => Search()}>
           a
         </Button>
         <Button id="sButton" margin="auto" colorScheme="teal" variant="solid" onClick={() => Search()}>
           a
         </Button> */}
-        </TableContainer>
-      </Box>
-      <>
+
+      </TableContainer>
+    </VStack>
+    <>
         {/* 活動内容（モーダルウィンドウ） */}
         <Modal isOpen={isOpen} onClose={onClose} size="full">
           <ModalOverlay />
