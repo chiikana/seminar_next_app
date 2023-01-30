@@ -158,7 +158,7 @@ export const AccountInfo = (props) => {
             justify={"space-between"}
           >
             <HStack justify={"space-between"}>
-              <Heading size="xs" textTransform="uppercase" w={"100px"}>
+              <Heading size="md" textTransform="uppercase" w={"170px"}>
                 名前
               </Heading>
               <HStack>
@@ -175,7 +175,7 @@ export const AccountInfo = (props) => {
               <Box w={"170px"}></Box>
             </HStack>
             <HStack justify={"space-between"}>
-              <Heading size="xs" textTransform="uppercase" w={"100px"}>
+              <Heading size="md" textTransform="uppercase" w={"170px"}>
                 学科
               </Heading>
               <HStack>
@@ -200,7 +200,7 @@ export const AccountInfo = (props) => {
               <Box w={"170px"}></Box>
             </HStack>
             <HStack justify={"space-between"}>
-              <Heading size="xs" textTransform="uppercase" w={"100px"}>
+              <Heading size="md" textTransform="uppercase" w={"170px"}>
                 出席番号
               </Heading>
               <Text pt="2" fontSize="sm">
@@ -211,7 +211,7 @@ export const AccountInfo = (props) => {
               <Box w={"170px"}></Box>
             </HStack>
             <HStack justify={"space-between"}>
-              <Heading size="xs" textTransform="uppercase" w={"100px"}>
+              <Heading size="md" textTransform="uppercase" w={"170px"}>
                 生年月日
               </Heading>
               <Text pt="2" fontSize="sm">
@@ -222,7 +222,7 @@ export const AccountInfo = (props) => {
               <Box w={"170px"}></Box>
             </HStack>
             <HStack justify={"space-between"}>
-              <Heading size="xs" textTransform="uppercase" w={"100px"}>
+              <Heading size="md" textTransform="uppercase" w={"170px"}>
                 メールアドレス
               </Heading>
               <Text pt="2" fontSize="sm">
@@ -248,7 +248,7 @@ export const AccountInfo = (props) => {
               </Button>
             </HStack>
             <HStack justify={"space-between"}>
-              <Heading size="xs" textTransform="uppercase" w={"100px"}>
+              <Heading size="md" textTransform="uppercase" w={"170px"}>
                 パスワード
               </Heading>
               <Text pt="2" fontSize="sm">
