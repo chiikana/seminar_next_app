@@ -15,10 +15,8 @@ export const Header = () => {
   return (
     <>
       <Box pos={"sticky"} top={0} w={"full"} h={"60px"} zIndex={50}>
-        <title></title>
-        {/* <Text>へっだー上だよ</Text> */}
+        <title>NKC就活状況アプリ</title>
         <Navbar />
-        {/* <Text>へっだー下だよ</Text> */}
         {isScrolled ? (
           <Box
             borderBottom={"1px"}

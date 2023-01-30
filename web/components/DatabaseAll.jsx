@@ -257,6 +257,7 @@ const DatabaseAll = (props) => {
         <Button id="sButton" margin="auto" colorScheme="teal" variant="solid" onClick={() => Search()}>
           a
         </Button> */}
+
       </TableContainer>
     </VStack>
     <>
