@@ -32,19 +32,32 @@ import { useState, useEffect } from "react"
 export const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   const { isOpen, onToggle } = useDisclosure()
-  const [username, setUsername] = useState("")
-  const [lastname, setLastname] = useState("")
-  const [firstname, setFirstname] = useState("")
   const toggleTextColor = useColorModeValue("gray.800", "white")
   const toggleBgColor = useColorModeValue("gray.50", "gray.800")
   const router = useRouter()
   const { user } = useAuthUser()
 
+  const defaultValue = {
+    firstname: "",
+    lastname: "",
+  }
+
+  const [fieldValues, setFieldValues] = useState(defaultValue)
+
   useEffect(() => {
-    setLastname(user?.user_metadata.lastname)
-    setFirstname(user?.user_metadata.firstname)
-    setUsername(lastname + " " + firstname)
-  })
+    if (user) getProfile(user.id)
+  }, [user])
+
+  const getProfile = async (user_id) => {
+    let { data } = await supabase.from("profiles").select("firstname,lastname").eq("id", user_id)
+    if (data) {
+      setFieldValues({
+        ...fieldValues,
+        firstname: data[0].firstname,
+        lastname: data[0].lastname,
+      })
+    }
+  }
 
   const handleSignOut = async (e) => {
     e.preventDefault()
@@ -124,7 +137,7 @@ export const Navbar = () => {
                   </HStack>
                 </MenuButton>
                 <MenuList>
-                  <MenuGroup title={username}></MenuGroup>
+                  <MenuGroup title={fieldValues.lastname + " " + fieldValues.firstname}></MenuGroup>
                   <MenuDivider />
                   <MenuItem
                     onClick={() => {
