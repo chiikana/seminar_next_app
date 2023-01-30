@@ -239,16 +239,7 @@ export const UpsertModal = () => {
     class: "",
     student_id: "",
   }
-  // const nowFieldValues = {
-  //   email: user?.email,
-  //   firstname: user?.user_metadata.firstname,
-  //   lastname: user?.user_metadata.lastname,
-  //   date_of_birth: user?.user_metadata.date_of_birth,
-  //   course: user?.user_metadata.course,
-  //   department: user?.user_metadata.department,
-  //   class: user?.user_metadata.class,
-  //   student_id: user?.user_metadata.student_id,
-  // }
+
   const [fieldValues, setFieldValues] = useState(defaultValues)
   const router = useRouter()
 
@@ -305,7 +296,10 @@ export const UpsertModal = () => {
         isClosable: true,
       })
       // Router.reload()
-      router.replace("/profilePage/")
+
+      // router.replace("/profilePage/")
+      router.reload()
+      onClose()
     } catch (error) {
       toast({
         title: "ERROR!!",
@@ -323,7 +317,6 @@ export const UpsertModal = () => {
     const status = {
       user_id: user.id,
     }
-
     updateProfile(status)
   }
 
@@ -355,7 +348,6 @@ export const UpsertModal = () => {
               shadow="1px 1px 3px rgba(0,0,0,0.3)"
               // maxWidth={800}
               p={6}
-              // m="10px auto"
               as="form"
               display={"grid"}
               gridTemplateRows={"auto auto-fit auto"}
@@ -415,7 +407,7 @@ export const UpsertModal = () => {
                       variant="solid"
                       onClick={(e) => {
                         onSubmit(e)
-                        router.reload()
+                        // router.reload()
                       }}
                     >
                       送信

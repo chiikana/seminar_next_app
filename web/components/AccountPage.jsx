@@ -157,16 +157,17 @@ export const AccountInfo = (props) => {
             spacing="4"
             justify={"space-between"}
           >
+            <></>
             <HStack justify={"space-between"}>
               <Heading size="md" textTransform="uppercase" w={"170px"}>
                 名前
               </Heading>
               <HStack>
-                <Text pt="2" fontSize="sm">
+                <Text pt="2" fontSize="xl">
                   {/* {user?.user_metadata.lastname} */}
                   {fieldValues.lastname}
                 </Text>
-                <Text pt="2" fontSize="sm">
+                <Text pt="2" fontSize="xl">
                   {/* {user?.user_metadata.firstname} */}
                   {fieldValues.firstname}
                 </Text>
@@ -179,18 +180,21 @@ export const AccountInfo = (props) => {
                 学科
               </Heading>
               <HStack>
-                <Text pt="2" fontSize="sm">
+                <Text pt="2" fontSize="xl">
                   {/* {user?.user_metadata.course} */}
                   {fieldValues.course}
                 </Text>
-                <Text pt="2" fontSize="sm">
-                  {/* {user?.user_metadata.department} */}
-                  {fieldValues.department}
-                </Text>
-                <Text pt="2" fontSize="sm">
-                  {/* {user?.user_metadata.class}組 */}
-                  {fieldValues.class}組
-                </Text>
+                {fieldValues.course !== "教員" && (
+                  <Text pt="2" fontSize="xl">
+                    {/* {user?.user_metadata.department} */}
+                    {fieldValues.department}
+                  </Text>
+                )}
+                {fieldValues.class !== "" && (
+                  <Text pt="2" fontSize="sm" _after={{ content: `"組"` }}>
+                    {fieldValues.class}
+                  </Text>
+                )}
               </HStack>
               {/* <UpdateModal
                 isCourseDepartment={true}
@@ -203,7 +207,7 @@ export const AccountInfo = (props) => {
               <Heading size="md" textTransform="uppercase" w={"170px"}>
                 出席番号
               </Heading>
-              <Text pt="2" fontSize="sm">
+              <Text pt="2" fontSize="xl">
                 {/* {user?.user_metadata.student_id} */}
                 {fieldValues.student_id}
               </Text>
@@ -214,7 +218,7 @@ export const AccountInfo = (props) => {
               <Heading size="md" textTransform="uppercase" w={"170px"}>
                 生年月日
               </Heading>
-              <Text pt="2" fontSize="sm">
+              <Text pt="2" fontSize="xl">
                 {/* {user?.user_metadata.date_of_birth} */}
                 {fieldValues.date_of_birth}
               </Text>
@@ -225,10 +229,10 @@ export const AccountInfo = (props) => {
               <Heading size="md" textTransform="uppercase" w={"170px"}>
                 メールアドレス
               </Heading>
-              <Text pt="2" fontSize="sm">
-                {user?.email}
+              <Text pt="2" fontSize="xl">
+                {/* {user?.email} */}
                 {/* {profile?.email} */}
-                {/* {fieldValues.email} */}
+                {fieldValues.email}
               </Text>
               {/* <UpdateModal
                 isMailAddress={true}
@@ -251,7 +255,7 @@ export const AccountInfo = (props) => {
               <Heading size="md" textTransform="uppercase" w={"170px"}>
                 パスワード
               </Heading>
-              <Text pt="2" fontSize="sm">
+              <Text pt="2" fontSize="xl">
                 {/* {user?.password} */}
                 {/* {profile?.password} */}
               </Text>
@@ -267,6 +271,7 @@ export const AccountInfo = (props) => {
                 パスワード変更
               </Button>
             </HStack>
+            <></>
           </Stack>
         </CardBody>
       </Card>
