@@ -142,7 +142,7 @@ export const AccountInfo = (props) => {
 
   return (
     <>
-      <Card left="10px" width="60vw" border="3mm ridge rgba(211, 220, 50, .6)">
+      <Card w={"60vw"} border="3mm ridge rgba(211, 220, 50, .6)">
         <CardHeader>
           <HStack justify={"space-between"}>
             <Heading size="md"> アカウント情報 </Heading>
@@ -150,7 +150,13 @@ export const AccountInfo = (props) => {
           </HStack>
         </CardHeader>
         <CardBody>
-          <Stack dir={"col"} divider={<StackDivider />} spacing="4">
+          <Stack
+            h={"100%"}
+            direction={"column"}
+            divider={<StackDivider />}
+            spacing="4"
+            justify={"space-between"}
+          >
             <HStack justify={"space-between"}>
               <Heading size="xs" textTransform="uppercase" w={"100px"}>
                 名前
