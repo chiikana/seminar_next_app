@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-
 import {
   Button,
   ButtonGroup,
@@ -25,7 +24,11 @@ import {
   TableCaption,
   TableContainer,
   useDisclosure,
+  VStack,
 } from "@chakra-ui/react"
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
+import useAuthUser from "../src/hooks/useAuthUser"
+// import {Layout} from "./Layout/Layout"
 
 //検索
 const Search = () => {
@@ -40,14 +43,16 @@ const ShowAll = () => {
 }
 
 // ページ
+// export
 const DatabaseAll = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [show, setShow] = React.useState(false)
   const handleClick = () => setShow(!show)
-  // const [user ,setUser] = useState(null)
+  const supabase = useSupabaseClient()
+  const { user } = useAuthUser()
   return (
     <>
-    <Box margin="auto" width="80%">
+    <VStack>
       <Flex mt="10px" mb="5px" w="500px">
         <Input id="sBox" background="white"/>
         <Button id="sButton" margin left="5px" colorScheme="teal" variant="solid" onClick={() => Search()}>
@@ -57,9 +62,8 @@ const DatabaseAll = (props) => {
           全表示
         </Button>
       </Flex>
-      <TableContainer>
+      <TableContainer minW={"70vw"} overflowY={"auto"}>
       <Table variant="simple">
-          {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
           <Thead>
             <Tr>
               <Th>number</Th>
@@ -72,7 +76,7 @@ const DatabaseAll = (props) => {
           <Tbody>
             <Tr>
               <Td>1</Td>
-              <Td>塩見</Td>
+              <Td>{user?.user_metadata.lastname}</Td>
               <Td>ヤクルト</Td>
               <Td></Td>
               <Td>
@@ -254,7 +258,7 @@ const DatabaseAll = (props) => {
           a
         </Button> */}
       </TableContainer>
-    </Box>
+    </VStack>
     <>
         {/* 活動内容（モーダルウィンドウ） */}
         <Modal isOpen={isOpen} onClose={onClose} size="full">
