@@ -18,7 +18,7 @@ import {
   useToast,
 } from "@chakra-ui/react"
 import { useState } from "react"
-import { supabase } from "../src/libs/supabaseClient"
+import { supabase } from "@/libs/utils/supabaseClient"
 import { FaEyeSlash, FaEye } from "react-icons/fa"
 import { useRouter } from "next/router"
 
@@ -35,23 +35,30 @@ export const SignIn = () => {
   const handleSignIn = async (e) => {
     e.preventDefault()
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email: fieldValues.email,
         password: fieldValues.password,
         // email: "pngnka710.dev@gmail.com",
         // password: "password",
       })
-      console.log(data)
-      if (error) throw error
-      // alert("success for signin!")
-      toast({
-        title: "success!",
-        description: "ログインに成功しました。",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      })
-      router.push("/profilePage")
+      if (error) {
+        toast({
+          title: "ERROR!!",
+          description: "ログインに失敗しました。\n再度お試しください",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        })
+      } else {
+        toast({
+          title: "SUCCESS!!",
+          description: "ログインに成功しました！",
+          status: "success",
+          duration: 1500,
+          isClosable: true,
+        })
+        router.push("/profilePage")
+      }
     } catch (error) {
       alert(error.error_description || error.message)
     }

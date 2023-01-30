@@ -1,7 +1,7 @@
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react"
-import Account from "../components/Account"
-import { Multistep } from "../components/MultiStepSignUp"
-import { Layout } from "../components/Layout/Layout"
+import Account from "@/components/Account"
+import { Multistep } from "@/components/MultiStepSignUp"
+import { Layout } from "@/components/Layout"
 import { Box, Button, Center, HStack, SimpleGrid } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 

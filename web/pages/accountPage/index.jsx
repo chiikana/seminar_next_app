@@ -1,5 +1,5 @@
 import { AccountInfo } from "../../components/AccountPage"
-import { Layout } from "../../components/layout/Layout"
+import { Layout } from "../../components/Layout"
 
 const AccountPage = () => {
   return (

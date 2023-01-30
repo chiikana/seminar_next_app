@@ -1,5 +1,5 @@
-import DatabaseAll from "../components/DatabaseAll"
-import { Layout } from "../components/Layout/Layout"
+import DatabaseAll from "@/components/DatabaseAll"
+import { Layout } from "@/components/Layout"
 
 const tablePage = () => {
   return (

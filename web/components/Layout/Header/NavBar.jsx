@@ -10,6 +10,7 @@ import {
   Menu,
   MenuButton,
   MenuDivider,
+  MenuGroup,
   MenuItem,
   MenuList,
   Popover,
@@ -24,14 +25,38 @@ import {
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { FaChevronDown, FaChevronRight, FaBars, FaTimes, FaMoon, FaRegSun } from "react-icons/fa"
-import { supabase } from "../../src/libs/supabaseClient"
+import { supabase } from "@/libs/utils/supabaseClient"
+import useAuthUser from "@/hooks/useAuthUser"
+import { useState, useEffect } from "react"
 
 export const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   const { isOpen, onToggle } = useDisclosure()
+  const [username, setUsername] = useState("")
+  const [lastname, setLastname] = useState("")
+  const [firstname, setFirstname] = useState("")
   const toggleTextColor = useColorModeValue("gray.800", "white")
   const toggleBgColor = useColorModeValue("gray.50", "gray.800")
   const router = useRouter()
+  const { user } = useAuthUser()
+
+  useEffect(() => {
+    setLastname(user?.user_metadata.lastname)
+    setFirstname(user?.user_metadata.firstname)
+    setUsername(lastname + " " + firstname)
+  })
+
+  const handleSignOut = async (e) => {
+    e.preventDefault()
+
+    const { error } = await supabase.auth.signOut()
+
+    if (error) {
+      alert(JSON.stringify(error))
+    } else {
+      router.push("/")
+    }
+  }
 
   return (
     <Box>
@@ -99,24 +124,17 @@ export const Navbar = () => {
                   </HStack>
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>USERNAME</MenuItem>
+                  <MenuGroup title={username}></MenuGroup>
                   <MenuDivider />
                   <MenuItem
                     onClick={() => {
                       router.push("/profilePage/")
                     }}
                   >
-                    Profile
+                    プロフィール
                   </MenuItem>
                   <MenuDivider />
-                  <MenuItem
-                    onClick={async () => {
-                      await supabase.auth.signOut()
-                      router.push("/")
-                    }}
-                  >
-                    Sign out
-                  </MenuItem>
+                  <MenuItem onClick={handleSignOut}>ログアウト</MenuItem>
                 </MenuList>
               </Menu>
             </Flex>

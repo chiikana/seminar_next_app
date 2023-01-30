@@ -1,5 +1,5 @@
-import { Layout } from "../../components/Layout/Layout"
-import { AccountInfo } from "../../components/AccountPage"
+import { Layout } from "@/components/Layout"
+import { AccountInfo } from "@/components/AccountPage"
 
 const profilePage = () => {
   return (

@@ -1,41 +1,38 @@
 import {
+  Heading,
   Box,
-  Button,
-  ButtonGroup,
-  Center,
   Flex,
+  Select,
+  Progress,
+  ButtonGroup,
+  Button,
+  VStack,
+  GridItem,
   FormControl,
   FormLabel,
-  GridItem,
-  Heading,
-  HStack,
   Input,
-  InputGroup,
-  InputRightElement,
-  Progress,
-  Select,
-  Switch,
-  Text,
-  Textarea,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
   useToast,
-  VStack,
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
-import { FaEye, FaEyeSlash } from "react-icons/fa"
-
+import useAuthUser from "@/hooks/useAuthUser"
 import { supabase } from "@/libs/utils/supabaseClient"
-
 import deptData from "./dept.json"
-import TOS from "./tos.json"
+import Router from "next/router"
 
 const Form1 = (props) => {
-  const [show, setShow] = useState(false)
-  const handleClick = () => setShow(!show)
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
-        新規登録
+        ユーザー情報変更
       </Heading>
       <Flex>
         <FormControl mr="5%">
@@ -44,7 +41,6 @@ const Form1 = (props) => {
           </FormLabel>
           <Input
             id="last-name"
-            placeholder="田中"
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, lastname: e.target.value })
             }
@@ -58,7 +54,6 @@ const Form1 = (props) => {
           </FormLabel>
           <Input
             id="first-name"
-            placeholder="実"
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, firstname: e.target.value })
             }
@@ -82,41 +77,6 @@ const Form1 = (props) => {
           />
         </FormControl>
       </Flex>
-
-      <FormControl mt="2%">
-        <FormLabel htmlFor="email" fontWeight={"normal"}>
-          メールアドレス
-        </FormLabel>
-        <Input
-          id="email"
-          type="email"
-          placeholder="メールアドレスを入力"
-          onChange={(e) => props.setFieldValues({ ...props.fieldValues, email: e.target.value })}
-          value={!props.fieldValues.email ? "" : props.fieldValues.email}
-        />
-      </FormControl>
-
-      <FormControl>
-        <FormLabel htmlFor="password" fontWeight={"normal"} mt="2%">
-          パスワード
-        </FormLabel>
-        <InputGroup size="md">
-          <Input
-            pr="4.5rem"
-            type={show ? "text" : "password"}
-            placeholder="パスワードを入力"
-            onChange={(e) =>
-              props.setFieldValues({ ...props.fieldValues, password: e.target.value })
-            }
-            value={!props.fieldValues.password ? "" : props.fieldValues.password}
-          />
-          <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={handleClick}>
-              {!show ? <FaEyeSlash /> : <FaEye />}
-            </Button>
-          </InputRightElement>
-        </InputGroup>
-      </FormControl>
     </>
   )
 }
@@ -125,7 +85,7 @@ const Form2 = (props) => {
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
-        新規登録
+        ユーザー情報変更
       </Heading>
       <VStack>
         <FormControl as={GridItem} colSpan={[6, 3]}>
@@ -262,35 +222,15 @@ const Form2 = (props) => {
   )
 }
 
-const Form3 = (props) => {
-  return (
-    <>
-      <Heading w="100%" textAlign={"center"} fontWeight="normal">
-        利用規約
-      </Heading>
-      <Textarea isReadOnly resize="none" value={TOS.tos} rows="10"></Textarea>
-      <HStack justify="right">
-        <Text>利用規約に同意します。</Text>
-        <Switch
-          id="email-alerts"
-          onChange={() => {
-            props.handleAgree(!props.Agree)
-          }}
-          isChecked={props.Agree}
-        />
-      </HStack>
-    </>
-  )
-}
-
-export const Multistep = () => {
+export const UpsertModal = () => {
   const toast = useToast()
   const [step, setStep] = useState(1)
-  const [progress, setProgress] = useState(33.33)
+  const [progress, setProgress] = useState(50)
+  const { user } = useAuthUser()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const defaultValues = {
     email: "",
-    password: "",
     firstname: "",
     lastname: "",
     date_of_birth: "",
@@ -299,135 +239,194 @@ export const Multistep = () => {
     class: "",
     student_id: "",
   }
+  // const nowFieldValues = {
+  //   email: user?.email,
+  //   firstname: user?.user_metadata.firstname,
+  //   lastname: user?.user_metadata.lastname,
+  //   date_of_birth: user?.user_metadata.date_of_birth,
+  //   course: user?.user_metadata.course,
+  //   department: user?.user_metadata.department,
+  //   class: user?.user_metadata.class,
+  //   student_id: user?.user_metadata.student_id,
+  // }
   const [fieldValues, setFieldValues] = useState(defaultValues)
-  const [Agree, handleAgree] = useState(false)
   const router = useRouter()
 
-  useEffect(() => {
-    console.log(fieldValues)
-  }, [fieldValues])
+  // useEffect(() => {
+  //   console.log(fieldValues)
+  // }, [fieldValues])
 
-  const handleSignUp = async (e) => {
-    e.preventDefault()
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email: fieldValues.email,
-        password: fieldValues.password,
-        options: {
-          data: {
-            firstname: fieldValues.firstname,
-            lastname: fieldValues.lastname,
-            date_of_birth: fieldValues.date_of_birth,
-            course: fieldValues.course,
-            department: fieldValues.department,
-            class: fieldValues.class,
-            student_id: fieldValues.student_id,
-          },
-        },
+  useEffect(() => {
+    if (user) getProfile(user.id)
+  }, [user])
+
+  const getProfile = async (user_id) => {
+    let { data } = await supabase
+      .from("profiles")
+      .select("firstname,lastname,date_of_birth,course,department,class,student_id")
+      .eq("id", user_id)
+    if (data) {
+      setFieldValues({
+        ...fieldValues,
+        firstname: data[0].firstname,
+        lastname: data[0].lastname,
+        date_of_birth: data[0].date_of_birth,
+        course: data[0].course,
+        department: data[0].department,
+        class: data[0].class,
+        student_id: data[0].student_id,
       })
-      if (error) {
-        toast({
-          title: "ERROR!!",
-          description: "アカウント作成に失敗しました。\n再度お試しください",
-          status: "error",
-          duration: 9000,
-          isClosable: true,
-        })
-      } else {
-        toast({
-          title: "SUCCESS!!",
-          description: "アカウントが作成されました！",
-          status: "success",
-          duration: 1500,
-          isClosable: true,
-        })
-        router.push("/profilePage")
-      }
-    } catch (error) {
-      alert(error.error_description || error.message)
     }
   }
 
-  const handleSignOut = async (e) => {
+  const updateProfile = async ({ user_id }) => {
+    try {
+      if (!user_id) throw new Error("No user")
+
+      const updates = {
+        id: user_id,
+        firstname: fieldValues.firstname,
+        lastname: fieldValues.lastname,
+        date_of_birth: fieldValues.date_of_birth,
+        course: fieldValues.course,
+        department: fieldValues.department,
+        class: fieldValues.class,
+        student_id: fieldValues.student_id,
+      }
+      console.log("updates=> ", updates)
+
+      let { error } = await supabase.from("profiles").upsert(updates).eq("id", user_id)
+      if (error) throw error
+      toast({
+        title: "SUCCESS!!",
+        description: "Profileを更新しました",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      })
+      // Router.reload()
+      router.replace("/profilePage/")
+    } catch (error) {
+      toast({
+        title: "ERROR!!",
+        description: "更新に失敗しました。もう一度お試しください",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      })
+    } finally {
+    }
+  }
+
+  const onSubmit = async (e) => {
     e.preventDefault()
-    supabase.auth.signOut()
+    const status = {
+      user_id: user.id,
+    }
+
+    updateProfile(status)
   }
 
   return (
-    <Center>
-      <Box
-        borderWidth="1px"
-        rounded="lg"
-        shadow="1px 1px 3px rgba(0,0,0,0.3)"
-        maxWidth={800}
-        p={6}
-        m="10px auto"
-        as="form"
-        minW={"50vw"}
-        minH={"56vh"}
-        display={"grid"}
-        gridTemplateRows={"auto auto-fit auto"}
-        gridTemplateColumns={"auto"}
+    <>
+      <Button
+        align="right"
+        id="aaaa"
+        border={"1px"}
+        borderColor={"gray.50"}
+        _hover={{ bg: "teal.50", border: "1px", borderColor: "teal.300" }}
+        // onClick={() => {
+        //   setFieldValues(nowFieldValues), onOpen()
+        // }}
+        onClick={onOpen}
       >
-        <Progress hasStripe value={progress} mb="5%" mx="5%" isAnimated></Progress>
-        <>
-          {step === 1 ? (
-            <Form1 setFieldValues={setFieldValues} fieldValues={fieldValues} />
-          ) : step === 2 ? (
-            <Form2 setFieldValues={setFieldValues} fieldValues={fieldValues} deptData={deptData} />
-          ) : (
-            <Form3 handleAgree={handleAgree} Agree={Agree} />
-          )}
-        </>
-        <ButtonGroup mt="5%" w="100%">
-          <Flex w="100%" justifyContent="space-between">
-            <Flex>
-              <Button
-                onClick={(e) => {
-                  setStep(step - 1)
-                  setProgress(progress - 33.33)
-                }}
-                isDisabled={step === 1}
-                colorScheme="teal"
-                variant="solid"
-                w="7rem"
-                mr="5%"
-              >
-                Back
-              </Button>
-              <Button
-                w="7rem"
-                isDisabled={step === 3}
-                onClick={() => {
-                  setStep(step + 1)
-                  if (step === 3) {
-                    setProgress(100)
-                  } else {
-                    setProgress(progress + 33.33)
-                  }
-                }}
-                colorScheme="teal"
-                variant="outline"
-              >
-                Next
-              </Button>
-            </Flex>
-            {step === 3 ? (
-              <Button
-                disabled={!Agree}
-                w="7rem"
-                colorScheme="red"
-                variant="solid"
-                onClick={(e) => {
-                  handleSignUp(e)
-                }}
-              >
-                Submit
-              </Button>
-            ) : null}
-          </Flex>
-        </ButtonGroup>
-      </Box>
-    </Center>
+        変更
+      </Button>
+      <>
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent minW={"40vw"} minH={"56vh"}>
+            <ModalCloseButton />
+            <ModalBody
+              w={"100%"}
+              h={"100%"}
+              borderWidth="1px"
+              rounded="lg"
+              shadow="1px 1px 3px rgba(0,0,0,0.3)"
+              // maxWidth={800}
+              p={6}
+              // m="10px auto"
+              as="form"
+              display={"grid"}
+              gridTemplateRows={"auto auto-fit auto"}
+              gridTemplateColumns={"auto"}
+            >
+              <Progress hasStripe value={progress} mb="5%" mx="5%" isAnimated></Progress>
+              <>
+                {step === 1 ? (
+                  <Form1 setFieldValues={setFieldValues} fieldValues={fieldValues} />
+                ) : (
+                  <Form2
+                    setFieldValues={setFieldValues}
+                    fieldValues={fieldValues}
+                    deptData={deptData}
+                  />
+                )}
+              </>
+            </ModalBody>
+            <ModalFooter>
+              <ButtonGroup w="100%">
+                <Flex w="100%" justifyContent="space-between">
+                  <Flex>
+                    <Button
+                      onClick={(e) => {
+                        setStep(step - 1)
+                        setProgress(progress - 50)
+                      }}
+                      isDisabled={step === 1}
+                      colorScheme="teal"
+                      variant="solid"
+                      w="7rem"
+                      mr="5%"
+                    >
+                      Back
+                    </Button>
+                    <Button
+                      w="7rem"
+                      isDisabled={step === 2}
+                      onClick={() => {
+                        setStep(step + 1)
+                        if (step === 2) {
+                          setProgress(100)
+                        } else {
+                          setProgress(progress + 50)
+                        }
+                      }}
+                      colorScheme="teal"
+                      variant="outline"
+                    >
+                      Next
+                    </Button>
+                  </Flex>
+                  {step === 2 ? (
+                    <Button
+                      w="7rem"
+                      colorScheme="red"
+                      variant="solid"
+                      onClick={(e) => {
+                        onSubmit(e)
+                        router.reload()
+                      }}
+                    >
+                      送信
+                    </Button>
+                  ) : null}
+                </Flex>
+              </ButtonGroup>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </>
+    </>
   )
 }
