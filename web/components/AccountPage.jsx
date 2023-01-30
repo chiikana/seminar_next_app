@@ -35,6 +35,7 @@ import { supabase } from "@/libs/utils/supabaseClient"
 import { useRouter } from "next/router"
 import { UpdateModal } from "./UpdateUsermetadata"
 import { UpsertModal } from "./UpsertModal"
+import { ChangeDataModal } from "./AccountPageModal"
 
 export const AccountInfo = (props) => {
   const router = useRouter()
@@ -146,7 +147,8 @@ export const AccountInfo = (props) => {
         <CardHeader>
           <HStack justify={"space-between"}>
             <Heading size="md"> アカウント情報 </Heading>
-            <UpsertModal />
+            {/* <UpsertModal /> */}
+            <ChangeDataModal isUser={true} textValue={"変更"} />
           </HStack>
         </CardHeader>
         <CardBody>
@@ -239,7 +241,7 @@ export const AccountInfo = (props) => {
                 idValue={"mail_address"}
                 labelValue={"メールアドレス"}
               /> */}
-              <Button
+              {/* <Button
                 align="right"
                 id="aaaa"
                 w={"170px"}
@@ -249,7 +251,8 @@ export const AccountInfo = (props) => {
                 onClick={onChMailOpen}
               >
                 メールアドレス変更
-              </Button>
+              </Button> */}
+              <ChangeDataModal isEmail={true} textValue={"メールアドレス変更"} />
             </HStack>
             <HStack justify={"space-between"}>
               <Heading size="md" textTransform="uppercase" w={"170px"}>
@@ -259,7 +262,8 @@ export const AccountInfo = (props) => {
                 {/* {user?.password} */}
                 {/* {profile?.password} */}
               </Text>
-              <Button
+              <ChangeDataModal isPass={true} textValue={"パスワード変更"} />
+              {/* <Button
                 align="right"
                 id="aaaa"
                 w={"170px"}
@@ -269,13 +273,13 @@ export const AccountInfo = (props) => {
                 onClick={onChPassOpen}
               >
                 パスワード変更
-              </Button>
+              </Button> */}
             </HStack>
             <></>
           </Stack>
         </CardBody>
       </Card>
-      <>
+      {/* <>
         <Modal isOpen={isChMailOpen} onClose={onChMailClose}>
           <ModalOverlay />
           <ModalContent width="30vw">
@@ -339,7 +343,7 @@ export const AccountInfo = (props) => {
             </ModalFooter>
           </ModalContent>
         </Modal>
-      </>
+      </> */}
     </>
   )
 }
