@@ -1,4 +1,8 @@
 import React, { useState } from "react"
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
+
+import { supabase } from "@/libs/utils/supabaseClient"
+import { notFound } from "next/navigation"
 import {
   Button,
   ButtonGroup,
@@ -26,7 +30,7 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react"
-import { useSupabaseClient } from "@supabase/auth-helpers-react"
+
 import useAuthUser from "../src/hooks/useAuthUser"
 // import {Layout} from "./Layout/Layout"
 
@@ -42,9 +46,24 @@ const ShowAll = () => {
   alert("全データ表示。")
 }
 
-// ページ
-// export
-const DatabaseAll = (props) => {
+
+// export const generateStaticParams = async() => {
+//   const { data: posts } = await supabase.from('posts').select('id')
+//   return posts?.map(({ id }) => ({
+//     id,
+//   }))
+// }
+// export const Post = async({ params}) =>{
+//   const { data: post } = await supabase.from('posts').select().match({ id }).single()
+
+//   if (!post) {
+//     notFound()
+//   }
+
+//   return <pre>{JSON.stringify(post, null, 2)}</pre>
+// }
+
+export const DatabaseAll = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [show, setShow] = React.useState(false)
   const handleClick = () => setShow(!show)
@@ -312,4 +331,3 @@ const DatabaseAll = (props) => {
     </>
   )
 }
-export default DatabaseAll
