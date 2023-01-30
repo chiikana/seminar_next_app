@@ -193,7 +193,7 @@ export const AccountInfo = (props) => {
                   </Text>
                 )}
                 {fieldValues.class !== "" && (
-                  <Text pt="2" fontSize="sm" _after={{ content: `"組"` }}>
+                  <Text pt="2" fontSize="xl" _after={{ content: `"組"` }}>
                     {fieldValues.class}
                   </Text>
                 )}

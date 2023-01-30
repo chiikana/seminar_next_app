@@ -392,13 +392,13 @@ export const ChangeDataModal = (props) => {
         _hover={{ bg: "teal.50", border: "1px", borderColor: "teal.300" }}
         onClick={() => {
           {
-            isUser && onChUserOpen
+            isUser && onChUserOpen()
           }
           {
-            isEmail && onChEmailOpen
+            isEmail && onChEmailOpen()
           }
           {
-            isPass && onChPassOpen
+            isPass && onChPassOpen()
           }
         }}
       >
