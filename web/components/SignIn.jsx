@@ -15,7 +15,9 @@ import {
   useColorModeValue,
   Center,
   VStack,
+  HStack,
   useToast,
+  Spacer,
 } from "@chakra-ui/react"
 import { useState } from "react"
 import { supabase } from "@/libs/utils/supabaseClient"
@@ -38,8 +40,6 @@ export const SignIn = () => {
       const { error } = await supabase.auth.signInWithPassword({
         email: fieldValues.email,
         password: fieldValues.password,
-        // email: "pngnka710.dev@gmail.com",
-        // password: "password",
       })
       if (error) {
         toast({
@@ -116,25 +116,34 @@ export const SignIn = () => {
               </InputRightElement>
             </InputGroup>
           </FormControl>
+          <Box />
         </VStack>
         <Stack spacing={10} m={"0 0 0 auto"}>
-          <Stack
-            direction={{ base: "column", sm: "row" }}
-            align={"start"}
+          <HStack
+            // direction={{ base: "column", sm: "row" }}
+            // align={"start"}
             justify={"space-between"}
           >
             {/* <Checkbox>ログインを維持する</Checkbox> */}
-          </Stack>
-          <Button
-            w="7rem"
-            variant="solid"
-            colorScheme="red"
-            onClick={(e) => {
-              handleSignIn(e)
-            }}
-          >
-            サインイン
-          </Button>
+            <Link
+              onClick={() => {
+                router.replace("/resetPassword/")
+              }}
+            >
+              パスワードを忘れた場合
+            </Link>
+            <Spacer />
+            <Button
+              w="7rem"
+              variant="solid"
+              colorScheme="red"
+              onClick={(e) => {
+                handleSignIn(e)
+              }}
+            >
+              サインイン
+            </Button>
+          </HStack>
         </Stack>
       </Box>
     </Center>

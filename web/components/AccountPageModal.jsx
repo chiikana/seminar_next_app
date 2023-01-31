@@ -28,8 +28,8 @@ import React, { useEffect, useState } from "react"
 import useAuthUser from "@/hooks/useAuthUser"
 import { supabase } from "@/libs/utils/supabaseClient"
 import deptData from "./dept.json"
-import Router from "next/router"
-import { FaEyeSlash, FaEye } from "react-icons/fa"
+// import Router from "next/router"
+// import { FaEyeSlash, FaEye } from "react-icons/fa"
 
 const Form1 = (props) => {
   return (
@@ -231,11 +231,11 @@ export const ChangeDataModal = (props) => {
   const [step, setStep] = useState(1)
   const [progress, setProgress] = useState(50)
   const { user } = useAuthUser()
-  const [show, setShow] = useState(false)
-  const handleClick = () => setShow(!show)
+  // const [show, setShow] = useState(false)
+  // const handleClick = () => setShow(!show)
   const { isOpen: isChUserOpen, onOpen: onChUserOpen, onClose: onChUserClose } = useDisclosure()
   const { isOpen: isChEmailOpen, onOpen: onChEmailOpen, onClose: onChEmailClose } = useDisclosure()
-  const { isOpen: isChPassOpen, onOpen: onChPassOpen, onClose: onChPassClose } = useDisclosure()
+  // const { isOpen: isChPassOpen, onOpen: onChPassOpen, onClose: onChPassClose } = useDisclosure()
 
   const defaultValues = {
     email: "",
@@ -296,40 +296,40 @@ export const ChangeDataModal = (props) => {
     } else {
       toast({
         title: "SUCCESS!!",
-        description: "メールアドレスは正常に変更されました！",
+        description: "変更確認メールが送信されました。\n受信したメールを確認してください",
         status: "success",
-        duration: 1500,
+        duration: 6000,
         isClosable: true,
       })
       router.push("/")
     }
   }
 
-  const onPassSubmit = async (e) => {
-    e.preventDefault()
-    const password = fieldValues.password
-    const { error } = await supabase.auth.updateUser({ password: password })
+  // const onPassSubmit = async (e) => {
+  //   e.preventDefault()
+  //   const newPassword = fieldValues.password
+  //   const { error } = await supabase.auth.updateUser({ password: newPassword })
 
-    if (error) {
-      setLoading(false)
-      toast({
-        title: "ERROR!!",
-        description: "変更に失敗しました。\n再度お試しください",
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-      })
-    } else {
-      toast({
-        title: "SUCCESS!!",
-        description: "パスワードは正常に変更されました！",
-        status: "success",
-        duration: 1500,
-        isClosable: true,
-      })
-      router.push("/")
-    }
-  }
+  //   if (error) {
+  //     setLoading(false)
+  //     toast({
+  //       title: "ERROR!!",
+  //       description: "変更に失敗しました。\n再度お試しください",
+  //       status: "error",
+  //       duration: 9000,
+  //       isClosable: true,
+  //     })
+  //   } else {
+  //     toast({
+  //       title: "SUCCESS!!",
+  //       description: "パスワードは正常に変更されました！",
+  //       status: "success",
+  //       duration: 1500,
+  //       isClosable: true,
+  //     })
+  //     router.push("/")
+  //   }
+  // }
 
   const updateProfile = async ({ user_id }) => {
     try {
@@ -398,7 +398,8 @@ export const ChangeDataModal = (props) => {
             isEmail && onChEmailOpen()
           }
           {
-            isPass && onChPassOpen()
+            // isPass && onChPassOpen()
+            isPass && router.push("/resetPassword/")
           }
         }}
       >
@@ -432,7 +433,7 @@ export const ChangeDataModal = (props) => {
           </ModalContent>
         </Modal>
       </>
-      <>
+      {/* <>
         <Modal isOpen={isChPassOpen} onClose={onChPassClose}>
           <ModalOverlay />
           <ModalContent width="30vw">
@@ -468,7 +469,7 @@ export const ChangeDataModal = (props) => {
             </ModalFooter>
           </ModalContent>
         </Modal>
-      </>
+      </> */}
       <>
         <Modal isOpen={isChUserOpen} onClose={onChUserClose}>
           <ModalOverlay />
