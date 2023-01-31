@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "format": "prettier --write **/*.{js,jsx}"
+    "lint": "next lint"
   },
   "dependencies": {
     "@chakra-ui/icon": "^3.0.13",
@@ -25,7 +24,9 @@
     "framer-motion": "^7.10.2",
     "next": "13.0.7",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-icons": "^4.7.1",
+    "swr": "^2.0.2"
   },
   "devDependencies": {
     "eslint-config-prettier": "^8.5.0",

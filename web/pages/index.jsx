@@ -1,17 +1,38 @@
-import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
-import Account from '../components/Account'
-import Multistep from '../components/MultiStepSignUp'
+import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react"
+import Account from "@/components/Account"
+import { Multistep } from "@/components/MultiStepSignUp"
+import { Layout } from "@/components/Layout"
+import { Box, Button, Center, HStack, SimpleGrid } from "@chakra-ui/react"
+import { useRouter } from "next/router"
 
 const Home = () => {
-  const session = useSession()
-  const supabase = useSupabaseClient()
+  const router = useRouter()
 
   return (
-    <div className="container" style={{ padding: '50px 0 100px 0' }}>
-      {!session ? <Multistep /> : <Account session={session} />}
-    </div>
+    <Layout hasHeader={false}>
+      <Center>
+        <HStack>
+          <Button
+            size={"lg"}
+            colorScheme={"teal"}
+            onClick={() => {
+              router.push("/signin/")
+            }}
+          >
+            ログイン
+          </Button>
+          <Button
+            size={"lg"}
+            colorScheme={"teal"}
+            onClick={() => {
+              router.push("/signup/")
+            }}
+          >
+            新規登録
+          </Button>
+        </HStack>
+      </Center>
+    </Layout>
   )
 }
-
 export default Home
