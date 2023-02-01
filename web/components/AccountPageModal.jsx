@@ -235,7 +235,7 @@ export const ChangeDataModal = (props) => {
   // const handleClick = () => setShow(!show)
   const { isOpen: isChUserOpen, onOpen: onChUserOpen, onClose: onChUserClose } = useDisclosure()
   const { isOpen: isChEmailOpen, onOpen: onChEmailOpen, onClose: onChEmailClose } = useDisclosure()
-  // const { isOpen: isChPassOpen, onOpen: onChPassOpen, onClose: onChPassClose } = useDisclosure()
+  const { isOpen: isChPassOpen, onOpen: onChPassOpen, onClose: onChPassClose } = useDisclosure()
 
   const defaultValues = {
     email: "",
@@ -305,31 +305,33 @@ export const ChangeDataModal = (props) => {
     }
   }
 
-  // const onPassSubmit = async (e) => {
-  //   e.preventDefault()
-  //   const newPassword = fieldValues.password
-  //   const { error } = await supabase.auth.updateUser({ password: newPassword })
-
-  //   if (error) {
-  //     setLoading(false)
-  //     toast({
-  //       title: "ERROR!!",
-  //       description: "変更に失敗しました。\n再度お試しください",
-  //       status: "error",
-  //       duration: 9000,
-  //       isClosable: true,
-  //     })
-  //   } else {
-  //     toast({
-  //       title: "SUCCESS!!",
-  //       description: "パスワードは正常に変更されました！",
-  //       status: "success",
-  //       duration: 1500,
-  //       isClosable: true,
-  //     })
-  //     router.push("/")
-  //   }
-  // }
+  const onPassSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      let { data, error } = await supabase.auth.resetPasswordForEmail(fieldValues.email, {
+        redirectTo: "http://localhost:3000/resetPassword/form/",
+      })
+      if (error) {
+        toast({
+          title: "ERROR!!",
+          description: "メール送信に失敗しました。\n再度お試しください",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        })
+      } else {
+        toast({
+          title: "SUCCESS!!",
+          description: "変更確認メールが送信されました。\n受信したメールを確認してください",
+          status: "success",
+          duration: 6000,
+          isClosable: true,
+        })
+      }
+    } catch (error) {
+      alert(error.error_description || error.message)
+    }
+  }
 
   const updateProfile = async ({ user_id }) => {
     try {
@@ -356,9 +358,6 @@ export const ChangeDataModal = (props) => {
         duration: 9000,
         isClosable: true,
       })
-      // Router.reload()
-
-      // router.replace("/profilePage/")
       router.reload()
       onClose()
     } catch (error) {
@@ -398,8 +397,7 @@ export const ChangeDataModal = (props) => {
             isEmail && onChEmailOpen()
           }
           {
-            // isPass && onChPassOpen()
-            isPass && router.push("/resetPassword/")
+            isPass && onChPassOpen()
           }
         }}
       >
@@ -433,43 +431,44 @@ export const ChangeDataModal = (props) => {
           </ModalContent>
         </Modal>
       </>
-      {/* <>
+      <>
         <Modal isOpen={isChPassOpen} onClose={onChPassClose}>
           <ModalOverlay />
           <ModalContent width="30vw">
-            <ModalHeader>パスワード変更</ModalHeader>
+            <ModalHeader>パスワード変更リクエスト</ModalHeader>
             <ModalCloseButton />
 
             <ModalBody>
               <FormControl>
                 <FormLabel htmlFor="password" fontWeight={"normal"} mt="2%">
-                  新しいパスワード
+                  メールアドレスを入力
                 </FormLabel>
                 <InputGroup size="md">
                   <Input
-                    pr="4.5rem"
-                    type={show ? "text" : "password"}
-                    placeholder="パスワードを入力"
-                    onChange={(e) => setFieldValues({ ...fieldValues, password: e.target.value })}
-                    value={!fieldValues.password ? "" : fieldValues.password}
+                    id={"mail"}
+                    onChange={(e) => setFieldValues({ ...fieldValues, email: e.target.value })}
+                    value={!fieldValues.email ? "" : fieldValues.email}
                   />
-                  <InputRightElement width="4.5rem">
-                    <Button h="1.75rem" size="sm" onClick={handleClick}>
-                      {!show ? <FaEyeSlash /> : <FaEye />}
-                    </Button>
-                  </InputRightElement>
                 </InputGroup>
               </FormControl>
             </ModalBody>
 
             <ModalFooter>
-              <Button colorScheme="red" variant="solid" mr={3} onClick={onPassSubmit}>
+              <Button
+                isDisabled={fieldValues.email === "" ? true : false}
+                w="7rem"
+                variant="solid"
+                colorScheme="red"
+                onClick={(e) => {
+                  onPassSubmit(e)
+                }}
+              >
                 送信
               </Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
-      </> */}
+      </>
       <>
         <Modal isOpen={isChUserOpen} onClose={onChUserClose}>
           <ModalOverlay />
