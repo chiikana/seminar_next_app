@@ -1,18 +1,9 @@
-import {
-  Box,
-  chakra,
-  Container,
-  Stack,
-  Text,
-  useColorModeValue,
-  VisuallyHidden,
-} from "@chakra-ui/react"
+import { toggleTheme } from "@/libs/utils/themes"
+import { Box, Container, Stack, Text, useColorModeValue } from "@chakra-ui/react"
 import Link from "next/link"
 
 export const Footer = () => {
-  const toggleTextColor = useColorModeValue("gray.800", "white")
-  const toggleBgColor = useColorModeValue("gray.50", "gray.800")
-  const toggleBorderColor = useColorModeValue("gray.200", "gray.900")
+  const { toggleTextColor, toggleBgColor, toggleBorderColor } = toggleTheme()
   return (
     <Box
       bg={toggleBgColor}

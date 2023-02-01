@@ -21,17 +21,19 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 
 import { supabase } from "@/libs/utils/supabaseClient"
 
+import { toggleTheme } from "@/libs/utils/themes"
 import deptData from "./dept.json"
 import TOS from "./tos.json"
 
 const Form1 = (props) => {
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
+  const { subAccentColor } = toggleTheme()
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
@@ -45,6 +47,7 @@ const Form1 = (props) => {
           <Input
             id="last-name"
             placeholder="田中"
+            focusBorderColor={subAccentColor}
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, lastname: e.target.value })
             }
@@ -59,6 +62,7 @@ const Form1 = (props) => {
           <Input
             id="first-name"
             placeholder="実"
+            focusBorderColor={subAccentColor}
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, firstname: e.target.value })
             }
@@ -75,6 +79,7 @@ const Form1 = (props) => {
           <Input
             id="date_of_birth"
             type="date"
+            focusBorderColor={subAccentColor}
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, date_of_birth: e.target.value })
             }
@@ -91,6 +96,7 @@ const Form1 = (props) => {
           id="email"
           type="email"
           placeholder="メールアドレスを入力"
+          focusBorderColor={subAccentColor}
           onChange={(e) => props.setFieldValues({ ...props.fieldValues, email: e.target.value })}
           value={!props.fieldValues.email ? "" : props.fieldValues.email}
         />
@@ -105,6 +111,7 @@ const Form1 = (props) => {
             pr="4.5rem"
             type={show ? "text" : "password"}
             placeholder="パスワードを入力"
+            focusBorderColor={subAccentColor}
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, password: e.target.value })
             }
@@ -122,6 +129,7 @@ const Form1 = (props) => {
 }
 
 const Form2 = (props) => {
+  const { subAccentColor } = toggleTheme()
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
@@ -129,15 +137,7 @@ const Form2 = (props) => {
       </Heading>
       <VStack>
         <FormControl as={GridItem} colSpan={[6, 3]}>
-          <FormLabel
-            htmlFor="course"
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: "gray.50",
-            }}
-          >
+          <FormLabel htmlFor="course" fontSize="sm" fontWeight="md">
             分類
           </FormLabel>
           <Select
@@ -145,7 +145,7 @@ const Form2 = (props) => {
             name="course"
             autoComplete="course"
             placeholder="Select option"
-            focusBorderColor="brand.400"
+            focusBorderColor={subAccentColor}
             shadow="sm"
             size="sm"
             w="full"
@@ -163,15 +163,7 @@ const Form2 = (props) => {
           </Select>
         </FormControl>
         <FormControl as={GridItem} colSpan={[6, 3]}>
-          <FormLabel
-            htmlFor="department"
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: "gray.50",
-            }}
-          >
+          <FormLabel htmlFor="department" fontSize="sm" fontWeight="md">
             学科
           </FormLabel>
           <Select
@@ -179,7 +171,7 @@ const Form2 = (props) => {
             name="department"
             autoComplete="department"
             placeholder="Select option"
-            focusBorderColor="brand.400"
+            focusBorderColor={subAccentColor}
             shadow="sm"
             size="sm"
             w="full"
@@ -202,22 +194,13 @@ const Form2 = (props) => {
         </FormControl>
 
         <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
-          <FormLabel
-            htmlFor="class"
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: "gray.50",
-            }}
-            mt="2%"
-          >
+          <FormLabel htmlFor="class" fontSize="sm" fontWeight="md" mt="2%">
             クラス
           </FormLabel>
           <Input
             type="text"
             id="class"
-            focusBorderColor="brand.400"
+            focusBorderColor={subAccentColor}
             shadow="sm"
             size="sm"
             w="full"
@@ -231,22 +214,13 @@ const Form2 = (props) => {
         </FormControl>
 
         <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
-          <FormLabel
-            htmlFor="student_id"
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: "gray.50",
-            }}
-            mt="2%"
-          >
+          <FormLabel htmlFor="student_id" fontSize="sm" fontWeight="md" mt="2%">
             学籍番号
           </FormLabel>
           <Input
             type="text"
             id="student_id"
-            focusBorderColor="brand.400"
+            focusBorderColor={subAccentColor}
             shadow="sm"
             size="sm"
             w="full"
@@ -263,6 +237,11 @@ const Form2 = (props) => {
 }
 
 const Form3 = (props) => {
+  const {
+    toggleTextColor,
+
+    subAccentColor,
+  } = toggleTheme()
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal">
@@ -270,9 +249,10 @@ const Form3 = (props) => {
       </Heading>
       <Textarea isReadOnly resize="none" value={TOS.tos} rows="10"></Textarea>
       <HStack justify="right">
-        <Text>利用規約に同意します。</Text>
+        <Text color={toggleTextColor}>利用規約に同意します。</Text>
         <Switch
           id="email-alerts"
+          focusBorderColor={subAccentColor}
           onChange={() => {
             props.handleAgree(!props.Agree)
           }}

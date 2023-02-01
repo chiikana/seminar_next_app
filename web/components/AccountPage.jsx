@@ -1,5 +1,4 @@
 import useAuthUser from "@/hooks/useAuthUser"
-import useProfile from "@/hooks/useProfile"
 import { supabase } from "@/libs/utils/supabaseClient"
 import {
   Box,
@@ -12,7 +11,6 @@ import {
   StackDivider,
   Text,
 } from "@chakra-ui/react"
-import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { ChangeDataModal } from "./AccountPageModal"
 

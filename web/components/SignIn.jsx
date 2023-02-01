@@ -1,30 +1,28 @@
+import { supabase } from "@/libs/utils/supabaseClient"
+import { toggleTheme } from "@/libs/utils/themes"
 import {
-  Flex,
   Box,
+  Button,
+  Center,
   FormControl,
   FormLabel,
+  Heading,
+  HStack,
   Input,
   InputGroup,
   InputRightElement,
-  Checkbox,
-  Stack,
   Link,
-  Button,
-  Heading,
-  Text,
-  useColorModeValue,
-  Center,
-  VStack,
-  HStack,
-  useToast,
   Spacer,
+  Stack,
+  useToast,
+  VStack,
 } from "@chakra-ui/react"
-import { useState } from "react"
-import { supabase } from "@/libs/utils/supabaseClient"
-import { FaEyeSlash, FaEye } from "react-icons/fa"
 import { useRouter } from "next/router"
+import { useState } from "react"
+import { FaEye, FaEyeSlash } from "react-icons/fa"
 
 export const SignIn = () => {
+  const { subAccentColor } = toggleTheme()
   const defaultValues = {
     email: "",
     password: "",
@@ -92,6 +90,7 @@ export const SignIn = () => {
               id="email"
               type="email"
               placeholder="メールアドレスを入力"
+              focusBorderColor={subAccentColor}
               onChange={(e) => setFieldValues({ ...fieldValues, email: e.target.value })}
               value={!fieldValues.email ? "" : fieldValues.email}
             />
@@ -106,6 +105,7 @@ export const SignIn = () => {
                 pr="4.5rem"
                 type={show ? "text" : "password"}
                 placeholder="パスワードを入力"
+                focusBorderColor={subAccentColor}
                 onChange={(e) => setFieldValues({ ...fieldValues, password: e.target.value })}
                 value={!fieldValues.password ? "" : fieldValues.password}
               />
