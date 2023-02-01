@@ -28,6 +28,7 @@ import { FaChevronDown, FaChevronRight, FaBars, FaTimes, FaMoon, FaRegSun } from
 import { supabase } from "@/libs/utils/supabaseClient"
 import useAuthUser from "@/hooks/useAuthUser"
 import { useState, useEffect } from "react"
+import { themeColor } from "@/libs/utils/themes"
 
 export const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode()

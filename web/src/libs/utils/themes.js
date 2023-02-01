@@ -1,4 +1,4 @@
-export const GlobalColor = {
+export const themeColor = {
   lightTextColor: "gray.800",
   lightBgColor: "gray.50",
   lightBorderColor: "gray.200",
