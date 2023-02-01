@@ -1,5 +1,5 @@
 import { supabase } from "@/libs/utils/supabaseClient"
-import { toggleTheme } from "@/libs/utils/themes"
+import { ToggleTheme } from "@/libs/utils/themes"
 import {
   Box,
   Button,
@@ -22,7 +22,7 @@ import { useState } from "react"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 
 export const SignIn = () => {
-  const { subAccentColor } = toggleTheme()
+  const { subAccentColor } = ToggleTheme()
   const defaultValues = {
     email: "",
     password: "",

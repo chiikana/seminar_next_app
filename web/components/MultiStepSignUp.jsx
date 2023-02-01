@@ -26,14 +26,14 @@ import { FaEye, FaEyeSlash } from "react-icons/fa"
 
 import { supabase } from "@/libs/utils/supabaseClient"
 
-import { toggleTheme } from "@/libs/utils/themes"
+import { ToggleTheme } from "@/libs/utils/themes"
 import deptData from "./dept.json"
 import TOS from "./tos.json"
 
 const Form1 = (props) => {
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
-  const { subAccentColor } = toggleTheme()
+  const { subAccentColor } = ToggleTheme()
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
@@ -129,7 +129,7 @@ const Form1 = (props) => {
 }
 
 const Form2 = (props) => {
-  const { subAccentColor } = toggleTheme()
+  const { subAccentColor } = ToggleTheme()
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
@@ -241,7 +241,7 @@ const Form3 = (props) => {
     toggleTextColor,
 
     subAccentColor,
-  } = toggleTheme()
+  } = ToggleTheme()
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal">

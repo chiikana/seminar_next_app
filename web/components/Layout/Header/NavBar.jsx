@@ -1,6 +1,6 @@
 import useAuthUser from "@/hooks/useAuthUser"
 import { supabase } from "@/libs/utils/supabaseClient"
-import { toggleTheme } from "@/libs/utils/themes"
+import { ToggleTheme } from "@/libs/utils/themes"
 import {
   Avatar,
   Box,
@@ -32,7 +32,7 @@ import { FaBars, FaChevronDown, FaChevronRight, FaMoon, FaRegSun, FaTimes } from
 export const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   const { isOpen, onToggle } = useDisclosure()
-  const { toggleBgColor, toggleTextColor } = toggleTheme()
+  const { toggleBgColor, toggleTextColor } = ToggleTheme()
   const router = useRouter()
   const { user } = useAuthUser()
 
@@ -163,7 +163,7 @@ export const Navbar = () => {
 
 const DesktopNav = () => {
   const router = useRouter()
-  const { toggleTextColor, toggleHoverColor, toggleSubBgColor } = toggleTheme()
+  const { toggleTextColor, toggleHoverColor, toggleSubBgColor } = ToggleTheme()
 
   return (
     <Stack direction={"row"} spacing={4}>
@@ -212,7 +212,7 @@ const DesktopNav = () => {
 }
 
 const DesktopSubNav = ({ label, process, subLabel }) => {
-  const { toggleMainAccentColor, subAccentColor } = toggleTheme()
+  const { toggleMainAccentColor, subAccentColor } = ToggleTheme()
   const router = useRouter()
   return (
     <Box
@@ -255,7 +255,7 @@ const DesktopSubNav = ({ label, process, subLabel }) => {
 const MobileNav = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   const router = useRouter()
-  const { toggleBgColor, toggleBorderColor } = toggleTheme()
+  const { toggleBgColor, toggleBorderColor } = ToggleTheme()
   return (
     <Stack
       bg={toggleBgColor}
@@ -275,7 +275,7 @@ const MobileNav = () => {
 const MobilerouteItem = ({ label, children, process }) => {
   const { isOpen, onToggle } = useDisclosure()
   const router = useRouter()
-  const { toggleBgColor, toggleTextColor, toggleBorderColor } = toggleTheme()
+  const { toggleBgColor, toggleTextColor, toggleBorderColor } = ToggleTheme()
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>

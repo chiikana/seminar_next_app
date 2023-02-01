@@ -1,4 +1,4 @@
-import { toggleTheme } from "@/libs/utils/themes"
+import { ToggleTheme } from "@/libs/utils/themes"
 import { Box } from "@chakra-ui/react"
 import { Footer } from "./Footer"
 import { Header } from "./Header"
@@ -6,7 +6,7 @@ import { LinklessHeader } from "./LinklessHeader"
 
 export const Layout = (props) => {
   const { children, hasHeader = true } = props
-  const { toggleBgColor } = toggleTheme()
+  const { toggleBgColor } = ToggleTheme()
   return (
     <Box
       display={"grid"}

@@ -32,7 +32,7 @@ export const themeColor = {
   },
 }
 
-export const toggleTheme = () => {
+export const ToggleTheme = () => {
   const toggleMainBgColor = useColorModeValue(themeColor.bg.main.light, themeColor.bg.main.dark)
   const toggleSubBgColor = useColorModeValue(themeColor.bg.sub.light, themeColor.bg.sub.dark)
   const toggleTextColor = useColorModeValue(themeColor.text.light, themeColor.text.dark)

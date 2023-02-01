@@ -28,10 +28,10 @@ import { useEffect, useState } from "react"
 import deptData from "./dept.json"
 // import Router from "next/router"
 // import { FaEyeSlash, FaEye } from "react-icons/fa"
-import { toggleTheme } from "@/libs/utils/themes"
+import { ToggleTheme } from "@/libs/utils/themes"
 
 const Form1 = (props) => {
-  const { toggleTextColor, subAccentColor } = toggleTheme()
+  const { toggleTextColor, subAccentColor } = ToggleTheme()
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
@@ -88,7 +88,7 @@ const Form1 = (props) => {
 }
 
 const Form2 = (props) => {
-  const { toggleTextColor, subAccentColor } = toggleTheme()
+  const { toggleTextColor, subAccentColor } = ToggleTheme()
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
@@ -208,7 +208,7 @@ export const ChangeDataModal = (props) => {
   const [progress, setProgress] = useState(50)
   const { user } = useAuthUser()
   const { toggleTextColor, toggleBorderColor, toggleMainAccentColor, subAccentColor } =
-    toggleTheme()
+    ToggleTheme()
   // const [show, setShow] = useState(false)
   // const handleClick = () => setShow(!show)
   const { isOpen: isChUserOpen, onOpen: onChUserOpen, onClose: onChUserClose } = useDisclosure()

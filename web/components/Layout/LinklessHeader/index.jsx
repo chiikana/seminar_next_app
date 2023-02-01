@@ -1,4 +1,4 @@
-import { toggleTheme } from "@/libs/utils/themes"
+import { ToggleTheme } from "@/libs/utils/themes"
 import { Box, Button, Flex, Stack, Text, useBreakpointValue, useColorMode } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
@@ -6,7 +6,7 @@ import { FaMoon, FaRegSun } from "react-icons/fa"
 
 export const LinklessHeader = () => {
   const { colorMode, toggleColorMode } = useColorMode()
-  const { toggleTextColor, toggleBgColor, toggleBorderColor } = toggleTheme()
+  const { toggleTextColor, toggleBgColor, toggleBorderColor } = ToggleTheme()
   const [isScrolled, onScrolled] = useState(false)
   const router = useRouter()
   const toggleVisibility = () => {

@@ -16,9 +16,10 @@ import {
 import { useRouter } from "next/router"
 import { useState } from "react"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
+import { ToggleTheme } from "@/libs/utils/themes"
 
 export const ResetPassForm = () => {
-  const { subAccentColor } = toggleTheme()
+  const { subAccentColor } = ToggleTheme()
   const defaultValues = {
     email: "",
     password_a: "",

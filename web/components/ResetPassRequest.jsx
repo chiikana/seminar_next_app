@@ -1,5 +1,5 @@
 import { supabase } from "@/libs/utils/supabaseClient"
-import { toggleTheme } from "@/libs/utils/themes"
+import { ToggleTheme } from "@/libs/utils/themes"
 import {
   Box,
   Button,
@@ -16,7 +16,7 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 
 export const ResetPassRequest = () => {
-  const { subAccentColor } = toggleTheme()
+  const { subAccentColor } = ToggleTheme()
   const defaultValues = {
     email: "",
   }

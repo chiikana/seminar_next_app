@@ -1,10 +1,10 @@
-import { toggleTheme } from "@/libs/utils/themes"
+import { ToggleTheme } from "@/libs/utils/themes"
 import { Box } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { Navbar } from "./NavBar"
 
 export const Header = () => {
-  const { toggleBorderColor } = toggleTheme()
+  const { toggleBorderColor } = ToggleTheme()
   const [isScrolled, onScrolled] = useState(false)
   const toggleVisibility = () => {
     window.scrollY > 0 ? onScrolled(true) : onScrolled(false)
