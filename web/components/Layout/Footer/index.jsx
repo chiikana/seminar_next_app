@@ -23,7 +23,7 @@ export const Footer = () => {
       top={"100vh"}
       h={"60px"}
     >
-      <Container as={Stack} maxW={"6xl"} py={4} spacing={4} justify={"center"} align={"center"}>
+      {/* <Container as={Stack} maxW={"6xl"} py={4} spacing={4} justify={"center"} align={"center"}>
         <Stack direction={"row"} spacing={6}>
           <Link href={"/profilePage/"} passHref replace>
             <Text>PP</Text>
@@ -50,7 +50,10 @@ export const Footer = () => {
             <Text>Start</Text>
           </Link>
         </Stack>
-      </Container>
+      </Container> */}
+      <Box>
+        <Text>©CTB20-TEAM2 all rights reserved</Text>
+      </Box>
 
       <Box
         borderTopWidth={1}
