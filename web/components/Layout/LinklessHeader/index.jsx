@@ -1,22 +1,12 @@
-import {
-  Box,
-  useColorModeValue,
-  Flex,
-  Button,
-  Text,
-  Stack,
-  useBreakpointValue,
-  useColorMode,
-} from "@chakra-ui/react"
+import { toggleTheme } from "@/libs/utils/themes"
+import { Box, Button, Flex, Stack, Text, useBreakpointValue, useColorMode } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { FaMoon, FaRegSun } from "react-icons/fa"
 
 export const LinklessHeader = () => {
   const { colorMode, toggleColorMode } = useColorMode()
-  const toggleTextColor = useColorModeValue("gray.800", "white")
-  const toggleBgColor = useColorModeValue("gray.50", "gray.800")
-  const toggleBorderColor = useColorModeValue("gray.200", "gray.500")
+  const { toggleTextColor, toggleBgColor, toggleBorderColor } = toggleTheme()
   const [isScrolled, onScrolled] = useState(false)
   const router = useRouter()
   const toggleVisibility = () => {
@@ -28,7 +18,7 @@ export const LinklessHeader = () => {
   })
   return (
     <Box pos={"sticky"} top={0} w={"full"} h={"60px"} zIndex={100}>
-      <title></title>
+      <title>NKC就活状況アプリ</title>
       {/* <Text>へっだー上だよ</Text> */}
       <Box>
         <Flex

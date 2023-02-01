@@ -1,30 +1,24 @@
+import { supabase } from "@/libs/utils/supabaseClient"
 import {
-  Flex,
   Box,
+  Button,
+  Center,
   FormControl,
   FormLabel,
+  Heading,
   Input,
   InputGroup,
   InputRightElement,
-  Checkbox,
   Stack,
-  Link,
-  Button,
-  Heading,
-  Text,
-  useColorModeValue,
-  Center,
-  VStack,
-  HStack,
   useToast,
-  Spacer,
+  VStack,
 } from "@chakra-ui/react"
-import { useState, useEffect } from "react"
-import { supabase } from "@/libs/utils/supabaseClient"
-import { FaEyeSlash, FaEye } from "react-icons/fa"
 import { useRouter } from "next/router"
+import { useState } from "react"
+import { FaEye, FaEyeSlash } from "react-icons/fa"
 
 export const ResetPassForm = () => {
+  const { subAccentColor } = toggleTheme()
   const defaultValues = {
     email: "",
     password_a: "",
@@ -95,6 +89,7 @@ export const ResetPassForm = () => {
                 pr="4.5rem"
                 type={show_a ? "text" : "password"}
                 placeholder="パスワードを入力"
+                focusBorderColor={subAccentColor}
                 onChange={(e) => setFieldValues({ ...fieldValues, password_a: e.target.value })}
                 value={!fieldValues.password_a ? "" : fieldValues.password_a}
               />
@@ -115,6 +110,7 @@ export const ResetPassForm = () => {
                 pr="4.5rem"
                 type={show_b ? "text" : "password"}
                 placeholder="パスワードを入力"
+                focusBorderColor={subAccentColor}
                 onChange={(e) => setFieldValues({ ...fieldValues, password_b: e.target.value })}
                 value={!fieldValues.password_b ? "" : fieldValues.password_b}
               />

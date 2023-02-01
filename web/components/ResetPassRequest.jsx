@@ -1,29 +1,22 @@
+import { supabase } from "@/libs/utils/supabaseClient"
+import { toggleTheme } from "@/libs/utils/themes"
 import {
-  Flex,
   Box,
+  Button,
+  Center,
   FormControl,
   FormLabel,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Checkbox,
-  Stack,
-  Link,
-  Button,
   Heading,
-  Text,
-  useColorModeValue,
-  Center,
-  VStack,
-  HStack,
+  Input,
+  Stack,
   useToast,
-  Spacer,
+  VStack,
 } from "@chakra-ui/react"
-import { useState, useEffect } from "react"
-import { supabase } from "@/libs/utils/supabaseClient"
 import { useRouter } from "next/router"
+import { useState } from "react"
 
 export const ResetPassRequest = () => {
+  const { subAccentColor } = toggleTheme()
   const defaultValues = {
     email: "",
   }
@@ -86,6 +79,7 @@ export const ResetPassRequest = () => {
               id="email"
               type="email"
               placeholder="メールアドレスを入力"
+              focusBorderColor={subAccentColor}
               onChange={(e) => setFieldValues({ ...fieldValues, email: e.target.value })}
               value={!fieldValues.email ? "" : fieldValues.email}
             />
