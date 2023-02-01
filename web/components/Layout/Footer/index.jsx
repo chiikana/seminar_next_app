@@ -1,18 +1,9 @@
-import {
-  Box,
-  chakra,
-  Container,
-  Stack,
-  Text,
-  useColorModeValue,
-  VisuallyHidden,
-} from "@chakra-ui/react"
+import { ToggleTheme } from "@/libs/utils/themes"
+import { Box, Container, Stack, Text, useColorModeValue } from "@chakra-ui/react"
 import Link from "next/link"
 
 export const Footer = () => {
-  const toggleTextColor = useColorModeValue("gray.800", "white")
-  const toggleBgColor = useColorModeValue("gray.50", "gray.800")
-  const toggleBorderColor = useColorModeValue("gray.200", "gray.900")
+  const { toggleTextColor, toggleBgColor, toggleBorderColor } = ToggleTheme()
   return (
     <Box
       bg={toggleBgColor}
@@ -23,7 +14,7 @@ export const Footer = () => {
       top={"100vh"}
       h={"60px"}
     >
-      <Container as={Stack} maxW={"6xl"} py={4} spacing={4} justify={"center"} align={"center"}>
+      {/* <Container as={Stack} maxW={"6xl"} py={4} spacing={4} justify={"center"} align={"center"}>
         <Stack direction={"row"} spacing={6}>
           <Link href={"/profilePage/"} passHref replace>
             <Text>PP</Text>
@@ -33,6 +24,9 @@ export const Footer = () => {
           </Link>
           <Link href={"/databaseAll"} passHref replace>
             <Text>DA</Text>
+          </Link>
+          <Link href={"/MyDatabase"} passHref replace>
+            <Text>MD</Text>
           </Link>
           <Link href={"/accountPage/"} passHref replace>
             <Text>AP</Text>
@@ -47,7 +41,10 @@ export const Footer = () => {
             <Text>Start</Text>
           </Link>
         </Stack>
-      </Container>
+      </Container> */}
+      <Box>
+        <Text>©CTB20-TEAM2 all rights reserved</Text>
+      </Box>
 
       <Box
         borderTopWidth={1}

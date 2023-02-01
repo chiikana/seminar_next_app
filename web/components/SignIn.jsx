@@ -1,28 +1,28 @@
+import { supabase } from "@/libs/utils/supabaseClient"
+import { ToggleTheme } from "@/libs/utils/themes"
 import {
-  Flex,
   Box,
+  Button,
+  Center,
   FormControl,
   FormLabel,
+  Heading,
+  HStack,
   Input,
   InputGroup,
   InputRightElement,
-  Checkbox,
-  Stack,
   Link,
-  Button,
-  Heading,
-  Text,
-  useColorModeValue,
-  Center,
-  VStack,
+  Spacer,
+  Stack,
   useToast,
+  VStack,
 } from "@chakra-ui/react"
-import { useState } from "react"
-import { supabase } from "@/libs/utils/supabaseClient"
-import { FaEyeSlash, FaEye } from "react-icons/fa"
 import { useRouter } from "next/router"
+import { useState } from "react"
+import { FaEye, FaEyeSlash } from "react-icons/fa"
 
 export const SignIn = () => {
+  const { subAccentColor } = ToggleTheme()
   const defaultValues = {
     email: "",
     password: "",
@@ -38,8 +38,6 @@ export const SignIn = () => {
       const { error } = await supabase.auth.signInWithPassword({
         email: fieldValues.email,
         password: fieldValues.password,
-        // email: "pngnka710.dev@gmail.com",
-        // password: "password",
       })
       if (error) {
         toast({
@@ -92,6 +90,7 @@ export const SignIn = () => {
               id="email"
               type="email"
               placeholder="メールアドレスを入力"
+              focusBorderColor={subAccentColor}
               onChange={(e) => setFieldValues({ ...fieldValues, email: e.target.value })}
               value={!fieldValues.email ? "" : fieldValues.email}
             />
@@ -106,6 +105,7 @@ export const SignIn = () => {
                 pr="4.5rem"
                 type={show ? "text" : "password"}
                 placeholder="パスワードを入力"
+                focusBorderColor={subAccentColor}
                 onChange={(e) => setFieldValues({ ...fieldValues, password: e.target.value })}
                 value={!fieldValues.password ? "" : fieldValues.password}
               />
@@ -116,25 +116,34 @@ export const SignIn = () => {
               </InputRightElement>
             </InputGroup>
           </FormControl>
+          <Box />
         </VStack>
         <Stack spacing={10} m={"0 0 0 auto"}>
-          <Stack
-            direction={{ base: "column", sm: "row" }}
-            align={"start"}
+          <HStack
+            // direction={{ base: "column", sm: "row" }}
+            // align={"start"}
             justify={"space-between"}
           >
             {/* <Checkbox>ログインを維持する</Checkbox> */}
-          </Stack>
-          <Button
-            w="7rem"
-            variant="solid"
-            colorScheme="red"
-            onClick={(e) => {
-              handleSignIn(e)
-            }}
-          >
-            サインイン
-          </Button>
+            <Link
+              onClick={() => {
+                router.replace("/resetPassword/")
+              }}
+            >
+              パスワードを忘れた場合
+            </Link>
+            <Spacer />
+            <Button
+              w="7rem"
+              variant="solid"
+              colorScheme="red"
+              onClick={(e) => {
+                handleSignIn(e)
+              }}
+            >
+              サインイン
+            </Button>
+          </HStack>
         </Stack>
       </Box>
     </Center>

@@ -1,18 +1,15 @@
+import useAuthUser from "@/hooks/useAuthUser"
+import { supabase } from "@/libs/utils/supabaseClient"
 import {
-  Heading,
-  Box,
-  Flex,
-  Select,
-  Progress,
-  ButtonGroup,
   Button,
-  VStack,
-  GridItem,
+  ButtonGroup,
+  Flex,
   FormControl,
   FormLabel,
+  GridItem,
+  Heading,
   Input,
   InputGroup,
-  InputRightElement,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -20,18 +17,21 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Progress,
+  Select,
   useDisclosure,
   useToast,
+  VStack,
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
-import React, { useEffect, useState } from "react"
-import useAuthUser from "@/hooks/useAuthUser"
-import { supabase } from "@/libs/utils/supabaseClient"
+import { useEffect, useState } from "react"
 import deptData from "./dept.json"
-import Router from "next/router"
-import { FaEyeSlash, FaEye } from "react-icons/fa"
+// import Router from "next/router"
+// import { FaEyeSlash, FaEye } from "react-icons/fa"
+import { ToggleTheme } from "@/libs/utils/themes"
 
 const Form1 = (props) => {
+  const { toggleTextColor, subAccentColor } = ToggleTheme()
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
@@ -39,11 +39,12 @@ const Form1 = (props) => {
       </Heading>
       <Flex>
         <FormControl mr="5%">
-          <FormLabel htmlFor="last-name" fontWeight={"normal"}>
+          <FormLabel htmlFor="last-name" fontWeight={"normal"} color={toggleTextColor}>
             性
           </FormLabel>
           <Input
             id="last-name"
+            focusBorderColor={subAccentColor}
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, lastname: e.target.value })
             }
@@ -52,11 +53,12 @@ const Form1 = (props) => {
         </FormControl>
 
         <FormControl>
-          <FormLabel htmlFor="first-name" fontWeight={"normal"}>
+          <FormLabel htmlFor="first-name" fontWeight={"normal"} color={toggleTextColor}>
             名
           </FormLabel>
           <Input
             id="first-name"
+            focusBorderColor={subAccentColor}
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, firstname: e.target.value })
             }
@@ -67,12 +69,13 @@ const Form1 = (props) => {
 
       <Flex>
         <FormControl mr="5%">
-          <FormLabel htmlFor="date of birth" fontWeight={"normal"}>
+          <FormLabel htmlFor="date of birth" fontWeight={"normal"} color={toggleTextColor}>
             生年月日
           </FormLabel>
           <Input
             id="date_of_birth"
             type="date"
+            focusBorderColor={subAccentColor}
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, date_of_birth: e.target.value })
             }
@@ -85,6 +88,7 @@ const Form1 = (props) => {
 }
 
 const Form2 = (props) => {
+  const { toggleTextColor, subAccentColor } = ToggleTheme()
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
@@ -92,15 +96,7 @@ const Form2 = (props) => {
       </Heading>
       <VStack>
         <FormControl as={GridItem} colSpan={[6, 3]}>
-          <FormLabel
-            htmlFor="course"
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: "gray.50",
-            }}
-          >
+          <FormLabel htmlFor="course" fontSize="sm" fontWeight="md" color={toggleTextColor} mt="2%">
             分類
           </FormLabel>
           <Select
@@ -108,7 +104,7 @@ const Form2 = (props) => {
             name="course"
             autoComplete="course"
             placeholder="Select option"
-            focusBorderColor="brand.400"
+            focusBorderColor={subAccentColor}
             shadow="sm"
             size="sm"
             w="full"
@@ -126,15 +122,7 @@ const Form2 = (props) => {
           </Select>
         </FormControl>
         <FormControl as={GridItem} colSpan={[6, 3]}>
-          <FormLabel
-            htmlFor="department"
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: "gray.50",
-            }}
-          >
+          <FormLabel htmlFor="department" fontSize="sm" fontWeight="md" color={toggleTextColor}>
             学科
           </FormLabel>
           <Select
@@ -142,7 +130,7 @@ const Form2 = (props) => {
             name="department"
             autoComplete="department"
             placeholder="Select option"
-            focusBorderColor="brand.400"
+            focusBorderColor={subAccentColor}
             shadow="sm"
             size="sm"
             w="full"
@@ -165,22 +153,13 @@ const Form2 = (props) => {
         </FormControl>
 
         <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
-          <FormLabel
-            htmlFor="class"
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: "gray.50",
-            }}
-            mt="2%"
-          >
+          <FormLabel htmlFor="class" fontSize="sm" fontWeight="md" color={toggleTextColor} mt="2%">
             クラス
           </FormLabel>
           <Input
             type="text"
             id="class"
-            focusBorderColor="brand.400"
+            focusBorderColor={subAccentColor}
             shadow="sm"
             size="sm"
             w="full"
@@ -198,10 +177,7 @@ const Form2 = (props) => {
             htmlFor="student_id"
             fontSize="sm"
             fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: "gray.50",
-            }}
+            color={toggleTextColor}
             mt="2%"
           >
             学籍番号
@@ -209,7 +185,7 @@ const Form2 = (props) => {
           <Input
             type="text"
             id="student_id"
-            focusBorderColor="brand.400"
+            focusBorderColor={subAccentColor}
             shadow="sm"
             size="sm"
             w="full"
@@ -231,8 +207,10 @@ export const ChangeDataModal = (props) => {
   const [step, setStep] = useState(1)
   const [progress, setProgress] = useState(50)
   const { user } = useAuthUser()
-  const [show, setShow] = useState(false)
-  const handleClick = () => setShow(!show)
+  const { toggleTextColor, toggleBorderColor, toggleMainAccentColor, subAccentColor } =
+    ToggleTheme()
+  // const [show, setShow] = useState(false)
+  // const handleClick = () => setShow(!show)
   const { isOpen: isChUserOpen, onOpen: onChUserOpen, onClose: onChUserClose } = useDisclosure()
   const { isOpen: isChEmailOpen, onOpen: onChEmailOpen, onClose: onChEmailClose } = useDisclosure()
   const { isOpen: isChPassOpen, onOpen: onChPassOpen, onClose: onChPassClose } = useDisclosure()
@@ -296,9 +274,9 @@ export const ChangeDataModal = (props) => {
     } else {
       toast({
         title: "SUCCESS!!",
-        description: "メールアドレスは正常に変更されました！",
+        description: "変更確認メールが送信されました。\n受信したメールを確認してください",
         status: "success",
-        duration: 1500,
+        duration: 6000,
         isClosable: true,
       })
       router.push("/")
@@ -307,27 +285,29 @@ export const ChangeDataModal = (props) => {
 
   const onPassSubmit = async (e) => {
     e.preventDefault()
-    const password = fieldValues.password
-    const { error } = await supabase.auth.updateUser({ password: password })
-
-    if (error) {
-      setLoading(false)
-      toast({
-        title: "ERROR!!",
-        description: "変更に失敗しました。\n再度お試しください",
-        status: "error",
-        duration: 9000,
-        isClosable: true,
+    try {
+      let { data, error } = await supabase.auth.resetPasswordForEmail(fieldValues.email, {
+        redirectTo: "http://localhost:3000/resetPassword/form/",
       })
-    } else {
-      toast({
-        title: "SUCCESS!!",
-        description: "パスワードは正常に変更されました！",
-        status: "success",
-        duration: 1500,
-        isClosable: true,
-      })
-      router.push("/")
+      if (error) {
+        toast({
+          title: "ERROR!!",
+          description: "メール送信に失敗しました。\n再度お試しください",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        })
+      } else {
+        toast({
+          title: "SUCCESS!!",
+          description: "変更確認メールが送信されました。\n受信したメールを確認してください",
+          status: "success",
+          duration: 6000,
+          isClosable: true,
+        })
+      }
+    } catch (error) {
+      alert(error.error_description || error.message)
     }
   }
 
@@ -356,9 +336,6 @@ export const ChangeDataModal = (props) => {
         duration: 9000,
         isClosable: true,
       })
-      // Router.reload()
-
-      // router.replace("/profilePage/")
       router.reload()
       onClose()
     } catch (error) {
@@ -388,8 +365,8 @@ export const ChangeDataModal = (props) => {
         align="right"
         id="aaaa"
         border={"1px"}
-        borderColor={"gray.50"}
-        _hover={{ bg: "teal.50", border: "1px", borderColor: "teal.300" }}
+        borderColor={toggleBorderColor}
+        _hover={{ bg: toggleMainAccentColor, border: "1px", borderColor: subAccentColor }}
         onClick={() => {
           {
             isUser && onChUserOpen()
@@ -408,7 +385,7 @@ export const ChangeDataModal = (props) => {
         <Modal isOpen={isChEmailOpen} onClose={onChEmailClose}>
           <ModalOverlay />
           <ModalContent width="30vw">
-            <ModalHeader>メールアドレス変更</ModalHeader>
+            <ModalHeader color={toggleTextColor}>メールアドレス変更</ModalHeader>
             <ModalCloseButton />
 
             <ModalBody>
@@ -416,16 +393,25 @@ export const ChangeDataModal = (props) => {
                 <FormLabel htmlFor={"mail"} fontWeight={"normal"}>
                   新しいメールアドレス
                 </FormLabel>
-                <Input
-                  id={"mail"}
-                  onChange={(e) => setFieldValues({ ...fieldValues, email: e.target.value })}
-                  value={!fieldValues.email ? "" : fieldValues.email}
-                />
+                <InputGroup size="md">
+                  <Input
+                    id={"mail"}
+                    focusBorderColor={subAccentColor}
+                    onChange={(e) => setFieldValues({ ...fieldValues, email: e.target.value })}
+                    value={!fieldValues.email ? "" : fieldValues.email}
+                  />
+                </InputGroup>
               </FormControl>
             </ModalBody>
 
             <ModalFooter>
-              <Button colorScheme="red" variant="solid" mr={3} onClick={onEmailSubmit}>
+              <Button
+                isDisabled={fieldValues.email === "" ? true : false}
+                w="7rem"
+                variant="solid"
+                colorScheme="red"
+                onClick={onEmailSubmit}
+              >
                 送信
               </Button>
             </ModalFooter>
@@ -436,33 +422,35 @@ export const ChangeDataModal = (props) => {
         <Modal isOpen={isChPassOpen} onClose={onChPassClose}>
           <ModalOverlay />
           <ModalContent width="30vw">
-            <ModalHeader>パスワード変更</ModalHeader>
+            <ModalHeader color={toggleTextColor}>パスワード変更リクエスト</ModalHeader>
             <ModalCloseButton />
 
             <ModalBody>
               <FormControl>
                 <FormLabel htmlFor="password" fontWeight={"normal"} mt="2%">
-                  新しいパスワード
+                  メールアドレスを入力
                 </FormLabel>
                 <InputGroup size="md">
                   <Input
-                    pr="4.5rem"
-                    type={show ? "text" : "password"}
-                    placeholder="パスワードを入力"
-                    onChange={(e) => setFieldValues({ ...fieldValues, password: e.target.value })}
-                    value={!fieldValues.password ? "" : fieldValues.password}
+                    id={"mail"}
+                    focusBorderColor={subAccentColor}
+                    onChange={(e) => setFieldValues({ ...fieldValues, email: e.target.value })}
+                    value={!fieldValues.email ? "" : fieldValues.email}
                   />
-                  <InputRightElement width="4.5rem">
-                    <Button h="1.75rem" size="sm" onClick={handleClick}>
-                      {!show ? <FaEyeSlash /> : <FaEye />}
-                    </Button>
-                  </InputRightElement>
                 </InputGroup>
               </FormControl>
             </ModalBody>
 
             <ModalFooter>
-              <Button colorScheme="red" variant="solid" mr={3} onClick={onPassSubmit}>
+              <Button
+                isDisabled={fieldValues.email === "" ? true : false}
+                w="7rem"
+                variant="solid"
+                colorScheme="red"
+                onClick={(e) => {
+                  onPassSubmit(e)
+                }}
+              >
                 送信
               </Button>
             </ModalFooter>
