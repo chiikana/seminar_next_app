@@ -110,28 +110,22 @@ export const AccountInfo = (props) => {
                     {fieldValues.class}
                   </Text>
                 )}
+                {fieldValues.class_number !== "" && (
+                  <Text pt="2" fontSize="xl" _after={{ content: `"番"` }}>
+                    {fieldValues.class_number}
+                  </Text>
+                )}
               </HStack>
               <Box w={"170px"}></Box>
             </HStack>
-            <HStack>
-              <HStack justify={"space-between"}>
-                <Heading size="md" textTransform="uppercase" w={"170px"}>
-                  出席番号
-                </Heading>
-                <Text pt="2" fontSize="xl">
-                  {fieldValues.class_number}
-                </Text>
-                <Box w={"170px"}></Box>
-              </HStack>
-              <HStack justify={"space-between"}>
-                <Heading size="md" textTransform="uppercase" w={"170px"}>
-                  学籍番号
-                </Heading>
-                <Text pt="2" fontSize="xl">
-                  {fieldValues.student_id}
-                </Text>
-                <Box w={"170px"}></Box>
-              </HStack>
+            <HStack justify={"space-between"}>
+              <Heading size="md" textTransform="uppercase" w={"170px"}>
+                学籍番号
+              </Heading>
+              <Text pt="2" fontSize="xl">
+                {fieldValues.student_id}
+              </Text>
+              <Box w={"170px"}></Box>
             </HStack>
             <HStack justify={"space-between"}>
               <Heading size="md" textTransform="uppercase" w={"170px"}>
