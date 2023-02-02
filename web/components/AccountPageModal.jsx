@@ -8,6 +8,7 @@ import {
   FormLabel,
   GridItem,
   Heading,
+  HStack,
   Input,
   InputGroup,
   Modal,
@@ -68,13 +69,14 @@ const Form1 = (props) => {
       </Flex>
 
       <Flex>
-        <FormControl mr="5%">
+        <FormControl>
           <FormLabel htmlFor="date of birth" fontWeight={"normal"} color={toggleTextColor}>
             生年月日
           </FormLabel>
           <Input
             id="date_of_birth"
             type="date"
+            max={"9999-12-31"}
             focusBorderColor={subAccentColor}
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, date_of_birth: e.target.value })
@@ -152,26 +154,54 @@ const Form2 = (props) => {
           </Select>
         </FormControl>
 
-        <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
-          <FormLabel htmlFor="class" fontSize="sm" fontWeight="md" color={toggleTextColor} mt="2%">
-            クラス
-          </FormLabel>
-          <Input
-            type="text"
-            id="class"
-            focusBorderColor={subAccentColor}
-            shadow="sm"
-            size="sm"
-            w="full"
-            rounded="md"
-            textTransform="uppercase"
-            onChange={(e) =>
-              props.setFieldValues({ ...props.fieldValues, class: e.target.value.toUpperCase() })
-            }
-            value={!props.fieldValues.class ? "" : props.fieldValues.class}
-          />
-        </FormControl>
+        <HStack w={"100%"} justify={"space-between"}>
+          <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
+            <FormLabel
+              htmlFor="class"
+              fontSize="sm"
+              fontWeight="md"
+              color={toggleTextColor}
+              mt="2%"
+            >
+              クラス
+            </FormLabel>
+            <Input
+              type="text"
+              id="class"
+              maxLength={"1"}
+              focusBorderColor={subAccentColor}
+              shadow="sm"
+              size="sm"
+              w="full"
+              rounded="md"
+              textTransform="uppercase"
+              onChange={(e) =>
+                props.setFieldValues({ ...props.fieldValues, class: e.target.value.toUpperCase() })
+              }
+              value={!props.fieldValues.class ? "" : props.fieldValues.class}
+            />
+          </FormControl>
 
+          <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
+            <FormLabel htmlFor="class" fontSize="sm" fontWeight="md" mt="2%">
+              出席番号
+            </FormLabel>
+            <Input
+              type="number"
+              id="class_number"
+              maxLength={"2"}
+              focusBorderColor={subAccentColor}
+              shadow="sm"
+              size="sm"
+              w="full"
+              rounded="md"
+              onChange={(e) =>
+                props.setFieldValues({ ...props.fieldValues, class_number: e.target.value })
+              }
+              value={!props.fieldValues.class_number ? "" : props.fieldValues.class_number}
+            />
+          </FormControl>
+        </HStack>
         <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
           <FormLabel
             htmlFor="student_id"
@@ -224,6 +254,8 @@ export const ChangeDataModal = (props) => {
     department: "",
     class: "",
     student_id: "",
+    start_year: "",
+    class_number: "",
   }
 
   const [fieldValues, setFieldValues] = useState(defaultValues)
@@ -240,7 +272,7 @@ export const ChangeDataModal = (props) => {
   const getProfile = async (user_id) => {
     let { data } = await supabase
       .from("profiles")
-      .select("firstname,lastname,date_of_birth,course,department,class,student_id")
+      .select("firstname,lastname,date_of_birth,course,department,class,student_id,class_number")
       .eq("id", user_id)
     if (data) {
       setFieldValues({
@@ -252,7 +284,9 @@ export const ChangeDataModal = (props) => {
         course: data[0].course,
         department: data[0].department,
         class: data[0].class,
-        student_id: data[0].student_id,
+        student_id: String(data[0].student_id),
+        start_year: String(data[0].student_id).substring(0, 4),
+        class_number: String(data[0].class_number),
       })
     }
   }
@@ -263,7 +297,7 @@ export const ChangeDataModal = (props) => {
     const { data, error } = await supabase.auth.updateUser({ email: email })
 
     if (error) {
-      setLoading(false)
+      // setLoading(false)
       toast({
         title: "ERROR!!",
         description: "変更に失敗しました。\n再度お試しください",
@@ -324,6 +358,8 @@ export const ChangeDataModal = (props) => {
         department: fieldValues.department,
         class: fieldValues.class,
         student_id: fieldValues.student_id,
+        start_year: fieldValues.start_year,
+        class_number: fieldValues.class_number,
       }
       console.log("updates=> ", updates)
 
@@ -346,7 +382,6 @@ export const ChangeDataModal = (props) => {
         duration: 9000,
         isClosable: true,
       })
-    } finally {
     }
   }
 
@@ -528,7 +563,11 @@ export const ChangeDataModal = (props) => {
                       colorScheme="red"
                       variant="solid"
                       onClick={(e) => {
-                        onSubmit(e)
+                        setFieldValues({
+                          ...fieldValues,
+                          start_year: fieldValues.student_id.substring(0, 4),
+                        }),
+                          onSubmit(e)
                         // router.reload()
                       }}
                     >
