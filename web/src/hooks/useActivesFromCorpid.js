@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import { supabase } from "../libs/utils/supabaseClient"
-import useAuthUser from "./useAuthUser"
 
 export const useActivesFromCorpId = (corpId) => {
   const [actives, setActives] = useState([])
