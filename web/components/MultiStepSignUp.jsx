@@ -79,6 +79,7 @@ const Form1 = (props) => {
           <Input
             id="date_of_birth"
             type="date"
+            max={"9999-12-31"}
             focusBorderColor={subAccentColor}
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, date_of_birth: e.target.value })
