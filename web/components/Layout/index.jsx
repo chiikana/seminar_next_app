@@ -1,11 +1,12 @@
-import { Box, calc, useColorModeValue } from "@chakra-ui/react"
+import { ToggleTheme } from "@/libs/utils/themes"
+import { Box } from "@chakra-ui/react"
 import { Footer } from "./Footer"
 import { Header } from "./Header"
 import { LinklessHeader } from "./LinklessHeader"
 
 export const Layout = (props) => {
   const { children, hasHeader = true } = props
-  const toggleBgColor = useColorModeValue("gray.50", "gray.800")
+  const { toggleBgColor } = ToggleTheme()
   return (
     <Box
       display={"grid"}

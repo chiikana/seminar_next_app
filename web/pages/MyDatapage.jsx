@@ -43,11 +43,11 @@ import React,{ useEffect,useCallback,useState,useRef }  from 'react';
     const { isOpen: isChangeOpen, onOpen: onChangeOpen, onClose: onChangeClose } = useDisclosure()
     const [size] = React.useState('lx')
 
-    const initialRef = React.useRef(null)
-    const finalRef = React.useRef(null)
-  
-    return (
-      <>
+  const initialRef = React.useRef(null)
+  const finalRef = React.useRef(null)
+
+  return (
+    <>
       <TableContainer>
       <Table variant='simple'>
         <Thead>
@@ -108,12 +108,12 @@ import React,{ useEffect,useCallback,useState,useRef }  from 'react';
       <ModalBody>
       <FormControl>
               <FormLabel>企業名</FormLabel>
-              <Input ref={initialRef} placeholder='企業名を入力してください' />
+              <Input ref={initialRef} placeholder="企業名を入力してください" />
             </FormControl>
 
             <FormControl mt={4}>
               <FormLabel>企業番号</FormLabel>
-              <Input placeholder='数字を入力してください' />
+              <Input placeholder="数字を入力してください" />
             </FormControl>
       </ModalBody>
 
@@ -222,4 +222,3 @@ import React,{ useEffect,useCallback,useState,useRef }  from 'react';
    }
     export default Fuga
   
-

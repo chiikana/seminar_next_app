@@ -1,3 +1,6 @@
+import useAuthUser from "@/hooks/useAuthUser"
+import { supabase } from "@/libs/utils/supabaseClient"
+import { ToggleTheme } from "@/libs/utils/themes"
 import {
   Avatar,
   Box,
@@ -20,20 +23,16 @@ import {
   Text,
   useBreakpointValue,
   useColorMode,
-  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
-import { FaChevronDown, FaChevronRight, FaBars, FaTimes, FaMoon, FaRegSun } from "react-icons/fa"
-import { supabase } from "@/libs/utils/supabaseClient"
-import useAuthUser from "@/hooks/useAuthUser"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
+import { FaBars, FaChevronDown, FaChevronRight, FaMoon, FaRegSun, FaTimes } from "react-icons/fa"
 
 export const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   const { isOpen, onToggle } = useDisclosure()
-  const toggleTextColor = useColorModeValue("gray.800", "white")
-  const toggleBgColor = useColorModeValue("gray.50", "gray.800")
+  const { toggleBgColor, toggleTextColor } = ToggleTheme()
   const router = useRouter()
   const { user } = useAuthUser()
 
@@ -164,12 +163,8 @@ export const Navbar = () => {
 
 const DesktopNav = () => {
   const router = useRouter()
-  // const linkColor = useColorModeValue("gray.800", "gray.200");
-  const linkColor = useColorModeValue("gray.800", "white")
-  // const linkHoverColor = useColorModeValue("gray.400", "white");
-  const linkHoverColor = useColorModeValue("gray.400", "white")
-  // const popoverContentBgColor = useColorModeValue("white", "gray.800");
-  const popoverContentBgColor = useColorModeValue("gray.50", "gray.800")
+  const { toggleTextColor, toggleHoverColor, toggleSubBgColor } = ToggleTheme()
+
   return (
     <Stack direction={"row"} spacing={4}>
       {ROUTE_ITEMS.map((routeItem) => (
@@ -183,10 +178,10 @@ const DesktopNav = () => {
                 }}
                 fontSize={"sm"}
                 fontWeight={500}
-                color={linkColor}
+                color={toggleTextColor}
                 _hover={{
                   textDecoration: "none",
-                  color: linkHoverColor,
+                  color: toggleHoverColor,
                 }}
               >
                 {routeItem.label}
@@ -197,7 +192,7 @@ const DesktopNav = () => {
               <PopoverContent
                 border={0}
                 boxShadow={"xl"}
-                bg={popoverContentBgColor}
+                bg={toggleSubBgColor}
                 p={4}
                 rounded={"xl"}
                 minW={"sm"}
@@ -217,15 +212,10 @@ const DesktopNav = () => {
 }
 
 const DesktopSubNav = ({ label, process, subLabel }) => {
-  const toggleTextColor = useColorModeValue("gray.800", "white")
-  const toggleBgColor = useColorModeValue("gray.50", "gray.800")
-  const toggleBorderColor = useColorModeValue("gray.200", "gray.900")
-  const toggleSubNavHoverColor = useColorModeValue("teal.50", "teal.900")
-  const subNavTextColor = "green.400"
+  const { toggleMainAccentColor, subAccentColor } = ToggleTheme()
   const router = useRouter()
   return (
     <Box
-      // href={process}
       onClick={() => {
         router.push(`${process}`)
       }}
@@ -233,13 +223,13 @@ const DesktopSubNav = ({ label, process, subLabel }) => {
       display={"block"}
       p={2}
       rounded={"md"}
-      _hover={{ bg: toggleSubNavHoverColor }}
+      _hover={{ bg: toggleMainAccentColor }}
     >
       <Stack direction={"row"} align={"center"}>
         <Box>
           <Text
             transition={"all .3s ease"}
-            _groupHover={{ color: subNavTextColor }}
+            _groupHover={{ color: subAccentColor }}
             fontWeight={500}
           >
             {label}
@@ -255,7 +245,7 @@ const DesktopSubNav = ({ label, process, subLabel }) => {
           align={"center"}
           flex={1}
         >
-          <Icon color={subNavTextColor} w={5} h={5} as={FaChevronRight} />
+          <Icon color={subAccentColor} w={5} h={5} as={FaChevronRight} />
         </Flex>
       </Stack>
     </Box>
@@ -265,9 +255,7 @@ const DesktopSubNav = ({ label, process, subLabel }) => {
 const MobileNav = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   const router = useRouter()
-  const toggleTextColor = useColorModeValue("gray.800", "white")
-  const toggleBgColor = useColorModeValue("gray.50", "gray.800")
-  const toggleBorderColor = useColorModeValue("gray.200", "gray.900")
+  const { toggleBgColor, toggleBorderColor } = ToggleTheme()
   return (
     <Stack
       bg={toggleBgColor}
@@ -287,9 +275,7 @@ const MobileNav = () => {
 const MobilerouteItem = ({ label, children, process }) => {
   const { isOpen, onToggle } = useDisclosure()
   const router = useRouter()
-  const toggleTextColor = useColorModeValue("gray.800", "white")
-  const toggleBgColor = useColorModeValue("gray.50", "gray.800")
-  const toggleBoderColor = useColorModeValue("gray.200", "gray.900")
+  const { toggleBgColor, toggleTextColor, toggleBorderColor } = ToggleTheme()
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
@@ -324,7 +310,7 @@ const MobilerouteItem = ({ label, children, process }) => {
           pl={4}
           borderLeft={1}
           borderStyle={"solid"}
-          borderColor={toggleBoderColor}
+          borderColor={toggleBorderColor}
           align={"start"}
         >
           {children &&

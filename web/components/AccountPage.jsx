@@ -1,5 +1,4 @@
 import useAuthUser from "@/hooks/useAuthUser"
-import useProfile from "@/hooks/useProfile"
 import { supabase } from "@/libs/utils/supabaseClient"
 import {
   Box,
@@ -12,7 +11,6 @@ import {
   StackDivider,
   Text,
 } from "@chakra-ui/react"
-import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { ChangeDataModal } from "./AccountPageModal"
 
@@ -29,6 +27,7 @@ export const AccountInfo = (props) => {
     department: "",
     class: "",
     student_id: "",
+    class_number: "",
   }
 
   const [fieldValues, setFieldValues] = useState(defaultValue)
@@ -43,7 +42,7 @@ export const AccountInfo = (props) => {
   const getProfile = async (user_id) => {
     let { data } = await supabase
       .from("profiles")
-      .select("firstname,lastname,date_of_birth,course,department,class,student_id")
+      .select("firstname,lastname,date_of_birth,course,department,class,student_id,class_number")
       .eq("id", user_id)
     if (data) {
       setFieldValues({
@@ -55,7 +54,8 @@ export const AccountInfo = (props) => {
         course: data[0].course,
         department: data[0].department,
         class: data[0].class,
-        student_id: data[0].student_id,
+        student_id: String(data[0].student_id),
+        class_number: String(data[0].class_number),
       })
     }
   }
@@ -113,14 +113,25 @@ export const AccountInfo = (props) => {
               </HStack>
               <Box w={"170px"}></Box>
             </HStack>
-            <HStack justify={"space-between"}>
-              <Heading size="md" textTransform="uppercase" w={"170px"}>
-                出席番号
-              </Heading>
-              <Text pt="2" fontSize="xl">
-                {fieldValues.student_id}
-              </Text>
-              <Box w={"170px"}></Box>
+            <HStack>
+              <HStack justify={"space-between"}>
+                <Heading size="md" textTransform="uppercase" w={"170px"}>
+                  出席番号
+                </Heading>
+                <Text pt="2" fontSize="xl">
+                  {fieldValues.student_id}
+                </Text>
+                <Box w={"170px"}></Box>
+              </HStack>
+              <HStack justify={"space-between"}>
+                <Heading size="md" textTransform="uppercase" w={"170px"}>
+                  出席番号
+                </Heading>
+                <Text pt="2" fontSize="xl">
+                  {fieldValues.class_number}
+                </Text>
+                <Box w={"170px"}></Box>
+              </HStack>
             </HStack>
             <HStack justify={"space-between"}>
               <Heading size="md" textTransform="uppercase" w={"170px"}>
