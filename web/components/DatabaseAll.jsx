@@ -1,8 +1,4 @@
-import React, { useState } from "react"
-import { useSupabaseClient } from "@supabase/auth-helpers-react"
-
-import { supabase } from "@/libs/utils/supabaseClient"
-import { notFound } from "next/navigation"
+import React, { useState, useEffect } from "react"
 import {
   Button,
   ButtonGroup,
@@ -30,8 +26,9 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react"
-
-import useAuthUser from "../src/hooks/useAuthUser"
+import { supabase } from "@/libs/utils/supabaseClient"
+import useAuthUser from "@/hooks/useAuthUser"
+// import { useSupabaseClient } from "@supabase/auth-helpers-react"
 // import {Layout} from "./Layout/Layout"
 
 //検索
@@ -46,29 +43,43 @@ const ShowAll = () => {
   alert("全データ表示。")
 }
 
-
-// export const generateStaticParams = async() => {
-//   const { data: posts } = await supabase.from('posts').select('id')
-//   return posts?.map(({ id }) => ({
-//     id,
-//   }))
-// }
-// export const Post = async({ params}) =>{
-//   const { data: post } = await supabase.from('posts').select().match({ id }).single()
-
-//   if (!post) {
-//     notFound()
-//   }
-
-//   return <pre>{JSON.stringify(post, null, 2)}</pre>
-// }
-
-export const DatabaseAll = (props) => {
+export const DatabaseAll = (props) => {  
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [show, setShow] = React.useState(false)
-  const handleClick = () => setShow(!show)
-  const supabase = useSupabaseClient()
   const { user } = useAuthUser()
+
+  // const defaultValue = {
+  //   student_id: "",
+  //   firstname: "",
+  //   lastname: "",
+  //   department: "",
+  //   class: "",
+  //   // クラスナンバー
+  // }
+
+  // const [fieldValues, setFieldValues] = useState(defaultValue)
+
+  useEffect(() => {
+    if (user) getProfile()
+  }, [user])
+  
+  const [classnum,setClassnum] = useState()
+  const [fname,setFname] = useState()
+  const [lname,setLname] = useState()
+  const [department,setDepartment] = useState()
+  const [sclass,setSclass] = useState()
+
+  const getProfile = async () => {
+    let { data } = await supabase.from("profiles")
+      .select("class_number,firstname,lastname,department,class")
+    if (data) {
+      setClassnum(data[0].class_number)
+      setFname(data[0].firstname)
+      setLname(data[0].lastname)
+      setDepartment(data[0].department)
+      setSclass(data[0].class)
+    }
+  }
+ 
   return (
     <>
     <VStack>
@@ -81,177 +92,24 @@ export const DatabaseAll = (props) => {
           全表示
         </Button>
       </Flex>
+      <Text>{department + sclass + "組"}</Text>
       <TableContainer minW={"70vw"} overflowY={"auto"}>
       <Table variant="simple">
           <Thead>
             <Tr>
-              <Th>number</Th>
-              <Th>name</Th>
-              <Th>enterprise</Th>
-              <Th>progress</Th>
-              <Th>detail</Th>
+              <Th>番号</Th>
+              <Th>名前</Th>
+              <Th>会社名</Th>
+              <Th>進行状況</Th>
+              <Th>活動内容</Th>
             </Tr>
           </Thead>
           <Tbody>
             <Tr>
-              <Td>1</Td>
-              <Td>{user?.user_metadata.lastname}</Td>
-              <Td>ヤクルト</Td>
-              <Td></Td>
-              <Td>
-                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                  活動内容
-                </Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td></Td>
-              <Td></Td>
-              <Td>侍</Td>
-              <Td>二次面接</Td>
-              <Td>
-                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                  活動内容
-                </Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>2</Td>
-              <Td>青木</Td>
-              <Td>ヤクルト</Td>
-              <Td></Td>
-              <Td>
-                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                  活動内容
-                </Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>3</Td>
-              <Td>山田</Td>
-              <Td>ヤクルト</Td>
-              <Td></Td>
-              <Td>
-                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                  活動内容
-                </Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td></Td>
-              <Td></Td>
-              <Td>侍</Td>
-              <Td>一次面接</Td>
-              <Td>
-                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                  活動内容
-                </Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>4</Td>
-              <Td>村上</Td>
-              <Td>ヤクルト</Td>
-              <Td></Td>
-              <Td>
-                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                  活動内容
-                </Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td></Td>
-              <Td></Td>
-              <Td>侍</Td>
-              <Td>内定済み</Td>
-              <Td>
-                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                  活動内容
-                </Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>5</Td>
-              <Td>オスナ</Td>
-              <Td>ヤクルト</Td>
-              <Td></Td>
-              <Td>
-                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                  活動内容
-                </Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td></Td>
-              <Td></Td>
-              <Td>侍</Td>
-              <Td>内定辞退</Td>
-              <Td>
-                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                  活動内容
-                </Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>6</Td>
-              <Td>サンタナ</Td>
-              <Td>ヤクルト</Td>
-              <Td></Td>
-              <Td>
-                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                  活動内容
-                </Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td></Td>
-              <Td></Td>
-              <Td>侍</Td>
-              <Td>受験せず</Td>
-              <Td>
-                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                  活動内容
-                </Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>7</Td>
-              <Td>中村</Td>
-              <Td>ヤクルト</Td>
-              <Td></Td>
-              <Td>
-                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                  活動内容
-                </Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td></Td>
-              <Td></Td>
-              <Td>侍</Td>
-              <Td>最終面接</Td>
-              <Td>
-                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                  活動内容
-                </Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>8</Td>
-              <Td>長岡</Td>
-              <Td>ヤクルト</Td>
-              <Td></Td>
-              <Td>
-                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                  活動内容
-                </Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>9</Td>
-              <Td>奥川</Td>
-              <Td>ヤクルト</Td>
-              <Td></Td>
+              <Td>{classnum}</Td>
+              <Td>{lname + fname}</Td>
+              <Td>a</Td>
+              <Td>a</Td>
               <Td>
                 <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
                   活動内容
@@ -261,11 +119,11 @@ export const DatabaseAll = (props) => {
           </Tbody>
           <Tfoot>
             <Tr>
-              <Th>number</Th>
-              <Th>name</Th>
-              <Th>enterprise</Th>
-              <Th>progress</Th>
-              <Th>detail</Th>
+              <Th>番号</Th>
+              <Th>名前</Th>
+              <Th>会社名</Th>
+              <Th>進行状況</Th>
+              <Th>活動内容</Th>
             </Tr>
           </Tfoot>
         </Table>
@@ -293,7 +151,6 @@ export const DatabaseAll = (props) => {
             <ModalBody>
               <TableContainer>
                 <Table variant="simple">
-                  {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
                   <Thead>
                     <Tr>
                       <Th>detail</Th>
