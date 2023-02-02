@@ -342,7 +342,7 @@ const ROUTE_ITEMS = [
       {
         label: "自分の就活状況",
         subLabel: "自分の就活状況を表示します。",
-        process: "/TablePage/",
+        process: "/myData/",
       },
       {
         label: "みんなの就活状況",

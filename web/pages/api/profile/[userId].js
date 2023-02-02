@@ -1,7 +1,4 @@
 import { supabase } from "@/libs/utils/supabaseClient"
-// import { PostgrestError } from "@supabase/supabase-js"
-// import { NextApiRequest, NextApiResponse } from "next"
-// import { Active } from "src/types/active"
 
 const profileApi = async (req, res) => {
   if (req.method === "GET") {
