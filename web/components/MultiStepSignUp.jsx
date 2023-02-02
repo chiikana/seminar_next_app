@@ -72,7 +72,7 @@ const Form1 = (props) => {
       </Flex>
 
       <Flex>
-        <FormControl mr="5%">
+        <FormControl>
           <FormLabel htmlFor="date of birth" fontWeight={"normal"}>
             生年月日
           </FormLabel>
@@ -110,7 +110,7 @@ const Form1 = (props) => {
           <Input
             pr="4.5rem"
             type={show ? "text" : "password"}
-            placeholder="パスワードを入力"
+            placeholder="8桁以上のパスワードを入力"
             focusBorderColor={subAccentColor}
             onChange={(e) =>
               props.setFieldValues({ ...props.fieldValues, password: e.target.value })
@@ -193,32 +193,53 @@ const Form2 = (props) => {
           </Select>
         </FormControl>
 
-        <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
-          <FormLabel htmlFor="class" fontSize="sm" fontWeight="md" mt="2%">
-            クラス
-          </FormLabel>
-          <Input
-            type="text"
-            id="class"
-            focusBorderColor={subAccentColor}
-            shadow="sm"
-            size="sm"
-            w="full"
-            rounded="md"
-            textTransform="uppercase"
-            onChange={(e) =>
-              props.setFieldValues({ ...props.fieldValues, class: e.target.value.toUpperCase() })
-            }
-            value={!props.fieldValues.class ? "" : props.fieldValues.class}
-          />
-        </FormControl>
+        <HStack w={"100%"} justify={"space-between"}>
+          <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
+            <FormLabel htmlFor="class" fontSize="sm" fontWeight="md" mt="2%">
+              クラス
+            </FormLabel>
+            <Input
+              type="text"
+              id="class"
+              focusBorderColor={subAccentColor}
+              shadow="sm"
+              size="sm"
+              w="full"
+              rounded="md"
+              textTransform="uppercase"
+              onChange={(e) =>
+                props.setFieldValues({ ...props.fieldValues, class: e.target.value.toUpperCase() })
+              }
+              value={!props.fieldValues.class ? "" : props.fieldValues.class}
+            />
+          </FormControl>
+
+          <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
+            <FormLabel htmlFor="class" fontSize="sm" fontWeight="md" mt="2%">
+              出席番号
+            </FormLabel>
+            <Input
+              type="number"
+              id="class_number"
+              focusBorderColor={subAccentColor}
+              shadow="sm"
+              size="sm"
+              w="full"
+              rounded="md"
+              onChange={(e) =>
+                props.setFieldValues({ ...props.fieldValues, class_number: e.target.value })
+              }
+              value={!props.fieldValues.class_number ? "" : props.fieldValues.class_number}
+            />
+          </FormControl>
+        </HStack>
 
         <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
           <FormLabel htmlFor="student_id" fontSize="sm" fontWeight="md" mt="2%">
             学籍番号
           </FormLabel>
           <Input
-            type="text"
+            type="number"
             id="student_id"
             focusBorderColor={subAccentColor}
             shadow="sm"
@@ -278,6 +299,8 @@ export const Multistep = () => {
     department: "",
     class: "",
     student_id: "",
+    start_year: "",
+    class_number: 0,
   }
   const [fieldValues, setFieldValues] = useState(defaultValues)
   const [Agree, handleAgree] = useState(false)
@@ -302,6 +325,8 @@ export const Multistep = () => {
             department: fieldValues.department,
             class: fieldValues.class,
             student_id: fieldValues.student_id,
+            start_year: fieldValues.start_year,
+            class_number: fieldValues.class_number,
           },
         },
       })
@@ -399,7 +424,11 @@ export const Multistep = () => {
                 colorScheme="red"
                 variant="solid"
                 onClick={(e) => {
-                  handleSignUp(e)
+                  setFieldValues({
+                    ...fieldValues,
+                    start_year: fieldValues.student_id.substring(0, 4),
+                  }),
+                    handleSignUp(e)
                 }}
               >
                 Submit
