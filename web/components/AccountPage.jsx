@@ -119,16 +119,16 @@ export const AccountInfo = (props) => {
                   出席番号
                 </Heading>
                 <Text pt="2" fontSize="xl">
-                  {fieldValues.student_id}
+                  {fieldValues.class_number}
                 </Text>
                 <Box w={"170px"}></Box>
               </HStack>
               <HStack justify={"space-between"}>
                 <Heading size="md" textTransform="uppercase" w={"170px"}>
-                  出席番号
+                  学籍番号
                 </Heading>
                 <Text pt="2" fontSize="xl">
-                  {fieldValues.class_number}
+                  {fieldValues.student_id}
                 </Text>
                 <Box w={"170px"}></Box>
               </HStack>
