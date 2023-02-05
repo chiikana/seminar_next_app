@@ -27,7 +27,7 @@ import {
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { FaBars, FaChevronDown, FaChevronRight, FaMoon, FaRegSun, FaTimes } from "react-icons/fa"
+import { FaBars, FaChevronDown, FaChevronRight, FaMoon, FaSun, FaTimes } from "react-icons/fa"
 
 export const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode()
@@ -39,6 +39,7 @@ export const Navbar = () => {
   const defaultValue = {
     firstname: "",
     lastname: "",
+    id: "",
   }
 
   const [fieldValues, setFieldValues] = useState(defaultValue)
@@ -119,7 +120,7 @@ export const Navbar = () => {
             alignItems={"center"}
           >
             <Button display={{ base: "none", md: "inline-flex" }} onClick={toggleColorMode}>
-              {colorMode === "light" ? <FaMoon /> : <FaRegSun />}
+              {colorMode === "light" ? <FaMoon /> : <FaSun />}
             </Button>
             <Flex
               // alignItems={"center"}
@@ -145,6 +146,13 @@ export const Navbar = () => {
                   >
                     プロフィール
                   </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      router.replace(`/active/${user.id}`)
+                    }}
+                  >
+                    自分の活動
+                  </MenuItem>
                   <MenuDivider />
                   <MenuItem onClick={handleSignOut}>ログアウト</MenuItem>
                 </MenuList>
@@ -168,7 +176,7 @@ const DesktopNav = () => {
   return (
     <Stack direction={"row"} spacing={4}>
       {ROUTE_ITEMS.map((routeItem) => (
-        <Box key={routeItem.label}>
+        <Box key={routeItem.label} cursor={"pointer"}>
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
               <Box
@@ -216,8 +224,11 @@ const DesktopSubNav = ({ label, process, subLabel }) => {
   const router = useRouter()
   return (
     <Box
+      cursor={"pointer"}
       onClick={() => {
-        router.push(`${process}`)
+        {
+          process && router.push(`${process}`)
+        }
       }}
       role={"group"}
       display={"block"}
@@ -333,22 +344,34 @@ const MobilerouteItem = ({ label, children, process }) => {
 
 const ROUTE_ITEMS = [
   {
-    label: "Home",
+    label: "アカウント情報",
     process: "/profilePage/",
   },
+  // {
+  //   label: "就活状況",
+  //   children: [
+  //     {
+  //       label: "自分の就活状況",
+  //       subLabel: "自分の就活状況を表示します。",
+  //       process: "/myData/",
+  //     },
+  //     {
+  //       label: "みんなの就活状況",
+  //       subLabel: "みんなの就活状況を表示します。",
+  //       process: "/databaseAll",
+  //     },
+  //   ],
+  // },
   {
-    label: "就活状況",
-    children: [
-      {
-        label: "自分の就活状況",
-        subLabel: "自分の就活状況を表示します。",
-        process: "/myData/",
-      },
-      {
-        label: "みんなの就活状況",
-        subLabel: "みんなの就活状況を表示します。",
-        process: "/databaseAll",
-      },
-    ],
+    label: "自分の就活状況",
+    process: "/myData/",
+  },
+  {
+    label: "みんなの就活状況",
+    process: "/databaseAll",
+  },
+  {
+    label: "就活状況確認",
+    process: "/everyoneTable/",
   },
 ]
