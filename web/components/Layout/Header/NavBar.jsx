@@ -176,7 +176,7 @@ const DesktopNav = () => {
   return (
     <Stack direction={"row"} spacing={4}>
       {ROUTE_ITEMS.map((routeItem) => (
-        <Box key={routeItem.label}>
+        <Box key={routeItem.label} cursor={"pointer"}>
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
               <Box
@@ -224,6 +224,7 @@ const DesktopSubNav = ({ label, process, subLabel }) => {
   const router = useRouter()
   return (
     <Box
+      cursor={"pointer"}
       onClick={() => {
         {
           process && router.push(`${process}`)
