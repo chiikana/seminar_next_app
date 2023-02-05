@@ -42,6 +42,7 @@ import { fetcher } from "@/libs/utils/useSWR"
 // import { EditActiveModal } from "@/components/common/Modal/EditActiveModal"
 import { ActiveRecieve } from "@/components/MyTable/ActiveRecieve"
 import { AddActiveModal } from "@/components/Modal/AddActiveModal"
+import { ToggleTheme } from "@/libs/utils/themes"
 
 export const CorpRecieve = (props) => {
   const { corp } = props
@@ -49,6 +50,8 @@ export const CorpRecieve = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { isOpen: isActiceOpen, onOpen: onActiveOpen, onClose: onActiveClose } = useDisclosure()
   const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure()
+
+  const { toggleSubBgColor } = ToggleTheme()
 
   const { user } = useAuthUser()
   const { id } = router.query
@@ -61,7 +64,7 @@ export const CorpRecieve = (props) => {
   if (!actives) return <></>
 
   return (
-    <Box w={"60vw"} p={5} bg={"gray.100"} my={5}>
+    <Box w={"60vw"} p={5} bg={toggleSubBgColor} my={5}>
       <HStack mb={"20px"}>
         {/* <Text textAlign="center" defaultValue={corp?.corp_name}>
           <EditablePreview />
