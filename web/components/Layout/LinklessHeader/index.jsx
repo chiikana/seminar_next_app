@@ -2,7 +2,7 @@ import { ToggleTheme } from "@/libs/utils/themes"
 import { Box, Button, Flex, Stack, Text, useBreakpointValue, useColorMode } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { FaMoon, FaRegSun } from "react-icons/fa"
+import { FaMoon, FaSun } from "react-icons/fa"
 
 export const LinklessHeader = () => {
   const { colorMode, toggleColorMode } = useColorMode()
@@ -51,7 +51,7 @@ export const LinklessHeader = () => {
               alignItems={"center"}
             >
               <Button display={{ base: "none", md: "inline-flex" }} onClick={toggleColorMode}>
-                {colorMode === "light" ? <FaMoon /> : <FaRegSun />}
+                {colorMode === "light" ? <FaMoon /> : <FaSun />}
               </Button>
 
               <Button

@@ -8,6 +8,7 @@ import {
   HStack,
   Input,
   Select,
+  VStack,
 } from "@chakra-ui/react"
 import { useEveryOne } from "@/hooks/useEveryOne"
 import useSWR from "swr"
@@ -16,7 +17,7 @@ import useProfile from "@/hooks/useProfile"
 import { useEffect, useState } from "react"
 import { UserTable } from "./UserTable"
 
-const EveryOne = () => {
+export const EveryOne = () => {
   // const everyone = useEveryOne()
   const { profile } = useProfile()
   const defaultValue = {
@@ -62,7 +63,7 @@ const EveryOne = () => {
   }
 
   return (
-    <>
+    <VStack w={"100%"}>
       <Heading pl={4} mb={6} fontSize={"20px"}>
         みんなの活動
       </Heading>
@@ -92,16 +93,7 @@ const EveryOne = () => {
             <option value="6">不合格</option>
           </Select>
         </FormControl>
-        <Button
-          loadingText="Submitting"
-          size="md"
-          bg={"blue.400"}
-          color={"white"}
-          _hover={{
-            bg: "blue.500",
-          }}
-          onClick={onSubmit}
-        >
+        <Button loadingText="Submitting" size="md" colorScheme={"teal"} onClick={onSubmit}>
           検索
         </Button>
       </HStack>
@@ -112,8 +104,6 @@ const EveryOne = () => {
           <CircularProgress isIndeterminate color="green.300" />
         </Center>
       )}
-    </>
+    </VStack>
   )
 }
-
-export default EveryOne
