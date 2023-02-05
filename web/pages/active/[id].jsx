@@ -55,7 +55,7 @@ const ActivePage = () => {
   return (
     <Layout>
       <Stack>
-        <HStack justify={"space-between"} my={10}>
+        <HStack justify={"center"} my={10}>
           {isSelfAccount ? (
             <Heading pl={2} fontSize={"2xl"}>
               自分の活動

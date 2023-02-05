@@ -19,10 +19,9 @@ import {
   ModalCloseButton,
   ModalHeader,
 } from "@chakra-ui/react"
-import Router from "next/router"
-import { parse } from "path"
+// import Router from "next/router"
+// import { parse } from "path"
 import { useState } from "react"
-import { IoMdClose } from "react-icons/io"
 import { mutate } from "swr"
 
 export const AddActiveModal = (props) => {

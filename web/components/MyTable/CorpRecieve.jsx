@@ -40,8 +40,8 @@ import { ActiveClass } from "@/libs/active"
 import useSWR from "swr"
 import { fetcher } from "@/libs/utils/useSWR"
 // import { EditActiveModal } from "@/components/common/Modal/EditActiveModal"
-import { ActiveRecieve } from "./ActiveRecieve"
-import { AddActiveModal } from "../Modal/AddActiveModal"
+import { ActiveRecieve } from "@/components/MyTable/ActiveRecieve"
+import { AddActiveModal } from "@/components/Modal/AddActiveModal"
 
 export const CorpRecieve = (props) => {
   const { corp } = props
@@ -61,7 +61,7 @@ export const CorpRecieve = (props) => {
   if (!actives) return <></>
 
   return (
-    <Box w={"100%"} p={5} bg={"gray.100"} my={5}>
+    <Box w={"60vw"} p={5} bg={"gray.100"} my={5}>
       <HStack mb={"20px"}>
         {/* <Text textAlign="center" defaultValue={corp?.corp_name}>
           <EditablePreview />
