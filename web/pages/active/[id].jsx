@@ -21,6 +21,7 @@ import {
 import { useRouter } from "next/router"
 import { useCallback, useEffect, useState } from "react"
 import useSWR from "swr"
+import { ToggleTheme } from "@/libs/utils/themes"
 
 const ActivePage = () => {
   // const { id, corps } = props
@@ -36,7 +37,7 @@ const ActivePage = () => {
   // const userId = { id }.id
   // const corps = useCorps(routerId)
   const { data: corps, error } = useSWR(`/api/corps/${routerId}`, fetcher)
-
+  const { toggleMainAccentColor, subAccentColor } = ToggleTheme()
   const userProfile = useProfileFromUserId(routerId)
 
   const isSelfAccount = user && routerId === user.id
@@ -82,7 +83,7 @@ const ActivePage = () => {
             })
           ) : (
             <Center w={"100%"} h={"100%"}>
-              <CircularProgress isIndeterminate color="green.300" />
+              <CircularProgress isIndeterminate color={subAccentColor} />
             </Center>
           )}
         </Box>

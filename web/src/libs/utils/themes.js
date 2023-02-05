@@ -12,7 +12,7 @@ export const themeColor = {
     },
   },
   text: {
-    light: "gray.800",
+    light: "gray.900",
     dark: "white",
   },
   border: {
@@ -20,8 +20,14 @@ export const themeColor = {
     dark: "gray.200",
   },
   hover: {
-    light: "gray.600",
-    dark: "gray.200",
+    bg: {
+      light: "gray.200",
+      dark: "gray.600",
+    },
+    text: {
+      light: "gray.500",
+      dark: "gray.200",
+    },
   },
   accent: {
     main: {
@@ -37,7 +43,11 @@ export const ToggleTheme = () => {
   const toggleSubBgColor = useColorModeValue(themeColor.bg.sub.light, themeColor.bg.sub.dark)
   const toggleTextColor = useColorModeValue(themeColor.text.light, themeColor.text.dark)
   const toggleBorderColor = useColorModeValue(themeColor.border.light, themeColor.border.dark)
-  const toggleHoverColor = useColorModeValue(themeColor.hover.light, themeColor.hover.dark)
+  const toggleHoverBgColor = useColorModeValue(themeColor.hover.bg.light, themeColor.hover.bg.dark)
+  const toggleHoverTextColor = useColorModeValue(
+    themeColor.hover.text.light,
+    themeColor.hover.text.dark
+  )
   const toggleMainAccentColor = useColorModeValue(
     themeColor.accent.main.light,
     themeColor.accent.main.dark
@@ -49,7 +59,8 @@ export const ToggleTheme = () => {
     toggleSubBgColor,
     toggleTextColor,
     toggleBorderColor,
-    toggleHoverColor,
+    toggleHoverBgColor,
+    toggleHoverTextColor,
     toggleMainAccentColor,
     subAccentColor,
   }

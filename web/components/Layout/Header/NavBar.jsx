@@ -171,7 +171,8 @@ export const Navbar = () => {
 
 const DesktopNav = () => {
   const router = useRouter()
-  const { toggleTextColor, toggleHoverColor, toggleSubBgColor } = ToggleTheme()
+  const { toggleTextColor, toggleHoverBgColor, toggleHoverTextColor, toggleSubBgColor } =
+    ToggleTheme()
 
   return (
     <Stack direction={"row"} spacing={4}>
@@ -189,7 +190,7 @@ const DesktopNav = () => {
                 color={toggleTextColor}
                 _hover={{
                   textDecoration: "none",
-                  color: toggleHoverColor,
+                  color: toggleHoverTextColor,
                 }}
               >
                 {routeItem.label}

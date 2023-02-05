@@ -1,9 +1,11 @@
 // import { EditActiveModal } from "@/components/common/Modal/EditActiveModal"
 import { ActiveClass } from "@/libs/active"
 import { Tr, Td, useDisclosure } from "@chakra-ui/react"
+import { ToggleTheme } from "@/libs/utils/themes"
 
 export const ActiveRecieve = (props) => {
   const { active, corp, isSelfAccount } = props
+  const { toggleHoverColor } = ToggleTheme()
   const {
     isOpen: isOpenEditActive,
     onOpen: onOpenEditActive,
@@ -13,7 +15,7 @@ export const ActiveRecieve = (props) => {
     <>
       <Tr
         key={active.id}
-        _hover={{ bg: "white", transition: "0.2s" }}
+        _hover={{ bg: toggleHoverColor, transition: "0.2s" }}
         onClick={() => {
           isSelfAccount && onOpenEditActive()
         }}

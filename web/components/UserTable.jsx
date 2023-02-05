@@ -17,10 +17,12 @@ import {
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import React, { useEffect } from "react"
+import { ToggleTheme } from "@/libs/utils/themes"
 
 export const UserTable = (props) => {
   const { everyone } = props
   const router = useRouter()
+  const { toggleMainAccentColor, subAccentColor } = ToggleTheme()
 
   useEffect(() => {
     console.log(everyone)
@@ -75,7 +77,7 @@ export const UserTable = (props) => {
                 _hover={{
                   // bg: "gray.200",
                   border: "1px",
-                  borderColor: "teal.200",
+                  borderColor: toggleMainAccentColor,
                   transition: "0.2s",
                 }}
                 onClick={() => {
