@@ -19,7 +19,10 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react"
-import React from "react"
+import React, { useEffect, useCallback, useState, useRef } from "react"
+import { AddCorpModal } from "@/components/Modal/AddCorpModal"
+// import { AddActiveModal } from "@/components/Modal/AddActiveModal"
+
 
 export const MyDatabase = () => {
   const {
@@ -33,6 +36,12 @@ export const MyDatabase = () => {
 
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
+  const { isOpen: isAddCorpOpen, onOpen: onAddCorpOpen, onClose: onAddCorpClose } = useDisclosure()
+  // const {
+  //   isOpen: isAddActiveOpen,
+  //   onOpen: onAddActiveOpen,
+  //   onClose: onAddActiveClose,
+  // } = useDisclosure()
 
   return (
     <>
@@ -41,7 +50,8 @@ export const MyDatabase = () => {
           <Thead>
             <Tr>
               <Th>
-                <Button id="button" colorScheme="teal" variant="outline" onClick={onRegisterOpen}>
+                {/* <Button id="button" colorScheme="teal" variant="outline" onClick={onRegisterOpen}> */}
+                <Button id="button" colorScheme="teal" variant="outline" onClick={onAddCorpOpen}>
                   登録
                 </Button>
               </Th>
@@ -226,6 +236,10 @@ export const MyDatabase = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
+      <>
+        <AddCorpModal isOpen={isAddCorpOpen} onClose={onAddCorpClose} />
+      </>
+      <>{/* <AddActiveModal isOpen={isAddActiveOpen} onClose={onAddActiveClose} /> */}</>
     </>
   )
 }
