@@ -47,31 +47,22 @@ export const DatabaseAll = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user } = useAuthUser()
 
-  // const defaultValue = {
-  //   student_id: "",
-  //   firstname: "",
-  //   lastname: "",
-  //   department: "",
-  //   class: "",
-  //   // クラスナンバー
-  // }
-
-  // const [fieldValues, setFieldValues] = useState(defaultValue)
-
   useEffect(() => {
-    if (user) getProfile()
+    if (user) GetProfile()
   }, [user])
-  
+
+  const [sdata,setSdata] = useState()
   const [classnum,setClassnum] = useState()
   const [fname,setFname] = useState()
   const [lname,setLname] = useState()
   const [department,setDepartment] = useState()
   const [sclass,setSclass] = useState()
 
-  const getProfile = async () => {
+  const GetProfile = async () => {
     let { data } = await supabase.from("profiles")
       .select("class_number,firstname,lastname,department,class")
     if (data) {
+      setSdata(data)
       setClassnum(data[0].class_number)
       setFname(data[0].firstname)
       setLname(data[0].lastname)
@@ -79,7 +70,33 @@ export const DatabaseAll = (props) => {
       setSclass(data[0].class)
     }
   }
- 
+
+  // const Tdata = (props) => {
+  //   if (typeof document !== 'undefined') {
+  //   tbody.innerHTML = ""
+
+  //   const alltr = document.createElement("Tr")
+  //   const td1 = document.createElement("Td")
+  //   const td2 = document.createElement("Td")
+  //   const td3 = document.createElement("Td")
+  //   const td4 = document.createElement("Td")
+  //   const td5 = document.createElement("Td")
+    
+  //   td1.textContent = "番号"
+  //   td2.textContent = "名前"
+  //   td3.textContent = "名前"
+  //   td4.textContent = "名前"
+  //   td5.textContent = "名前"
+
+  //   tbody.appendChild(alltr)
+  //   alltr.appendChild(td1)
+  //   alltr.appendChild(td2)
+  //   alltr.appendChild(td3)
+  //   alltr.appendChild(td4)
+  //   alltr.appendChild(td5)
+  //   }
+  // }
+  // const list = sdata?.map(mdata => <Td>{mdata}</Td>)
   return (
     <>
     <VStack>
@@ -94,7 +111,7 @@ export const DatabaseAll = (props) => {
       </Flex>
       <Text>{department + sclass + "組"}</Text>
       <TableContainer minW={"70vw"} overflowY={"auto"}>
-      <Table variant="simple">
+      <Table variant="simple" id="allTable">
           <Thead>
             <Tr>
               <Th>番号</Th>
@@ -104,8 +121,9 @@ export const DatabaseAll = (props) => {
               <Th>活動内容</Th>
             </Tr>
           </Thead>
-          <Tbody>
-            <Tr>
+          <Tbody id="tbody">
+            {/* <Tr><Td>{list}</Td></Tr> */}
+            {/* <Tr> 
               <Td>{classnum}</Td>
               <Td>{lname + fname}</Td>
               <Td>a</Td>
@@ -115,7 +133,7 @@ export const DatabaseAll = (props) => {
                   活動内容
                 </Button>
               </Td>
-            </Tr>
+            </Tr> */}
           </Tbody>
           <Tfoot>
             <Tr>
