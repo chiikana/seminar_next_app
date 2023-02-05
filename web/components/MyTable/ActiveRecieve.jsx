@@ -5,7 +5,7 @@ import { ToggleTheme } from "@/libs/utils/themes"
 
 export const ActiveRecieve = (props) => {
   const { active, corp, isSelfAccount } = props
-  const { toggleHoverColor } = ToggleTheme()
+  const { toggleHoverBgColor } = ToggleTheme()
   const {
     isOpen: isOpenEditActive,
     onOpen: onOpenEditActive,
@@ -15,7 +15,7 @@ export const ActiveRecieve = (props) => {
     <>
       <Tr
         key={active.id}
-        _hover={{ bg: toggleHoverColor, transition: "0.2s" }}
+        _hover={{ bg: toggleHoverBgColor, transition: "0.2s" }}
         onClick={() => {
           isSelfAccount && onOpenEditActive()
         }}
