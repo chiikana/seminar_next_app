@@ -47,112 +47,92 @@ export const DatabaseAll = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user } = useAuthUser()
 
+  const [sdata,setSdata] = useState()
+  const [department,setDepartment] = useState()
+  const [sclass,setSclass] = useState()
+  const [corp,setCorp] = useState()
+
+  const [mnum,setMnum] = useState()
+
+  global.cnt1 = 0
+  global.cnt2 = 0
+
   useEffect(() => {
     if (user) GetProfile()
   }, [user])
-
-  const [sdata,setSdata] = useState()
-  const [classnum,setClassnum] = useState()
-  const [fname,setFname] = useState()
-  const [lname,setLname] = useState()
-  const [department,setDepartment] = useState()
-  const [sclass,setSclass] = useState()
-
+  
   const GetProfile = async () => {
     let { data } = await supabase.from("profiles")
-      .select("class_number,firstname,lastname,department,class")
+      .select("class_number,firstname,lastname,department,class,corps(corp_name)")
+      .order("class_number")
+
     if (data) {
       setSdata(data)
-      setClassnum(data[0].class_number)
-      setFname(data[0].firstname)
-      setLname(data[0].lastname)
       setDepartment(data[0].department)
       setSclass(data[0].class)
+      setCorp(data[0].corps)
     }
   }
-
-  // const Tdata = (props) => {
-  //   if (typeof document !== 'undefined') {
-  //   tbody.innerHTML = ""
-
-  //   const alltr = document.createElement("Tr")
-  //   const td1 = document.createElement("Td")
-  //   const td2 = document.createElement("Td")
-  //   const td3 = document.createElement("Td")
-  //   const td4 = document.createElement("Td")
-  //   const td5 = document.createElement("Td")
-    
-  //   td1.textContent = "番号"
-  //   td2.textContent = "名前"
-  //   td3.textContent = "名前"
-  //   td4.textContent = "名前"
-  //   td5.textContent = "名前"
-
-  //   tbody.appendChild(alltr)
-  //   alltr.appendChild(td1)
-  //   alltr.appendChild(td2)
-  //   alltr.appendChild(td3)
-  //   alltr.appendChild(td4)
-  //   alltr.appendChild(td5)
-  //   }
-  // }
-  // const list = sdata?.map(mdata => <Td>{mdata}</Td>)
   return (
     <>
     <VStack>
-      <Flex mt="10px" mb="5px" w="500px">
-        <Input id="sBox" background="white"/>
-        <Button id="sButton" margin left="5px" colorScheme="teal" variant="solid" onClick={() => Search()}>
-          検索
-        </Button>
-        <Button id="allButton" margin left="10px" colorScheme="teal" variant="outline" onClick={() => ShowAll()}>
-          全表示
-        </Button>
-      </Flex>
-      <Text>{department + sclass + "組"}</Text>
+      {/* <Text>{department + sclass + "組"}</Text> */}
       <TableContainer minW={"70vw"} overflowY={"auto"}>
-      <Table variant="simple" id="allTable">
+      <Table variant={"simple"} border={"solid 1px"} mt={"20px"} mb={"30px"}>
           <Thead>
             <Tr>
-              <Th>番号</Th>
-              <Th>名前</Th>
-              <Th>会社名</Th>
-              <Th>進行状況</Th>
-              <Th>活動内容</Th>
+              <Th border={"solid 1px"}>番号</Th>
+              <Th border={"solid 1px"}>名前</Th>
             </Tr>
           </Thead>
-          <Tbody id="tbody">
-            {/* <Tr><Td>{list}</Td></Tr> */}
-            {/* <Tr> 
-              <Td>{classnum}</Td>
-              <Td>{lname + fname}</Td>
-              <Td>a</Td>
-              <Td>a</Td>
-              <Td>
-                <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
-                  活動内容
-                </Button>
-              </Td>
-            </Tr> */}
+          <Tbody>
+            {sdata?.map(mdata1 => {return (
+              <Tr>
+                <Td border={"solid 1px"}>{mdata1.class_number}</Td>
+                <Td border={"solid 1px"}>{mdata1.lastname + " " + mdata1.firstname}</Td>
+                <Td border={"solid 1px"}>
+                  <Table>
+                    <Thead>
+                      <Tr>
+                        <Th border={"solid 1px"}>会社名</Th>
+                        <Th border={"solid 1px"}>活動内容</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                    {sdata[cnt1].corps?.map(mdata2 => {return (
+                      <Tr>
+                        {(()=> {
+                          if(cnt2 < sdata[cnt1].corps.length){
+                            return(
+                                <Td border={"solid 1px"}>{sdata[cnt1].corps[cnt2].corp_name}</Td>
+                              )
+                        }
+                        })()}
+                        <Td border={"solid 1px"}>
+                          <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                            活動内容
+                          </Button>
+                        </Td>
+                        {(()=> {
+                          cnt2++
+                        })()}
+                      </Tr>
+                    )})}
+                    {(()=> {
+                      cnt1++
+                      cnt2=0
+                    })()}
+                    </Tbody>
+                  </Table>
+                </Td>
+              </Tr>
+            )})}            
           </Tbody>
           <Tfoot>
             <Tr>
-              <Th>番号</Th>
-              <Th>名前</Th>
-              <Th>会社名</Th>
-              <Th>進行状況</Th>
-              <Th>活動内容</Th>
             </Tr>
           </Tfoot>
         </Table>
-        {/* 番号ごとにページ遷移 */}
-        {/* <Button id="sButton" margin="auto" colorScheme="teal" variant="solid" onClick={() => Search()}>
-          a
-        </Button>
-        <Button id="sButton" margin="auto" colorScheme="teal" variant="solid" onClick={() => Search()}>
-          a
-        </Button> */}
-
       </TableContainer>
     </VStack>
     <>
@@ -162,7 +142,7 @@ export const DatabaseAll = (props) => {
           <ModalContent width="auto" mt="10px" mb="10px">
             <ModalHeader>
               {/* 番号、氏名などの情報を表示 */}
-              【活動内容】 4 村上 侍 内定済み
+              {/* 【活動内容】 4 村上 侍 内定済み */}
             </ModalHeader>
             <ModalCloseButton />
 
