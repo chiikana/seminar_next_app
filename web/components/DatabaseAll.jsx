@@ -78,14 +78,14 @@ export const DatabaseAll = (props) => {
     <VStack>
       {/* <Text>{department + sclass + "組"}</Text> */}
       <TableContainer minW={"70vw"} overflowY={"auto"}>
-      <Table variant={"simple"} border={"solid 1px"} mt={"20px"} mb={"30px"}>
+      <Table variant={"simple"} border={"solid 1px"} mt={"20px"} mb={"30px"} background={"white"}>
           <Thead>
             <Tr>
-              <Th border={"solid 1px"}>番号</Th>
-              <Th border={"solid 1px"}>名前</Th>
+              <Th border={"solid 1px"} background={"#66cdaa"}>番号</Th>
+              <Th border={"solid 1px"} background={"#66cdaa"}>名前</Th>
             </Tr>
           </Thead>
-          <Tbody>
+          <Tbody >
             {sdata?.map(mdata1 => {return (
               <Tr>
                 <Td border={"solid 1px"}>{mdata1.class_number}</Td>
@@ -94,8 +94,8 @@ export const DatabaseAll = (props) => {
                   <Table>
                     <Thead>
                       <Tr>
-                        <Th border={"solid 1px"}>会社名</Th>
-                        <Th border={"solid 1px"}>活動内容</Th>
+                        <Th border={"solid 1px"} background={"#66cdaa"}>会社名</Th>
+                        <Th border={"solid 1px"} background={"#66cdaa"}>活動内容</Th>
                       </Tr>
                     </Thead>
                     <Tbody>
@@ -109,7 +109,7 @@ export const DatabaseAll = (props) => {
                         }
                         })()}
                         <Td border={"solid 1px"}>
-                          <Button id="button" colorScheme="teal" variant="outline" onClick={onOpen}>
+                          <Button id={`${cnt1}_${cnt2}`} colorScheme="teal" variant="outline" onClick={onOpen}>
                             活動内容
                           </Button>
                         </Td>
@@ -136,39 +136,37 @@ export const DatabaseAll = (props) => {
       </TableContainer>
     </VStack>
     <>
-        {/* 活動内容（モーダルウィンドウ） */}
         <Modal isOpen={isOpen} onClose={onClose} size="full">
           <ModalOverlay />
           <ModalContent width="auto" mt="10px" mb="10px">
             <ModalHeader>
-              {/* 番号、氏名などの情報を表示 */}
-              {/* 【活動内容】 4 村上 侍 内定済み */}
+              {/* 【活動内容】 番号 氏名 企業名*/}
             </ModalHeader>
             <ModalCloseButton />
 
             <ModalBody>
-              <TableContainer>
+              <TableContainer border={"solid 1px"}>
                 <Table variant="simple">
                   <Thead>
-                    <Tr>
-                      <Th>detail</Th>
-                      <Th>place</Th>
-                      <Th>date</Th>
-                      <Th>absence date</Th>
-                      <Th>absence</Th>
-                      <Th>result</Th>
-                      <Th>result date</Th>
+                    <Tr background={"#66cdaa"} >
+                      <Th border={"solid 1px"}>活動内容</Th>
+                      <Th border={"solid 1px"}>場所</Th>
+                      <Th border={"solid 1px"}>実施日</Th>
+                      <Th border={"solid 1px"}>公欠提出日</Th>
+                      <Th border={"solid 1px"}>公欠状態</Th>
+                      <Th border={"solid 1px"}>結果</Th>
+                      <Th border={"solid 1px"}>報告受領日</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
-                    <Tr>
-                      <Td>最終面接</Td>
-                      <Td>東京ドーム</Td>
-                      <Td>2023/03/09</Td>
-                      <Td>2023/12/20</Td>
-                      <Td>一日</Td>
-                      <Td>合格</Td>
-                      <Td>2023/01/19</Td>
+                    <Tr background={"white"}>
+                      <Td border={"solid 1px"}></Td>
+                      <Td border={"solid 1px"}></Td>
+                      <Td border={"solid 1px"}></Td>
+                      <Td border={"solid 1px"}></Td>
+                      <Td border={"solid 1px"}></Td>
+                      <Td border={"solid 1px"}></Td>
+                      <Td border={"solid 1px"}></Td>
                     </Tr>
                   </Tbody>
                 </Table>
