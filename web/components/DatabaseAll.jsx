@@ -35,12 +35,8 @@ export const DatabaseAll = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user } = useAuthUser()
 
-  const [sdata,setSdata] = useState()
-  const [department,setDepartment] = useState()
-  const [sclass,setSclass] = useState()
+  const [sdata,setSdata] = useState([[]])
   const [corp,setCorp] = useState()
-  // const [pdata,setPdata] = useState()
-  // const [cdata,setCdata] = useState()
 
   global.cnt1 = 0
   global.cnt2 = 0
@@ -58,23 +54,19 @@ export const DatabaseAll = (props) => {
 
     if (data) {
       setSdata(data)
-      setDepartment(data[0].department)
-      setSclass(data[0].class)
       setCorp(data[0].corps)
     }
   }
 
   const handleClick = (e) => {
-    // setPdata(e.currentTarget.getAttribute("parent-data"))
-    // setCdata(e.currentTarget.getAttribute("child-data"))
     pdata = e.currentTarget.getAttribute("parent-data")
     cdata = e.currentTarget.getAttribute("child-data")
+    onOpen(pdata)
   }
 
   return (
     <>
-    <VStack>
-      {/* <Text>{department + sclass + "組"}</Text> */}
+    <VStack>    
       <TableContainer minW={"70vw"} overflowY={"auto"}>
       <Table variant={"simple"} border={"solid 1px"} mt={"20px"} mb={"30px"} background={"white"}>
           <Thead>
@@ -107,7 +99,7 @@ export const DatabaseAll = (props) => {
                         }
                         })()}
                         <Td border={"solid 1px"}>
-                          <Button parent-data={cnt1} child-data={cnt2} colorScheme="teal" variant="outline" onClick={(e) => {handleClick(e); onOpen();}}>
+                          <Button parent-data={cnt1} child-data={cnt2} colorScheme="teal" variant="outline" onClick={(e) => {handleClick(e)}}>
                             活動内容
                           </Button>
                         </Td>
@@ -139,7 +131,14 @@ export const DatabaseAll = (props) => {
           <ModalContent width="auto" mt="10px" mb="10px">
             <ModalHeader>
               【活動内容】
-               {/* {sdata[0].class_number + sdata[0].lastname + " " + sdata[0].firstname + "企業名"} */}
+              {console.log(pdata)}
+              {(()=> {
+              if(sdata[0].lastname !== undefined){
+                return (<Text>{sdata[1].class_number + sdata[1].lastname + " " + sdata[1].firstname + "企業名"}</Text>)
+              }else{
+                console.log("undefined")
+              }
+              })()}
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
