@@ -138,7 +138,8 @@ export const DatabaseAll = (props) => {
           <ModalOverlay />
           <ModalContent width="auto" mt="10px" mb="10px">
             <ModalHeader>
-              【活動内容】 {sdata[0].class_number + sdata[0].lastname + " " + sdata[0].firstname + "企業名"}
+              【活動内容】
+               {/* {sdata[0].class_number + sdata[0].lastname + " " + sdata[0].firstname + "企業名"} */}
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
