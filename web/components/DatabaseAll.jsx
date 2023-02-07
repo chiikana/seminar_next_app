@@ -31,18 +31,6 @@ import useAuthUser from "@/hooks/useAuthUser"
 // import { useSupabaseClient } from "@supabase/auth-helpers-react"
 // import {Layout} from "./Layout/Layout"
 
-//検索
-const Search = () => {
-  if (sBox.value != "") {
-    alert(sBox.value + "と一致するデータを表示。")
-  } else [alert("データが入力されていません。")]
-}
-
-// 全表示
-const ShowAll = () => {
-  alert("全データ表示。")
-}
-
 export const DatabaseAll = (props) => {  
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user } = useAuthUser()
@@ -51,11 +39,13 @@ export const DatabaseAll = (props) => {
   const [department,setDepartment] = useState()
   const [sclass,setSclass] = useState()
   const [corp,setCorp] = useState()
-
-  const [mnum,setMnum] = useState()
+  // const [pdata,setPdata] = useState()
+  // const [cdata,setCdata] = useState()
 
   global.cnt1 = 0
   global.cnt2 = 0
+  global.pdata = 0
+  global.cdata = 0
 
   useEffect(() => {
     if (user) GetProfile()
@@ -73,6 +63,14 @@ export const DatabaseAll = (props) => {
       setCorp(data[0].corps)
     }
   }
+
+  const handleClick = (e) => {
+    // setPdata(e.currentTarget.getAttribute("parent-data"))
+    // setCdata(e.currentTarget.getAttribute("child-data"))
+    pdata = e.currentTarget.getAttribute("parent-data")
+    cdata = e.currentTarget.getAttribute("child-data")
+  }
+
   return (
     <>
     <VStack>
@@ -109,7 +107,7 @@ export const DatabaseAll = (props) => {
                         }
                         })()}
                         <Td border={"solid 1px"}>
-                          <Button id={`${cnt1}_${cnt2}`} colorScheme="teal" variant="outline" onClick={onOpen}>
+                          <Button parent-data={cnt1} child-data={cnt2} colorScheme="teal" variant="outline" onClick={(e) => {handleClick(e); onOpen();}}>
                             活動内容
                           </Button>
                         </Td>
@@ -140,10 +138,9 @@ export const DatabaseAll = (props) => {
           <ModalOverlay />
           <ModalContent width="auto" mt="10px" mb="10px">
             <ModalHeader>
-              {/* 【活動内容】 番号 氏名 企業名*/}
+              【活動内容】 {sdata[0].class_number + sdata[0].lastname + " " + sdata[0].firstname + "企業名"}
             </ModalHeader>
             <ModalCloseButton />
-
             <ModalBody>
               <TableContainer border={"solid 1px"}>
                 <Table variant="simple">
