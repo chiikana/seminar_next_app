@@ -73,29 +73,46 @@ export const UserTable = (props) => {
                 </Box>
                 <AccordionIcon />
               </AccordionButton>
-              <Box
-                _hover={{
-                  // bg: "gray.200",
-                  border: "1px",
-                  borderColor: toggleMainAccentColor,
-                  transition: "0.2s",
-                }}
-                onClick={() => {
-                  router.push(`active/${e.id}`)
-                  // router.push(`active/${corp.corp_id}`)
-                }}
-              >
-                {e.corps.map((corp) => (
-                  <AccordionPanel
-                    key={corp.corp_id}
-                    pl={10}
-                    // pb={4}
-                    fontSize={"xl"}
-                  >
-                    {corp.corp_name}
-                  </AccordionPanel>
-                ))}
-              </Box>
+              {e.corps.length > 0 ? (
+                <Box
+                  _hover={{
+                    // bg: "gray.200",
+                    border: "1px",
+                    borderColor: toggleMainAccentColor,
+                    transition: "0.2s",
+                  }}
+                  onClick={() => {
+                    router.push(`active/${e.id}`)
+                    // router.push(`active/${corp.corp_id}`)
+                  }}
+                >
+                  {e.corps.map((corp) => (
+                    <AccordionPanel
+                      key={corp.corp_id}
+                      pl={10}
+                      // pb={4}
+                      fontSize={"xl"}
+                    >
+                      {corp.corp_name}
+                    </AccordionPanel>
+                  ))}
+                </Box>
+              ) : (
+                <Box
+                  _hover={{
+                    // bg: "gray.200",
+                    border: "1px",
+                    borderColor: toggleMainAccentColor,
+                    transition: "0.2s",
+                  }}
+                  onClick={() => {
+                    router.push(`active/${e.id}`)
+                    // router.push(`active/${corp.corp_id}`)
+                  }}
+                >
+                  <AccordionPanel>活動した会社がありません</AccordionPanel>
+                </Box>
+              )}
             </AccordionItem>
           ))}
       </Accordion>
