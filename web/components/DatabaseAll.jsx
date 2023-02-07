@@ -40,8 +40,8 @@ export const DatabaseAll = (props) => {
 
   global.cnt1 = 0
   global.cnt2 = 0
-  global.pdata = 0
-  global.cdata = 0
+  global.pdata = -1
+  global.cdata = -1
 
   useEffect(() => {
     if (user) GetProfile()
@@ -61,7 +61,7 @@ export const DatabaseAll = (props) => {
   const handleClick = (e) => {
     pdata = e.currentTarget.getAttribute("parent-data")
     cdata = e.currentTarget.getAttribute("child-data")
-    onOpen(pdata)
+    onOpen()
   }
 
   return (
