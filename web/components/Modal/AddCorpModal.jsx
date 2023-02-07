@@ -15,6 +15,7 @@ import {
   IconButton,
   ModalCloseButton,
   ModalHeader,
+  useToast,
 } from "@chakra-ui/react"
 import { useState } from "react"
 import { IoMdClose } from "react-icons/io"
@@ -24,6 +25,7 @@ export const AddCorpModal = ({ isOpen, onClose }) => {
   const [corpName, setCorpName] = useState("")
   const { user } = useAuthUser()
   const { mutate } = useSWRConfig()
+  const toast = useToast()
 
   const handleSubmit = async () => {
     if (!user) return console.log("error : no user")
@@ -71,7 +73,24 @@ export const AddCorpModal = ({ isOpen, onClose }) => {
         </ModalBody>
 
         <ModalFooter justifyContent="flex-end">
-          <Button colorScheme="blue" mr={3} size={"lg"} onClick={handleSubmit}>
+          <Button
+            colorScheme="blue"
+            mr={3}
+            size={"lg"}
+            onClick={() => {
+              {
+                corpName != ""
+                  ? handleSubmit()
+                  : toast({
+                      title: "ERROR!!",
+                      description: "会社名を入力してください。",
+                      status: "error",
+                      duration: 4000,
+                      isClosable: true,
+                    })
+              }
+            }}
+          >
             会社を追加する
           </Button>
         </ModalFooter>
