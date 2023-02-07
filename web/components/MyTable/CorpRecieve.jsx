@@ -65,38 +65,46 @@ export const CorpRecieve = (props) => {
 
   return (
     <Box w={"60vw"} p={5} bg={toggleSubBgColor} my={5}>
-      <HStack mb={"20px"}>
-        {/* <Text textAlign="center" defaultValue={corp?.corp_name}>
+      {/* <Text textAlign="center" defaultValue={corp?.corp_name}>
           <EditablePreview />
           <EditableInput />
         </Text> */}
-        <Text fontWeight={"bold"} fontSize={"xl"} px={3}>
-          {corp?.corp_name}
-        </Text>
-        <Spacer></Spacer>
-        <Menu>
-          <MenuButton as={IconButton} aria-label="Options" icon={<FaBars />} />
-          <MenuList>
-            <MenuItem onClick={onEditOpen} icon={<FaEdit />}>
-              編集する
-              {/* <EditConfirm
+      {isSelfAccount ? (
+        <HStack mb={"20px"}>
+          <Text fontWeight={"bold"} fontSize={"xl"} px={3}>
+            {corp?.corp_name}
+          </Text>
+          <Spacer></Spacer>
+          <Menu>
+            <MenuButton as={IconButton} aria-label="Options" icon={<FaBars />} />
+            <MenuList>
+              <MenuItem onClick={onEditOpen} icon={<FaEdit />}>
+                編集する
+                {/* <EditConfirm
                 corp_id={corp.corp_id}
                 corp_name={corp.corp_name}
                 isOpen={isEditOpen}
                 onClose={onEditClose}
               ></EditConfirm> */}
-            </MenuItem>
-            <MenuItem color={"red.600"} onClick={onOpen} icon={<FaTrashAlt />}>
-              削除する
-              {/* <DeleteConfirm
+              </MenuItem>
+              <MenuItem color={"red.600"} onClick={onOpen} icon={<FaTrashAlt />}>
+                削除する
+                {/* <DeleteConfirm
                 corp_id={corp.corp_id}
                 isOpen={isOpen}
                 onClose={onClose}
               ></DeleteConfirm> */}
-            </MenuItem>
-          </MenuList>
-        </Menu>
-      </HStack>
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </HStack>
+      ) : (
+        <HStack mb={"20px"} justify={"flex-start"}>
+          <Text fontWeight={"bold"} fontSize={"xl"} px={3}>
+            {corp?.corp_name}
+          </Text>
+        </HStack>
+      )}
 
       {actives && actives.length > 0 ? (
         <TableContainer w={"100%"}>
