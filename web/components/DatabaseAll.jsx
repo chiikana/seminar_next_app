@@ -37,11 +37,13 @@ export const DatabaseAll = (props) => {
 
   const [sdata,setSdata] = useState([[]])
   const [corp,setCorp] = useState()
+  const [pdata,setPdata] = useState()
+  const [cdata,setCdata] = useState()
 
   global.cnt1 = 0
   global.cnt2 = 0
-  global.pdata = -1
-  global.cdata = -1
+  // global.pdata = -1
+  // global.cdata = -1
 
   useEffect(() => {
     if (user) GetProfile()
@@ -59,10 +61,14 @@ export const DatabaseAll = (props) => {
   }
 
   const handleClick = (e) => {
-    pdata = e.currentTarget.getAttribute("parent-data")
-    cdata = e.currentTarget.getAttribute("child-data")
+    // pdata = e.currentTarget.getAttribute("parent-data")
+    // cdata = e.currentTarget.getAttribute("child-data")
+    setPdata(e.currentTarget.getAttribute("parent-data"))
+    setCdata(e.currentTarget.getAttribute("child-data"))
     onOpen()
   }
+  // useEffect(() => {
+  // },[pdata,cdata])
 
   return (
     <>
@@ -130,11 +136,10 @@ export const DatabaseAll = (props) => {
           <ModalOverlay />
           <ModalContent width="auto" mt="10px" mb="10px">
             <ModalHeader>
-              【活動内容】
-              {console.log(pdata)}
               {(()=> {
-              if(sdata[0].lastname !== undefined){
-                return (<Text>{sdata[1].class_number + sdata[1].lastname + " " + sdata[1].firstname + "企業名"}</Text>)
+              if(pdata !== undefined && cdata !== undefined){
+                console.log(sdata)
+                return (<Text>【活動内容】{sdata[pdata].class_number + "番 " + sdata[pdata].lastname + " " + sdata[pdata].firstname + " /" + sdata[pdata].corps[cdata].corp_name}</Text>)
               }else{
                 console.log("undefined")
               }
