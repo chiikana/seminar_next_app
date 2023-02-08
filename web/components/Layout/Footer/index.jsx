@@ -1,9 +1,20 @@
 import { ToggleTheme } from "@/libs/utils/themes"
-import { Box, Container, Stack, Text, useColorModeValue } from "@chakra-ui/react"
+import {
+  Box,
+  Button,
+  Container,
+  HStack,
+  Spacer,
+  Stack,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react"
 import Link from "next/link"
+import { useRouter } from "next/router"
 
 export const Footer = () => {
   const { toggleTextColor, toggleBgColor, toggleBorderColor } = ToggleTheme()
+  const router = useRouter()
   return (
     <Box
       bg={toggleBgColor}
@@ -42,9 +53,38 @@ export const Footer = () => {
           </Link>
         </Stack>
       </Container> */}
-      <Box>
-        <Text>©CTB20-TEAM2 all rights reserved</Text>
-      </Box>
+      <HStack>
+        <Box>
+          <Text>©CTB20-TEAM2 all rights reserved</Text>
+        </Box>
+        <Spacer />
+        <HStack>
+          <Text>発表用みんなが頑張ったけど時間が足りず不採用になったページリンク</Text>
+          <Button
+            onClick={() => {
+              router.push("/databaseAll")
+            }}
+          >
+            みんなの就活状況
+          </Button>
+          <Button
+            onClick={() => {
+              router.push("/myData/")
+            }}
+          >
+            自分の就活状況
+          </Button>
+          {/* <Link href={"/profilePage/"} passHref replace>
+            <Text></Text>
+          </Link>
+          <Link href={"/databaseAll"} passHref replace>
+            <Text>みんなの就活状況</Text>
+          </Link>
+          <Link href={"/myData/"} passHref replace>
+            <Text>自分の就活状況</Text>
+          </Link> */}
+        </HStack>
+      </HStack>
 
       <Box
         borderTopWidth={1}
