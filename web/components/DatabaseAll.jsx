@@ -31,7 +31,7 @@ import useAuthUser from "@/hooks/useAuthUser"
 // import { useSupabaseClient } from "@supabase/auth-helpers-react"
 // import {Layout} from "./Layout/Layout"
 
-export const DatabaseAll = (props) => {  
+export const DatabaseAll = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user } = useAuthUser()
 
@@ -72,7 +72,7 @@ export const DatabaseAll = (props) => {
 
   // useEffect(() => {
   // },[pdata,cdata])
-  
+
   return (
     <>
     <VStack>
