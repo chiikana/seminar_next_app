@@ -1,4 +1,4 @@
-// import { EditActiveModal } from "@/components/common/Modal/EditActiveModal"
+import { EditActiveModal } from "@/components/Modal/EditActiveModal"
 import { ActiveClass } from "@/libs/active"
 import { Tr, Td, useDisclosure } from "@chakra-ui/react"
 import { ToggleTheme } from "@/libs/utils/themes"
@@ -27,12 +27,12 @@ export const ActiveRecieve = (props) => {
         <Td>{active.absence_submit_at?.toString()}</Td>
         <Td>{ActiveClass.selectionResult[active.selection_result]}</Td>
       </Tr>
-      {/* <EditActiveModal
+      <EditActiveModal
         isOpen={isOpenEditActive}
         onClose={onCloseEditActive}
         corp={corp}
         active={active}
-      /> */}
+      />
     </>
   )
 }

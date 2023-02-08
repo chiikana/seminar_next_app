@@ -27,9 +27,9 @@ import {
   Divider,
 } from "@chakra-ui/react"
 import { supabase } from "@/libs/utils/supabaseClient"
-// import { DeleteConfirm } from "@/components/common/Modal/DeleteModal"
+import { DelCorpModal } from "@/components/Modal/DelCorpModal"
 // import { AddActiveModal } from "@/components/common/Modal/AddActiveModal"
-// import { EditConfirm } from "@/components/common/Modal/EditCorpModal"
+import { EditCorpModal } from "@/components/Modal/EditCorpModal"
 import router from "next/router"
 import useAuthUser from "@/hooks/useAuthUser"
 // import { useProfileFromUserId } from "@/hooks/useProfileFromUserId"
@@ -80,20 +80,20 @@ export const CorpRecieve = (props) => {
             <MenuList>
               <MenuItem onClick={onEditOpen} icon={<FaEdit />}>
                 編集する
-                {/* <EditConfirm
-                corp_id={corp.corp_id}
-                corp_name={corp.corp_name}
-                isOpen={isEditOpen}
-                onClose={onEditClose}
-              ></EditConfirm> */}
+                <EditCorpModal
+                  corp_id={corp.corp_id}
+                  corp_name={corp.corp_name}
+                  isOpen={isEditOpen}
+                  onClose={onEditClose}
+                ></EditCorpModal>
               </MenuItem>
               <MenuItem color={"red.600"} onClick={onOpen} icon={<FaTrashAlt />}>
                 削除する
-                {/* <DeleteConfirm
-                corp_id={corp.corp_id}
-                isOpen={isOpen}
-                onClose={onClose}
-              ></DeleteConfirm> */}
+                <DelCorpModal
+                  corp_id={corp.corp_id}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                ></DelCorpModal>
               </MenuItem>
             </MenuList>
           </Menu>
@@ -124,7 +124,14 @@ export const CorpRecieve = (props) => {
               {actives.length > 0 ? (
                 <>
                   {actives.map((active) => {
-                    return <ActiveRecieve key={active.id} active={active} corp={corp} />
+                    return (
+                      <ActiveRecieve
+                        key={active.id}
+                        active={active}
+                        corp={corp}
+                        isSelfAccount={isSelfAccount}
+                      />
+                    )
                   })}
                 </>
               ) : (
