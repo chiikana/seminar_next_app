@@ -363,14 +363,14 @@ const ROUTE_ITEMS = [
   //     },
   //   ],
   // },
-  {
-    label: "自分の就活状況",
-    process: "/myData/",
-  },
-  {
-    label: "みんなの就活状況",
-    process: "/databaseAll",
-  },
+  // {
+  //   label: "自分の就活状況",
+  //   process: "/myData/",
+  // },
+  // {
+  //   label: "みんなの就活状況",
+  //   process: "/databaseAll",
+  // },
   {
     label: "就活状況確認",
     process: "/everyoneTable/",
