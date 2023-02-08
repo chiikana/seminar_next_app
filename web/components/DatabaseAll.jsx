@@ -36,14 +36,15 @@ export const DatabaseAll = (props) => {
   const { user } = useAuthUser()
 
   const [sdata,setSdata] = useState([[]])
-  const [corp,setCorp] = useState()
+  const [mdata,setMdata] = useState()
   const [pdata,setPdata] = useState()
   const [cdata,setCdata] = useState()
+  const [uid,setUid] = useState()
+  const [cid,setCid] = useState()
 
   global.cnt1 = 0
   global.cnt2 = 0
-  // global.pdata = -1
-  // global.cdata = -1
+  global.cnt3 = -1
 
   useEffect(() => {
     if (user) GetProfile()
@@ -51,28 +52,41 @@ export const DatabaseAll = (props) => {
   
   const GetProfile = async () => {
     let { data } = await supabase.from("profiles")
-      .select("class_number,firstname,lastname,department,class,corps(corp_name)")
+      .select("id,class_number,firstname,lastname,department,class,corps(corp_id,corp_name,actives(corp_id,active_name,active_at,active_place,absence_submit_at,absence_permission_at,selection_result,report_receipt_at))")
       .order("class_number")
 
     if (data) {
       setSdata(data)
-      setCorp(data[0].corps)
     }
   }
 
   const handleClick = (e) => {
-    // pdata = e.currentTarget.getAttribute("parent-data")
-    // cdata = e.currentTarget.getAttribute("child-data")
     setPdata(e.currentTarget.getAttribute("parent-data"))
     setCdata(e.currentTarget.getAttribute("child-data"))
+
+    setUid(e.currentTarget.getAttribute("uid"))
+    setCid(e.currentTarget.getAttribute("cid"))
+
     onOpen()
   }
+
   // useEffect(() => {
   // },[pdata,cdata])
 
+  //   const GetModal = async () => {
+  //     let { moData } = await supabase.from("actives")
+  //     .select("id,corp_id,active_name")
+  //     .eq("corp_id",cid)
+  //     if (moData) {
+  //       setMdata(mdata)
+  //       console.log("aaa")
+  //     }
+  // }
+  
+
   return (
     <>
-    <VStack>    
+    <VStack>
       <TableContainer minW={"70vw"} overflowY={"auto"}>
       <Table variant={"simple"} border={"solid 1px"} mt={"20px"} mb={"30px"} background={"white"}>
           <Thead>
@@ -98,14 +112,14 @@ export const DatabaseAll = (props) => {
                     {sdata[cnt1].corps?.map(mdata2 => {return (
                       <Tr>
                         {(()=> {
-                          if(cnt2 < sdata[cnt1].corps.length){
+                          // if(cnt2 < sdata[cnt1].corps.length){
                             return(
                                 <Td border={"solid 1px"}>{sdata[cnt1].corps[cnt2].corp_name}</Td>
                               )
-                        }
+                        // }
                         })()}
                         <Td border={"solid 1px"}>
-                          <Button parent-data={cnt1} child-data={cnt2} colorScheme="teal" variant="outline" onClick={(e) => {handleClick(e)}}>
+                          <Button parent-data={cnt1} child-data={cnt2} uid-data={sdata[cnt1].id} cid-data={sdata[cnt1].corps[cnt2].corp_id} colorScheme="teal" variant="outline" onClick={(e) => {handleClick(e)}}>
                             活動内容
                           </Button>
                         </Td>
@@ -138,14 +152,11 @@ export const DatabaseAll = (props) => {
             <ModalHeader>
               {(()=> {
               if(pdata !== undefined && cdata !== undefined){
-                console.log(sdata)
                 return (<Text>【活動内容】{sdata[pdata].class_number + "番 " + sdata[pdata].lastname + " " + sdata[pdata].firstname + " /" + sdata[pdata].corps[cdata].corp_name}</Text>)
-              }else{
-                console.log("undefined")
               }
               })()}
             </ModalHeader>
-            <ModalCloseButton />
+            <ModalCloseButton/>
             <ModalBody>
               <TableContainer border={"solid 1px"}>
                 <Table variant="simple">
@@ -161,15 +172,26 @@ export const DatabaseAll = (props) => {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    <Tr background={"white"}>
-                      <Td border={"solid 1px"}>null</Td>
-                      <Td border={"solid 1px"}>null</Td>
-                      <Td border={"solid 1px"}>null</Td>
-                      <Td border={"solid 1px"}>null</Td>
-                      <Td border={"solid 1px"}>nul</Td>
-                      <Td border={"solid 1px"}>null</Td>
-                      <Td border={"solid 1px"}>null</Td>
-                    </Tr>
+                  {(()=> {
+                    if(pdata !== undefined && cdata !== undefined){
+                      return(
+                          sdata[pdata].corps[cdata].actives?.map(mdata3 =>{
+                              cnt3++
+                            return(
+                              <Tr background={"white"}>
+                                <Td border={"solid 1px"}>{sdata[pdata].corps[cdata].actives[cnt3].active_name}</Td>
+                                <Td border={"solid 1px"}>{sdata[pdata].corps[cdata].actives[cnt3].active_place}</Td>
+                                <Td border={"solid 1px"}>{sdata[pdata].corps[cdata].actives[cnt3].active_at}</Td>
+                                <Td border={"solid 1px"}>{sdata[pdata].corps[cdata].actives[cnt3].absence_submit_at}</Td>
+                                <Td border={"solid 1px"}>{sdata[pdata].corps[cdata].actives[cnt3].absence_permission_at}</Td>
+                                <Td border={"solid 1px"}>{sdata[pdata].corps[cdata].actives[cnt3].selection_result}</Td>
+                                <Td border={"solid 1px"}>{sdata[pdata].corps[cdata].actives[cnt3].report_receipt_at}</Td>
+                              </Tr>
+                            )
+                          })
+                      )
+                    }
+                  })()}
                   </Tbody>
                 </Table>
               </TableContainer>
