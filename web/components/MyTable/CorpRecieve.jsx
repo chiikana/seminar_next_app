@@ -27,7 +27,7 @@ import {
   Divider,
 } from "@chakra-ui/react"
 import { supabase } from "@/libs/utils/supabaseClient"
-// import { DeleteConfirm } from "@/components/common/Modal/DeleteModal"
+import { DelCorpModal } from "@/components/Modal/DelCorpModal"
 // import { AddActiveModal } from "@/components/common/Modal/AddActiveModal"
 import { EditCorpModal } from "@/components/Modal/EditCorpModal"
 import router from "next/router"
@@ -89,11 +89,11 @@ export const CorpRecieve = (props) => {
               </MenuItem>
               <MenuItem color={"red.600"} onClick={onOpen} icon={<FaTrashAlt />}>
                 削除する
-                {/* <DeleteConfirm
-                corp_id={corp.corp_id}
-                isOpen={isOpen}
-                onClose={onClose}
-              ></DeleteConfirm> */}
+                <DelCorpModal
+                  corp_id={corp.corp_id}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                ></DelCorpModal>
               </MenuItem>
             </MenuList>
           </Menu>

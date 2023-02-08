@@ -18,11 +18,11 @@ import {
   useToast,
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useSWRConfig } from "swr"
 
 export const EditCorpModal = ({ corp_id, corp_name, isOpen, onClose }) => {
-  const [corpName, setCorpName] = useState(corp_name)
+  const [corpName, setCorpName] = useState("")
   const { user } = useAuthUser()
   const { mutate } = useSWRConfig()
   const toast = useToast()
@@ -82,7 +82,10 @@ export const EditCorpModal = ({ corp_id, corp_name, isOpen, onClose }) => {
                 variant="filled"
                 defaultValue={corp_name}
                 w={"400px"}
-                onChange={(e) => setCorpName(e.target.value)}
+                onChange={(e) => {
+                  setCorpName(e.target.value)
+                  console.log("corpname :", corpName)
+                }}
               />
             </FormControl>
           </VStack>

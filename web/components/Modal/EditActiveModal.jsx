@@ -43,20 +43,25 @@ export const EditActiveModal = (props) => {
       .from("actives")
       .select("*")
       .eq("corp_id", corp.corp_id)
+      .eq("corp_name", corp.corp_name)
 
     data && setActiveNumber(data.length + 1)
 
-    const { data: res, error: insertErr } = await supabase.from("actives").upsert([
-      {
-        corp_id: corp.corp_id,
-        active_number: activeNumber,
-        active_name: activeName,
-        active_at: activeAt,
-        active_place: activePlace,
-        absence_submit_at: absenceSubmitAt,
-        selection_result: selectionResult,
-      },
-    ])
+    const { data: res, error: insertErr } = await supabase
+      .from("actives")
+      .upsert([
+        {
+          corp_id: corp.corp_id,
+          active_number: activeNumber,
+          active_name: activeName,
+          active_at: activeAt,
+          active_place: activePlace,
+          absence_submit_at: absenceSubmitAt,
+          selection_result: selectionResult,
+        },
+      ])
+      .eq("corp_id", corp.corp_id)
+      .eq("active_number", activeNumber)
 
     if (insertErr) {
       toast({
