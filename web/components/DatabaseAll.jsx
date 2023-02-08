@@ -162,13 +162,13 @@ export const DatabaseAll = (props) => {
                   </Thead>
                   <Tbody>
                     <Tr background={"white"}>
-                      <Td border={"solid 1px"}></Td>
-                      <Td border={"solid 1px"}></Td>
-                      <Td border={"solid 1px"}></Td>
-                      <Td border={"solid 1px"}></Td>
-                      <Td border={"solid 1px"}></Td>
-                      <Td border={"solid 1px"}></Td>
-                      <Td border={"solid 1px"}></Td>
+                      <Td border={"solid 1px"}>null</Td>
+                      <Td border={"solid 1px"}>null</Td>
+                      <Td border={"solid 1px"}>null</Td>
+                      <Td border={"solid 1px"}>null</Td>
+                      <Td border={"solid 1px"}>nul</Td>
+                      <Td border={"solid 1px"}>null</Td>
+                      <Td border={"solid 1px"}>null</Td>
                     </Tr>
                   </Tbody>
                 </Table>
