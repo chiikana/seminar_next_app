@@ -411,6 +411,10 @@ export const Multistep = () => {
                   } else {
                     setProgress(progress + 33.33)
                   }
+                  setFieldValues({
+                    ...fieldValues,
+                    start_year: fieldValues.student_id.substring(0, 4),
+                  })
                 }}
                 colorScheme="teal"
                 variant="outline"
@@ -425,11 +429,11 @@ export const Multistep = () => {
                 colorScheme="red"
                 variant="solid"
                 onClick={(e) => {
-                  setFieldValues({
-                    ...fieldValues,
-                    start_year: fieldValues.student_id.substring(0, 4),
-                  }),
-                    handleSignUp(e)
+                  // setFieldValues({
+                  //   ...fieldValues,
+                  //   start_year: fieldValues.student_id.substring(0, 4),
+                  // }),
+                  handleSignUp(e)
                 }}
               >
                 Submit
